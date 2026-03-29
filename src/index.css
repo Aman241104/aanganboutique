@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    cursor: none;
+  }
+
+  body {
+    @apply bg-cream text-dark-900 font-sans antialiased selection:bg-gold-200 selection:text-maroon-900;
+  }
+
+/* Custom Luxury Cursor */
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid #C5A059;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease-out, opacity 0.3s ease;
+  transform: translate(-50%, -50%);
+}
+
+.custom-cursor-follower {
+  width: 8px;
+  height: 8px;
+  background-color: #800020;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.05s linear;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-hover {
+  transform: translate(-50%, -50%) scale(2.5);
+  background-color: rgba(197, 160, 89, 0.1);
+  border-color: #800020;
+}
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+
+  .glass-dark {
+    @apply bg-black/40 backdrop-blur-md border border-white/10 shadow-lg;
+  }
+
+  .text-shadow-gold {
+    text-shadow: 0 0 20px rgba(197, 160, 89, 0.5);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-cream;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gold-400/80 rounded-full;
+  border: 2px solid theme('colors.cream');
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gold-600;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
