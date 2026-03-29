@@ -104,7 +104,7 @@ const Testimonials = () => {
             {/* Unified Blurred Background */}
             <div
                 className="absolute inset-0 bg-cover bg-center bg-fixed transform scale-105 blur-2xl opacity-60"
-                style={{ backgroundImage: 'url(/banner.jpg)' }}
+                style={{ backgroundImage: 'url(/banner.webp)' }}
             >
                 <div className="absolute inset-0 bg-maroon-900/40 mix-blend-multiply"></div>
             </div>

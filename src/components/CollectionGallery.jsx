@@ -3,12 +3,12 @@ import { motion } from 'framer-motion';
 
 const CollectionGallery = () => {
     const assets = [
-        { id: 1, src: '/gallery/784A4374.JPG', type: 'image', title: 'Elegant Couture' },
-        { id: 2, src: '/gallery/lookbook1.mp4', type: 'video', title: 'The Wedding Edit' },
-        { id: 3, src: '/gallery/784A4393.JPG', type: 'image', title: 'Bridal Grace' },
-        { id: 4, src: '/gallery/lookbook2.mp4', type: 'video', title: 'Festive Vibes' },
-        { id: 5, src: '/gallery/784A4396.JPG', type: 'image', title: 'Royal Heritage' },
-        { id: 6, src: '/gallery/784A4398.JPG', type: 'image', title: 'Modern Ethnic' },
+        { id: 1, src: '/gallery/optimized/784A4374.webp', type: 'image', title: 'Elegant Couture' },
+        { id: 2, src: '/gallery/optimized/lookbook1-opt.mp4', type: 'video', title: 'The Wedding Edit' },
+        { id: 3, src: '/gallery/optimized/784A4393.webp', type: 'image', title: 'Bridal Grace' },
+        { id: 4, src: '/gallery/optimized/lookbook2-opt.mp4', type: 'video', title: 'Festive Vibes' },
+        { id: 5, src: '/gallery/optimized/784A4396.webp', type: 'image', title: 'Royal Heritage' },
+        { id: 6, src: '/gallery/optimized/784A4398.webp', type: 'image', title: 'Modern Ethnic' },
     ];
 
     return (
@@ -44,6 +44,7 @@ const CollectionGallery = () => {
                                 <img
                                     src={asset.src}
                                     alt={asset.title}
+                                    loading="lazy"
                                     className="w-full h-auto object-cover transition-transform duration-[2s] group-hover:scale-110"
                                 />
                             )}

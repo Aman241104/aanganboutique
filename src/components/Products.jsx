@@ -30,25 +30,25 @@ const categories = [
     {
         id: 1,
         title: 'Wedding collection',
-        image: '/gallery/784A4374.JPG',
+        image: '/gallery/optimized/784A4374.webp',
         description: 'Exquisitely crafted outfits for weddings, receptions, and once-in-a-lifetime celebrations.'
     },
     {
         id: 2,
         title: 'Festive wear',
-        image: '/gallery/784A4393.JPG',
+        image: '/gallery/optimized/784A4393.webp',
         description: 'Elegant ethnic wear for Diwali, Rakshabandhan, poojas, and joyful family gatherings.'
     },
     {
         id: 3,
         title: 'Indo western collection',
-        image: '/gallery/784A4396.JPG',
+        image: '/gallery/optimized/784A4396.webp',
         description: 'Modern silhouettes blending Indian aesthetics with contemporary global style.'
     },
     {
         id: 4,
         title: 'Dress materials',
-        image: '/gallery/784A4398.JPG',
+        image: '/gallery/optimized/784A4398.webp',
         description: 'Premium dress materials for custom-made ethnic, formal, and occasion wear.'
     }
 ];
@@ -59,42 +59,42 @@ const allProducts = [
         title: 'Royal Maroon Lehenga',
         price: '₹45,000',
         description: 'Exquisitely hand-embroidered maroon lehenga, perfect for a grand bridal look.',
-        image: '/gallery/prod1.JPG'
+        image: '/gallery/optimized/prod1.webp'
     },
     {
         id: 102,
         title: 'Emerald Silk Saree',
         price: '₹18,500',
         description: 'Luxurious emerald silk saree with intricate gold border detailing.',
-        image: '/gallery/prod2.JPG',
+        image: '/gallery/optimized/prod2.webp',
     },
     {
         id: 103,
         title: 'Ivory Anarkali',
         price: '₹22,000',
         description: 'Elegant ivory anarkali with delicate embroidery for a timeless festive look.',
-        image: '/gallery/prod3.JPG'
+        image: '/gallery/optimized/prod3.webp'
     },
     {
         id: 104,
         title: 'Gold Tissue Saree',
         price: '₹15,000',
         description: 'Shimmering gold tissue saree, a lightweight yet regal choice for celebrations.',
-        image: '/gallery/prod4.JPG'
+        image: '/gallery/optimized/prod4.webp'
     },
     {
         id: 105,
         title: 'Bridal Red Set',
         price: '₹85,000',
         description: 'The quintessential red bridal set, featuring master-crafted traditional motifs.',
-        image: '/gallery/prod5.JPG'
+        image: '/gallery/optimized/prod5.webp'
     },
     {
         id: 106,
         title: 'Pastel Sharara',
         price: '₹28,000',
         description: 'Chic pastel sharara set, blending modern colors with classic silhouettes.',
-        image: '/gallery/prod6.JPG',
+        image: '/gallery/optimized/prod6.webp',
     }
 ];
 
@@ -263,7 +263,7 @@ const Products = ({ onAddToBag }) => {
                             className="md:col-span-2 row-span-2 relative group overflow-hidden rounded-[4em] bg-white"
                         >
                             <img
-                                src="/gallery/784A4401.JPG"
+                                src="/gallery/optimized/784A4401.webp"
                                 alt="Collection"
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                             />
@@ -308,7 +308,7 @@ const Products = ({ onAddToBag }) => {
                             className="relative group overflow-hidden rounded-[4em] bg-white"
                         >
                             <img
-                                src="/gallery/784A4374.JPG"
+                                src="/gallery/optimized/784A4374.webp"
                                 alt="Fabric"
                                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                             />

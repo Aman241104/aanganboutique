@@ -22,7 +22,7 @@ const Hero = () => {
                     playsInline
                     className="w-full h-full object-cover"
                 >
-                    <source src="/hero-video.mp4" type="video/mp4" />
+                    <source src="/hero-video-opt.mp4" type="video/mp4" />
                 </video>
                 <div className="absolute inset-0 bg-black/50 mix-blend-multiply" />
             </div>
@@ -31,7 +31,7 @@ const Hero = () => {
             <motion.div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat z-1 opacity-30"
                 style={{
-                    backgroundImage: 'url(/banner.jpg)',
+                    backgroundImage: 'url(/banner.webp)',
                     y,
                 }}
             >

@@ -22,7 +22,7 @@ const About = () => {
                                 className="relative z-10 bg-white/50 backdrop-blur-sm p-12 m-8 border border-white/40 shadow-xl rounded-2xl"
                             >
                                 <img
-                                    src="/Logo.PNG"
+                                    src="/Logo.webp"
                                     alt="Aangan Boutique Logo"
                                     className="w-full h-auto object-contain drop-shadow-lg"
                                 />
