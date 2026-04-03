@@ -3,12 +3,12 @@ import { motion } from 'framer-motion';
 
 const CollectionGallery = () => {
     const assets = [
-        { id: 1, src: '/gallery/optimized/784A4374.webp', type: 'image', title: 'Elegant Couture' },
-        { id: 2, src: '/gallery/optimized/lookbook1-opt.mp4', type: 'video', title: 'The Wedding Edit' },
-        { id: 3, src: '/gallery/optimized/784A4393.webp', type: 'image', title: 'Bridal Grace' },
-        { id: 4, src: '/gallery/optimized/lookbook2-opt.mp4', type: 'video', title: 'Festive Vibes' },
-        { id: 5, src: '/gallery/optimized/784A4396.webp', type: 'image', title: 'Royal Heritage' },
-        { id: 6, src: '/gallery/optimized/784A4398.webp', type: 'image', title: 'Modern Ethnic' },
+        { id: 1, src: '/drive_images/copy_of_0d2a8350_1.jpg', type: 'image', title: 'Royal Maroon Lehenga' },
+        { id: 2, src: '/drive_images/copy_of_0d2a8369_1.jpg', type: 'image', title: 'Emerald Silk Saree' },
+        { id: 3, src: '/drive_images/784a4374.jpg', type: 'image', title: 'Mint Green Lehenga' },
+        { id: 4, src: '/drive_images/copy_of_0d2a8385_1.jpg', type: 'image', title: 'Ivory Anarkali Set' },
+        { id: 5, src: '/drive_images/copy_of_0d2a8394_1.jpg', type: 'image', title: 'Bridal Red Collection' },
+        { id: 6, src: '/drive_images/copy_of_0d2a7942_1.jpg', type: 'image', title: 'Pastel Sharara Suit' },
     ];
 
     return (
@@ -30,27 +30,24 @@ const CollectionGallery = () => {
                             viewport={{ once: true }}
                             className="relative group overflow-hidden rounded-[2em] shadow-lg bg-white break-inside-avoid"
                         >
-                            {asset.type === 'video' ? (
-                                <video
-                                    autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                    className="w-full h-auto object-cover transition-transform duration-[2s] group-hover:scale-110"
+                            <img
+                                src={asset.src}
+                                alt={asset.title}
+                                loading="lazy"
+                                className="w-full h-auto object-cover transition-transform duration-[2s] group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-maroon-900/80 via-maroon-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-end pb-8">
+                                <motion.div
+                                    initial={{ y: 20, opacity: 0 }}
+                                    whileInView={{ y: 0, opacity: 1 }}
+                                    className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 flex flex-col items-center"
                                 >
-                                    <source src={asset.src} type="video/mp4" />
-                                </video>
-                            ) : (
-                                <img
-                                    src={asset.src}
-                                    alt={asset.title}
-                                    loading="lazy"
-                                    className="w-full h-auto object-cover transition-transform duration-[2s] group-hover:scale-110"
-                                />
-                            )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-maroon-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                                <h3 className="text-white font-serif text-2xl mb-2">{asset.title}</h3>
-                                <div className="w-12 h-0.5 bg-gold-400"></div>
+                                    <span className="text-gold-200 font-serif italic text-2xl mb-1 block text-center">Aangan</span>
+                                    <h3 className="text-white font-serif text-xl mb-4 text-center px-4">{asset.title}</h3>
+                                    <button className="glass px-6 py-2 rounded-full text-white text-[10px] uppercase tracking-[0.3em] hover:bg-white hover:text-maroon-900 transition-colors">
+                                        View Details
+                                    </button>
+                                </motion.div>
                             </div>
                         </motion.div>
                     ))}

@@ -5,12 +5,12 @@ const Gallery = () => {
     // Using the unified image with different crops/filters to create variety
     // Using uniform elegant shapes for a professional look
     const images = [
-        { id: 1, src: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=2574&auto=format&fit=crop' },
-        { id: 2, src: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=2574&auto=format&fit=crop' },
-        { id: 3, src: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=2574&auto=format&fit=crop' },
-        { id: 4, src: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=2574&auto=format&fit=crop' },
-        { id: 5, src: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=2574&auto=format&fit=crop' },
-        { id: 6, src: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=2574&auto=format&fit=crop' },
+        { id: 1, src: '/drive_images/copy_of_0d2a8350_1.jpg' },
+        { id: 2, src: '/drive_images/copy_of_0d2a8369_1.jpg' },
+        { id: 3, src: '/drive_images/784a4374.jpg' },
+        { id: 4, src: '/drive_images/copy_of_0d2a8385_1.jpg' },
+        { id: 5, src: '/drive_images/copy_of_0d2a8394_1.jpg' },
+        { id: 6, src: '/drive_images/copy_of_0d2a7942_1.jpg' },
     ];
 
     return (
@@ -54,7 +54,7 @@ const Gallery = () => {
                             viewport={{ once: true, margin: "0px 0px -50px 0px" }}
                         >
                             <img
-                                src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=2574&auto=format&fit=crop"
+                                src={item.src}
                                 alt={`Gallery ${idx}`}
                                 className={`w-full h-auto object-cover transition-transform duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 ${idx % 2 === 0 ? 'grayscale group-hover:grayscale-0' : ''}`}
                             />

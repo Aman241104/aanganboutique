@@ -8,32 +8,32 @@ const InstagramFeed = () => {
     const posts = [
         {
             id: 1,
-            url: 'https://www.instagram.com/p/DF9-2-vM-u0/',
-            image: 'https://images.unsplash.com/photo-1583391733973-727719681739?q=80&w=2574&auto=format&fit=crop',
+            url: 'https://www.instagram.com/p/DV5Jnn4DAAC/',
+            image: 'https://scontent.cdninstagram.com/v/t39.30808-6/651030899_1570952678365637_7602495783837362708_n.jpg?stp=c216.0.648.648a_dst-jpg_e35_s640x640_tt6&_nc_cat=103&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=HViNlOL3Dc0Q7kNvwEWVZZq&_nc_oc=Adpi9uCfqLzJIm7Edes-pvZSILQK3pXNyMz0rdIV47hmFY2MqGcv-VoY6b4wspN_Sjsk_4URmWKVudKWv5jlS_yQ&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=mC57EneDKEnFCyfHQgEfZQ&_nc_ss=7a389&oh=00_Af3O6jOXFJ4cYPJaFVD_HGRvTWUWPGJDduW8iuSLL5UFgw&oe=69D54967',
             caption: 'Elegant bridal collection at Aangan Boutique.'
         },
         {
             id: 2,
-            url: 'https://www.instagram.com/p/DF9-2-vM-u0/',
-            image: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=2574&auto=format&fit=crop',
+            url: 'https://www.instagram.com/p/DUiPGOLkctT/',
+            image: 'https://scontent.cdninstagram.com/v/t51.82787-15/629230865_18314663359270186_1939503507000077177_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=103&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=AQhYVFUKE0QQ7kNvwFfjm2z&_nc_oc=AdrbSsTionUNJCj3VHNc-LICPzPNkTuK-Xw1zqbrQH03IzjDr5OeMzkSUJpFkNRAuUZckU3u5gjqV-qQQqvlfOIg&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=OI0lM9FVdYhIBhH4l8xLgQ&_nc_ss=7a389&oh=00_Af3b5XLkTYzi-1OEFFTf_SOL5gPYAv5cgYyVgZF3C4xXcw&oe=69D559EC',
             caption: 'Customized designer wear for every occasion.'
         },
         {
             id: 3,
-            url: 'https://www.instagram.com/p/DF9-2-vM-u0/',
-            image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=2583&auto=format&fit=crop',
+            url: 'https://www.instagram.com/p/DVLB1p7kWt4/',
+            image: 'https://scontent.cdninstagram.com/v/t51.82787-15/641272938_18316383256270186_2916805910755747343_n.jpg?stp=c204.0.615.614a_dst-jpg_e35_s640x640_tt6&_nc_cat=105&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=wWTdNkArebYQ7kNvwHNx_w2&_nc_oc=AdpqG80sPQwJWhTC1B5m18gwCvRjqEkRxGhZGW7anypOzoTn111Yq3Nk8U60aUym4PLqVGgMA8SevHIopFm2h9JN&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=S2JoXXIvxpstBZHVoFFyIA&_nc_ss=7a389&oh=00_Af2jsE_lOE_fkl7kgqfGw5rNbUP5vUocJligRIoM3oWSsA&oe=69D54C9B',
             caption: 'Exquisite craftsmanship and premium fabrics.'
         },
         {
             id: 4,
-            url: 'https://www.instagram.com/p/DF9-2-vM-u0/',
-            image: 'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?q=80&w=2670&auto=format&fit=crop',
+            url: 'https://www.instagram.com/p/DTdfLamk55d/',
+            image: 'https://scontent.cdninstagram.com/v/t51.82787-15/616237272_18310888507270186_6763786387999041088_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=NiekMIOZNjIQ7kNvwHAWVhY&_nc_oc=Adp3QaXs6_HcUZf-DNtPwIfVefSdRQJkZBe5KsU6-XDa5VpZHyBZxTt37ONufWRERdj9yxxoNI-YtvJ8lrbaYd5R&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=a6Tmj8UnUK2Vgg-cWcjWbQ&_nc_ss=7a389&oh=00_Af1_fa2P-oi5FF9xUUiyKtH-u86G7myx5Ycz9iTPuzQ_vA&oe=69D54250',
             caption: 'Discover the latest trends in ethnic wear.'
         },
         {
             id: 5,
-            url: 'https://www.instagram.com/p/DF9-2-vM-u0/',
-            image: 'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?q=80&w=2574&auto=format&fit=crop',
+            url: 'https://www.instagram.com/p/DTAUuOckgJZ/',
+            image: 'https://scontent.cdninstagram.com/v/t39.30808-6/610609931_1505949808199258_904484883679875557_n.jpg?stp=c204.0.615.614a_dst-jpg_e35_s640x640_tt6&_nc_cat=103&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=BhitdNlcdQsQ7kNvwFgt1LA&_nc_oc=AdqyThnbfNozz0mVj5E8LESABSWfp5syndm5hXUvG0zUl20Hjsrium1nCbHp_k3KvawhRpbuEeYGYWw8lhcK8MAX&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=EKx9lst1AuXZdXmpUfI-_g&_nc_ss=7a389&oh=00_Af3x6dxSi6M44ktp1Sh43JeqVzDUdLcqTPm_L230Bsm1Hg&oe=69D54954',
             caption: 'Traditional meets modern at Aangan.'
         }
     ];

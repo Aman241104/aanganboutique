@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, Check, Star, ArrowRight } from 'lucide-react';
+import { Calendar, Check, Star, ArrowRight, Scissors, Ruler, Sparkles, Heart } from 'lucide-react';
 
 const slots = [
     { id: 'slot1', label: '2:00 PM - 3:00 PM', startHour: 14, endHour: 15 },
@@ -8,9 +8,17 @@ const slots = [
     { id: 'slot3', label: '6:00 PM - 7:00 PM', startHour: 18, endHour: 19 },
 ];
 
+const serviceTypes = [
+    { id: 'bridal', label: 'Bridal Consultation', icon: <Heart size={14} /> },
+    { id: 'custom', label: 'Custom Tailoring', icon: <Scissors size={14} /> },
+    { id: 'styling', label: 'Personal Styling', icon: <Sparkles size={14} /> },
+    { id: 'measurement', label: 'Measurement & Fitting', icon: <Ruler size={14} /> },
+];
+
 const BookingSection = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedSlot, setSelectedSlot] = useState(null);
+    const [selectedService, setSelectedService] = useState(serviceTypes[0]);
     const [dates, setDates] = useState([]);
     const [step, setStep] = useState('selection');
 
@@ -36,14 +44,14 @@ const BookingSection = () => {
         const startTime = `${year}${month}${day}T${String(selectedSlot.startHour).padStart(2, '0')}0000`;
         const endTime = `${year}${month}${day}T${String(selectedSlot.endHour).padStart(2, '0')}0000`;
 
-        const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Meeting+with+Aangan+Boutique&dates=${startTime}/${endTime}&details=Fashion+consultation+meeting.&location=Aangan+Boutique&add=datawizard1631@gmail.com`;
+        const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(selectedService.label)}+with+Aangan+Boutique&dates=${startTime}/${endTime}&details=Fashion+consultation+meeting.&location=Aangan+Boutique&add=datawizard1631@gmail.com`;
         window.open(gCalUrl, '_blank');
     };
 
     const sendWhatsApp = () => {
         if (!selectedDate || !selectedSlot) return;
         const dateStr = selectedDate.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
-        const message = `Hello, I would like to book a meeting on ${dateStr} at ${selectedSlot.label}.`;
+        const message = `Hello Aangan Boutique, I would like to book a *${selectedService.label}* on ${dateStr} at ${selectedSlot.label}.`;
         window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
     };
 
@@ -83,16 +91,15 @@ const BookingSection = () => {
                             <span className="italic">Styling Session</span>
                         </h2>
                         <p className="text-gray-600 text-lg mb-8 leading-relaxed max-w-xl">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                            Reserve a dedicated time with our expert fashion consultants. Experience personalized guidance, tailored fittings, and an exclusive preview of our latest collections in a private setting.
                         </p>
 
                         <div className="space-y-4 mb-8">
                             {[
-                                "Lorem ipsum dolor sit",
-                                "Consectetur adipiscing elit",
-                                "Sed do eiusmod tempor",
-                                "Incididunt ut labore"
+                                "One-on-one styling advice",
+                                "Custom measurement & fitting",
+                                "Bridal wear consultations",
+                                "Exclusive collection previews"
                             ].map((item, idx) => (
                                 <div key={idx} className="flex items-center gap-3">
                                     <div className="w-6 h-6 rounded-full bg-gold-100 flex items-center justify-center text-gold-600">
@@ -119,8 +126,30 @@ const BookingSection = () => {
                             {step === 'selection' ? (
                                 <>
                                     <div className="mb-8">
-                                        <h3 className="text-2xl font-serif text-maroon-900 mb-2">Select a Date & Time</h3>
-                                        <p className="text-gray-500 text-sm">All times are in local timezone</p>
+                                        <h3 className="text-2xl font-serif text-maroon-900 mb-2">Plan Your Visit</h3>
+                                        <p className="text-gray-500 text-sm">Select service, date and preferred time slot</p>
+                                    </div>
+
+                                    {/* Service Type */}
+                                    <div className="mb-6">
+                                        <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 block">Select Service</label>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            {serviceTypes.map((service) => (
+                                                <button
+                                                    key={service.id}
+                                                    onClick={() => setSelectedService(service)}
+                                                    className={`flex items-center gap-2 p-3 rounded-xl border text-xs font-medium transition-all ${selectedService.id === service.id
+                                                        ? 'border-maroon-900 bg-maroon-50 text-maroon-900 ring-1 ring-maroon-900'
+                                                        : 'border-gray-100 bg-gray-50 hover:border-gold-400 text-gray-600'
+                                                        }`}
+                                                >
+                                                    <span className={selectedService.id === service.id ? 'text-maroon-900' : 'text-gold-600'}>
+                                                        {service.icon}
+                                                    </span>
+                                                    {service.label}
+                                                </button>
+                                            ))}
+                                        </div>
                                     </div>
 
                                     {/* Dates */}
@@ -185,7 +214,7 @@ const BookingSection = () => {
                                 <div className="text-center py-10">
                                     <h3 className="text-3xl font-serif text-maroon-900 mb-2">Almost Done!</h3>
                                     <p className="text-gray-500 mb-8 max-w-xs mx-auto">
-                                        Please complete your booking using one of the options below.
+                                        Your {selectedService.label} is provisionally held. Please confirm via WhatsApp.
                                     </p>
 
                                     <div className="space-y-4">
@@ -205,7 +234,7 @@ const BookingSection = () => {
                                             onClick={resetBooking}
                                             className="mt-6 text-maroon-900 font-medium hover:underline text-sm"
                                         >
-                                            Book Another Slot
+                                            Modify Appointment
                                         </button>
                                     </div>
                                 </div>

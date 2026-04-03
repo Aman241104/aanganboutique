@@ -19,7 +19,7 @@ const Header = ({ bagCount, onOpenBag }) => {
     const navLinks = [
         { name: 'Home', href: '#hero' },
         { name: 'About', href: '#about' },
-        { name: 'Our Craft', href: '#craft' },
+        { name: 'Services', href: '#craft' },
         { name: 'Products', href: '#products' },
         { name: 'Gallery', href: '#collection-gallery' },
         { name: 'Instagram', href: '#instagram' },
@@ -39,8 +39,8 @@ const Header = ({ bagCount, onOpenBag }) => {
 
                     {/* Logo */}
                     <div className="text-center lg:text-left flex-grow lg:flex-grow-0 transition-all duration-500 origin-left">
-                        <div className={`transition-all duration-500 ${isScrolled ? 'w-24 md:w-28' : 'w-32 md:w-40'}`}>
-                            <img src="/Logo1.png" alt="Aangan Boutique" className="w-full h-auto object-contain" />
+                        <div className={`transition-all duration-500 ${isScrolled ? 'w-24 md:w-28' : 'w-36 md:w-44'}`}>
+                            <img src="/Logo.webp" alt="Aangan Boutique" className="w-full h-auto object-contain drop-shadow-md" />
                         </div>
                     </div>
 

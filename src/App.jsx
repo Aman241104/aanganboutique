@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -16,14 +16,22 @@ import Contact from './components/Contact';
 import MapSection from './components/MapSection';
 import Footer from './components/Footer';
 import { MessageCircle, ShoppingBag, Sparkles } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 
 function App() {
   const [inquiryBag, setInquiryBag] = useState([]);
   const [isBagOpen, setIsBagOpen] = useState(false);
   const [isAIStylistOpen, setIsAIStylistOpen] = useState(false);
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const [cursorPos, setCursorPos] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
+
+  // Smooth Scroll Progress Bar
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -31,7 +39,13 @@ function App() {
     };
 
     const handleMouseOver = (e) => {
-      if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+      if (
+        e.target.tagName === 'A' || 
+        e.target.tagName === 'BUTTON' || 
+        e.target.closest('button') || 
+        e.target.closest('a') ||
+        e.target.classList.contains('cursor-pointer')
+      ) {
         setIsHovering(true);
       } else {
         setIsHovering(false);
@@ -57,15 +71,30 @@ function App() {
     setInquiryBag(inquiryBag.filter(item => item.id !== id));
   };
 
+  const revealVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
+    }
+  };
+
   return (
-    <div className="min-h-screen flex flex-col font-sans selection:bg-gold-200">
+    <div className="min-h-screen flex flex-col font-sans selection:bg-gold-200 relative">
+      {/* Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-gold-500 origin-left z-[100]"
+        style={{ scaleX }}
+      />
+
       {/* Custom Cursor */}
       <div
         className={`custom-cursor hidden lg:block ${isHovering ? 'cursor-hover' : ''}`}
         style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px` }}
       />
       <div
-        className="custom-cursor-follower hidden lg:block"
+        className={`custom-cursor-follower hidden lg:block ${isHovering ? 'cursor-hover-follower' : ''}`}
         style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px` }}
       />
 
@@ -73,15 +102,41 @@ function App() {
 
       <main className="flex-grow">
         <Hero />
-        <Clients />
-        <About />
-        <OurCraft />
+        
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
+          <Clients />
+        </motion.div>
+        
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
+          <About />
+        </motion.div>
+        
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
+          <OurCraft />
+        </motion.div>
+        
         <Products onAddToBag={addToBag} />
-        <CollectionGallery />
-        <InstagramFeed />
-        <Testimonials />
-        <BookingSection />
-        <Contact />
+        
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
+          <CollectionGallery />
+        </motion.div>
+        
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
+          <InstagramFeed />
+        </motion.div>
+        
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
+          <Testimonials />
+        </motion.div>
+        
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
+          <BookingSection />
+        </motion.div>
+        
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
+          <Contact />
+        </motion.div>
+        
         <MapSection />
       </main>
 

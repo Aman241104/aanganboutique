@@ -30,25 +30,25 @@ const categories = [
     {
         id: 1,
         title: 'Wedding collection',
-        image: '/gallery/optimized/784A4374.webp',
+        image: '/drive_images/copy_of_0d2a8394_1.jpg',
         description: 'Exquisitely crafted outfits for weddings, receptions, and once-in-a-lifetime celebrations.'
     },
     {
         id: 2,
         title: 'Festive wear',
-        image: '/gallery/optimized/784A4393.webp',
+        image: '/drive_images/copy_of_0d2a7947_1.jpg',
         description: 'Elegant ethnic wear for Diwali, Rakshabandhan, poojas, and joyful family gatherings.'
     },
     {
         id: 3,
         title: 'Indo western collection',
-        image: '/gallery/optimized/784A4396.webp',
+        image: '/drive_images/copy_of_0d2a8387_1.jpg',
         description: 'Modern silhouettes blending Indian aesthetics with contemporary global style.'
     },
     {
         id: 4,
         title: 'Dress materials',
-        image: '/gallery/optimized/784A4398.webp',
+        image: '/drive_images/copy_of_0d2a7943_1.jpg',
         description: 'Premium dress materials for custom-made ethnic, formal, and occasion wear.'
     }
 ];
@@ -59,42 +59,42 @@ const allProducts = [
         title: 'Royal Maroon Lehenga',
         price: '₹45,000',
         description: 'Exquisitely hand-embroidered maroon lehenga, perfect for a grand bridal look.',
-        image: '/gallery/optimized/prod1.webp'
+        image: '/drive_images/copy_of_0d2a8350_1.jpg'
     },
     {
         id: 102,
         title: 'Emerald Silk Saree',
         price: '₹18,500',
         description: 'Luxurious emerald silk saree with intricate gold border detailing.',
-        image: '/gallery/optimized/prod2.webp',
+        image: '/drive_images/copy_of_0d2a8369_1.jpg',
     },
     {
         id: 103,
         title: 'Ivory Anarkali',
         price: '₹22,000',
         description: 'Elegant ivory anarkali with delicate embroidery for a timeless festive look.',
-        image: '/gallery/optimized/prod3.webp'
+        image: '/drive_images/copy_of_0d2a8385_1.jpg'
     },
     {
         id: 104,
         title: 'Gold Tissue Saree',
         price: '₹15,000',
         description: 'Shimmering gold tissue saree, a lightweight yet regal choice for celebrations.',
-        image: '/gallery/optimized/prod4.webp'
+        image: '/drive_images/copy_of_0d2a8387_1.jpg'
     },
     {
         id: 105,
         title: 'Bridal Red Set',
         price: '₹85,000',
         description: 'The quintessential red bridal set, featuring master-crafted traditional motifs.',
-        image: '/gallery/optimized/prod5.webp'
+        image: '/drive_images/copy_of_0d2a8394_1.jpg'
     },
     {
         id: 106,
         title: 'Pastel Sharara',
         price: '₹28,000',
         description: 'Chic pastel sharara set, blending modern colors with classic silhouettes.',
-        image: '/gallery/optimized/prod6.webp',
+        image: '/drive_images/copy_of_0d2a7942_1.jpg',
     }
 ];
 
@@ -220,7 +220,10 @@ const Products = ({ onAddToBag }) => {
 
                                     {/* Floating Glass Button */}
                                     <div className="absolute bottom-6 left-1/2 -translate-x-1/2 translate-y-20 group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] w-max">
-                                        <button className="glass px-6 py-3 rounded-full text-white uppercase tracking-widest text-[10px] font-semibold hover:bg-white hover:text-maroon-900 transition-colors backdrop-blur-md">
+                                        <button 
+                                            onClick={(e) => { e.stopPropagation(); setShowOverlay(true); }}
+                                            className="glass px-6 py-3 rounded-full text-white uppercase tracking-widest text-[10px] font-semibold hover:bg-white hover:text-maroon-900 transition-colors backdrop-blur-md"
+                                        >
                                             View Collection
                                         </button>
                                     </div>
@@ -259,17 +262,33 @@ const Products = ({ onAddToBag }) => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
                         {/* Large Item */}
                         <motion.div
-                            whileHover={{ scale: 1.02 }}
-                            className="md:col-span-2 row-span-2 relative group overflow-hidden rounded-[4em] bg-white"
+                            whileHover={{ scale: 1.01 }}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="md:col-span-2 row-span-2 relative group overflow-hidden rounded-[3em] bg-white border border-gold-100/30"
                         >
-                            <img
-                                src="/gallery/optimized/784A4401.webp"
+                            <motion.img
+                                initial={{ scale: 1.1 }}
+                                whileInView={{ scale: 1 }}
+                                transition={{ duration: 1.5 }}
+                                src="/drive_images/copy_of_0d2a7942_1.jpg"
                                 alt="Collection"
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                             />
-                            <div className="absolute inset-0 bg-black/20 p-8 flex flex-col justify-end">
-                                <h3 className="text-white font-serif text-3xl mb-2">Bridal Couture</h3>
-                                <button className="bg-white/20 backdrop-blur self-start px-6 py-2 rounded-full text-white text-sm flex items-center gap-2 hover:bg-white hover:text-black transition-colors">
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent p-10 flex flex-col justify-end">
+                                <motion.h3 
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.5 }}
+                                    className="text-white font-serif text-4xl mb-4"
+                                >
+                                    Bridal Couture
+                                </motion.h3>
+                                <button 
+                                    onClick={() => setShowOverlay(true)}
+                                    className="bg-white/20 backdrop-blur self-start px-8 py-3 rounded-full text-white text-xs uppercase tracking-widest font-bold flex items-center gap-2 hover:bg-gold-500 hover:text-white transition-all border border-white/30"
+                                >
                                     View Collection <ArrowUpRight size={16} />
                                 </button>
                             </div>
@@ -277,43 +296,74 @@ const Products = ({ onAddToBag }) => {
 
                         {/* Tall Item */}
                         <motion.div
-                            whileHover={{ scale: 1.02 }}
-                            className="row-span-2 relative group overflow-hidden rounded-[4em] bg-gold-50"
+                            whileHover={{ scale: 1.01 }}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.2 }}
+                            className="row-span-2 relative group overflow-hidden rounded-[3em] bg-gold-50 border border-gold-100/30"
                         >
-                            <img
-                                src="https://images.unsplash.com/photo-1583391733973-727719681739?q=80&w=2574&auto=format&fit=crop"
+                            <motion.img
+                                initial={{ scale: 1.1 }}
+                                whileInView={{ scale: 1 }}
+                                transition={{ duration: 1.5 }}
+                                src="/drive_images/copy_of_0d2a8385_1.jpg"
                                 alt="Accessories"
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-8 flex flex-col justify-end">
-                                <h3 className="text-white font-serif text-2xl">Handcrafted Jewelry</h3>
+                            <div className="absolute inset-0 bg-gradient-to-t from-maroon-900/80 via-transparent to-transparent p-10 flex flex-col justify-end">
+                                <h3 className="text-white font-serif text-3xl">Elegant Embellishments</h3>
                             </div>
                         </motion.div>
 
                         {/* Wide Item */}
                         <motion.div
-                            whileHover={{ scale: 1.02 }}
-                            className="md:col-span-2 relative group overflow-hidden rounded-[4em] bg-maroon-900 flex items-center justify-center p-8 text-center"
+                            whileHover={{ scale: 1.01 }}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.3 }}
+                            className="md:col-span-2 relative group overflow-hidden rounded-[3em] bg-maroon-900 flex items-center justify-center p-8 text-center"
                         >
                             <div className="max-w-md z-10">
-                                <h3 className="text-gold-100 font-serif text-2xl mb-4">Personal Styling Services</h3>
-                                <p className="text-gold-100/70 text-sm mb-6">Experience personalized fashion consultation with our expert stylists.</p>
-                                <button className="text-white border-b border-gold-400 pb-1 hover:text-gold-400 transition-colors">Book Now</button>
+                                <motion.h3 
+                                    initial={{ opacity: 0 }}
+                                    whileInView={{ opacity: 1 }}
+                                    transition={{ delay: 0.5 }}
+                                    className="text-gold-100 font-serif text-3xl mb-4"
+                                >
+                                    Personal Styling Services
+                                </motion.h3>
+                                <motion.p 
+                                    initial={{ opacity: 0 }}
+                                    whileInView={{ opacity: 1 }}
+                                    transition={{ delay: 0.7 }}
+                                    className="text-gold-100/70 text-sm mb-8 leading-relaxed"
+                                >
+                                    Experience personalized fashion consultation with our expert stylists to find your perfect look.
+                                </motion.p>
+                                <a href="#booking">
+                                    <button className="text-white bg-gold-600/20 px-8 py-3 rounded-full border border-gold-500/50 hover:bg-gold-500 transition-all uppercase tracking-widest text-[10px] font-bold">Book Your Session</button>
+                                </a>
                             </div>
-                            <div className="absolute inset-0 opacity-10 pattern-dots" style={{ backgroundImage: 'radial-gradient(circle, #CCA052 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+                            <div className="absolute inset-0 opacity-10 pattern-dots" style={{ backgroundImage: 'radial-gradient(circle, #CCA052 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
                         </motion.div>
 
                         <motion.div
-                            whileHover={{ scale: 1.02 }}
-                            className="relative group overflow-hidden rounded-[4em] bg-white"
+                            whileHover={{ scale: 1.01 }}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.4 }}
+                            className="relative group overflow-hidden rounded-[3em] bg-white border border-gold-100/30"
                         >
                             <img
-                                src="/gallery/optimized/784A4374.webp"
+                                src="/drive_images/copy_of_0d2a7944_1.jpg"
                                 alt="Fabric"
-                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                             />
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="bg-white/90 px-6 py-2 rounded-full text-xs uppercase tracking-widest font-bold">Fabrics</div>
+                                <div className="bg-white/90 backdrop-blur-sm px-8 py-3 rounded-full text-[10px] uppercase tracking-widest font-bold shadow-xl border border-gold-100">Fabrics</div>
                             </div>
                         </motion.div>
                     </div>
