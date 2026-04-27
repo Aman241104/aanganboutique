@@ -103,7 +103,7 @@ const Testimonials = () => {
         <section id="testimonials" className="relative py-16 md:py-32 overflow-hidden flex items-center justify-center min-h-[80vh]">
             {/* Unified Blurred Background */}
             <div
-                className="absolute inset-0 bg-cover bg-center bg-fixed transform scale-105 blur-2xl opacity-60"
+                className="absolute inset-0 bg-cover bg-center transform scale-105 blur-2xl opacity-60"
                 style={{ backgroundImage: 'url(/banner.webp)' }}
             >
                 <div className="absolute inset-0 bg-maroon-900/40 mix-blend-multiply"></div>

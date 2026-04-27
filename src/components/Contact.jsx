@@ -16,7 +16,7 @@ const Contact = () => {
                 >
                     <div
                         className="absolute inset-0 bg-cover bg-center"
-                        style={{ backgroundImage: 'url(/drive_images/copy_of_0d2a7949_1.jpg)' }}
+                        style={{ backgroundImage: 'url(/drive_images/optimized/copy_of_0d2a7949_1.webp)' }}
                     >
                         <div className="absolute inset-0 bg-maroon-900/40 mix-blend-multiply"></div>
                     </div>

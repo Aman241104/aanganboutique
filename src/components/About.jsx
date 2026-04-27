@@ -88,18 +88,17 @@ const About = () => {
                                 <div className="w-12 h-px bg-gold-500 lg:hidden"></div>
                             </motion.div>
                             
-                            <motion.h2 variants={itemVariants} className="font-serif text-4xl lg:text-5xl text-maroon-900 mb-8 leading-tight">
+                            <motion.h2 variants={itemVariants} className="font-serif text-4xl lg:text-7xl text-maroon-900 mb-8 leading-[1.1] tracking-tight">
                                 Where Tradition Meets <br/>
                                 <span className="italic text-gold-600 font-light">Modern Elegance</span>
                             </motion.h2>
                             
                             <motion.div variants={itemVariants}>
-                                <p className="text-gray-600 leading-relaxed text-lg font-light mb-6">
-                                    Aangan Boutique is a multi-designer store located at Sindhubhavan Road, Ahmedabad, offering thoughtfully curated Indian, ethnic, Indo-western and contemporary designer wear.
-                                    Rooted in Indian tradition yet styled for the modern global woman, we design outfits for every story — from weddings to grand family gatherings.
+                                <p className="text-gray-600 leading-relaxed text-lg md:text-xl font-light mb-8 max-w-2xl">
+                                    Aangan Boutique is a multi-designer sanctuary located at Sindhubhavan Road, Ahmedabad, offering thoughtfully curated ethnic and contemporary designer wear.
                                 </p>
-                                <p className="text-gray-600 leading-relaxed text-lg font-light mb-10">
-                                    Every piece at Aangan reflects premium craftsmanship, refined fabrics, and elegant detailing, paired with personalised styling to ensure you feel confident, graceful, and effortlessly distinguished.
+                                <p className="text-gray-500 leading-relaxed text-base font-light mb-12 max-w-xl">
+                                    Rooted in Indian tradition yet styled for the modern global woman, we design outfits for every story — from grand weddings to intimate celebrations. Every piece reflects premium craftsmanship and refined fabrics.
                                 </p>
                             </motion.div>
 

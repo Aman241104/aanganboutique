@@ -28,56 +28,65 @@ const Header = ({ bagCount, onOpenBag }) => {
     ];
 
     return (
-        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-cream/80 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-6'}`}>
-            <div className="container mx-auto px-4 lg:px-8">
+        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${isScrolled ? 'bg-white/80 backdrop-blur-md py-4' : 'bg-transparent py-8'}`}>
+            <div className="container mx-auto px-4 lg:px-12">
                 <div className="flex items-center justify-between">
 
                     {/* Mobile Menu Button */}
-                    <button className={`${isScrolled ? 'text-dark-900' : 'text-white'} lg:hidden transition-colors`} onClick={() => setIsMobileMenuOpen(true)}>
-                        <Menu size={24} strokeWidth={1.5} />
+                    <button className="text-maroon-900 lg:hidden" onClick={() => setIsMobileMenuOpen(true)}>
+                        <Menu size={24} strokeWidth={1} />
                     </button>
 
-                    {/* Logo */}
-                    <div className="text-center lg:text-left flex-grow lg:flex-grow-0 transition-all duration-500 origin-left">
-                        <div className={`transition-all duration-500 ${isScrolled ? 'w-24 md:w-28' : 'w-36 md:w-44'}`}>
-                            <img src="/Logo.webp" alt="Aangan Boutique" className="w-full h-auto object-contain drop-shadow-md" />
+                    {/* Logo - Centered for high-end feel */}
+                    <div className="absolute left-1/2 -translate-x-1/2 lg:static lg:left-0 lg:translate-x-0 transition-all duration-700">
+                        <div className={`transition-all duration-700 ${isScrolled ? 'w-24' : 'w-32'}`}>
+                            <img src="/Logo1.png" alt="Aangan Boutique" className="w-full h-auto object-contain" />
                         </div>
                     </div>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden lg:flex items-center space-x-10">
-                        {navLinks.map((link) => (
+                    <nav className="hidden lg:flex items-center space-x-12">
+                        {navLinks.slice(0, 4).map((link) => (
                             <a
                                 key={link.name}
                                 href={link.href}
-                                className={`group relative text-xs font-medium tracking-[0.15em] transition-colors uppercase py-2 ${isScrolled ? 'text-dark-800' : 'text-white'} hover:text-gold-600`}
+                                className="group relative text-[10px] font-bold tracking-[0.3em] transition-colors uppercase text-maroon-900 hover:text-gold-600"
                             >
                                 {link.name}
-                                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-gold-600 transition-all duration-300 group-hover:w-full"></span>
+                                <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold-600 transition-all duration-500 group-hover:w-full"></span>
+                            </a>
+                        ))}
+                    </nav>
+
+                    <nav className="hidden lg:flex items-center space-x-12">
+                        {navLinks.slice(4).map((link) => (
+                            <a
+                                key={link.name}
+                                href={link.href}
+                                className="group relative text-[10px] font-bold tracking-[0.3em] transition-colors uppercase text-maroon-900 hover:text-gold-600"
+                            >
+                                {link.name}
+                                <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold-600 transition-all duration-500 group-hover:w-full"></span>
                             </a>
                         ))}
                     </nav>
 
                     {/* Icons */}
-                    <div className={`flex items-center space-x-6 ${isScrolled ? 'text-dark-800' : 'text-white'} transition-colors`}>
+                    <div className="flex items-center space-x-8 text-maroon-900">
                         <button
-                            className="hover:text-gold-600 transition-colors hidden sm:block tooltip-trigger relative group"
+                            className="hover:text-gold-600 transition-colors hidden sm:block relative group"
                             onClick={() => setIsBookingOpen(true)}
-                            title="Book Appointment"
                         >
-                            <CalendarDays size={20} strokeWidth={1.5} />
-                            <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-maroon-900 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Book Slot</span>
+                            <CalendarDays size={18} strokeWidth={1.5} />
                         </button>
                         <button 
                             className="hover:text-gold-600 transition-colors relative"
                             onClick={onOpenBag}
                         >
-                            <ShoppingBag size={20} strokeWidth={1.5} />
+                            <ShoppingBag size={18} strokeWidth={1.5} />
                             {bagCount > 0 && (
-                                <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                                    <span className="relative inline-flex rounded-full h-4 w-4 bg-gold-500 text-[10px] items-center justify-center text-white font-bold">
-                                        {bagCount}
-                                    </span>
+                                <span className="absolute -top-1.5 -right-1.5 flex h-3.5 w-3.5 bg-gold-500 text-[8px] items-center justify-center text-white font-bold rounded-full">
+                                    {bagCount}
                                 </span>
                             )}
                         </button>

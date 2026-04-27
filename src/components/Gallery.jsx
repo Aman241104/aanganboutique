@@ -5,12 +5,12 @@ const Gallery = () => {
     // Using the unified image with different crops/filters to create variety
     // Using uniform elegant shapes for a professional look
     const images = [
-        { id: 1, src: '/drive_images/copy_of_0d2a8350_1.jpg' },
-        { id: 2, src: '/drive_images/copy_of_0d2a8369_1.jpg' },
-        { id: 3, src: '/drive_images/784a4374.jpg' },
-        { id: 4, src: '/drive_images/copy_of_0d2a8385_1.jpg' },
-        { id: 5, src: '/drive_images/copy_of_0d2a8394_1.jpg' },
-        { id: 6, src: '/drive_images/copy_of_0d2a7942_1.jpg' },
+        { id: 1, src: '/drive_images/optimized/copy_of_0d2a8350_1.webp' },
+        { id: 2, src: '/drive_images/optimized/copy_of_0d2a8369_1.webp' },
+        { id: 3, src: '/drive_images/optimized/784a4374.webp' },
+        { id: 4, src: '/drive_images/optimized/copy_of_0d2a8385_1.webp' },
+        { id: 5, src: '/drive_images/optimized/copy_of_0d2a8394_1.webp' },
+        { id: 6, src: '/drive_images/optimized/copy_of_0d2a7942_1.webp' },
     ];
 
     return (

@@ -11,7 +11,7 @@ const Footer = () => {
                     <div>
                         <div className="rounded-md overflow-hidden bg-white mb-[10px]" >
                             <img
-                                src="/Logo2.JPG"
+                                src="/Logo2.webp"
                                 alt="Aangan Boutique Interior"
                                 className="relative z-10 w-full p-4  object-contain shadow-lg"
                             />

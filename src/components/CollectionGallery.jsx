@@ -3,12 +3,14 @@ import { motion } from 'framer-motion';
 
 const CollectionGallery = () => {
     const assets = [
-        { id: 1, src: '/drive_images/copy_of_0d2a8350_1.jpg', type: 'image', title: 'Royal Maroon Lehenga' },
-        { id: 2, src: '/drive_images/copy_of_0d2a8369_1.jpg', type: 'image', title: 'Emerald Silk Saree' },
-        { id: 3, src: '/drive_images/784a4374.jpg', type: 'image', title: 'Mint Green Lehenga' },
-        { id: 4, src: '/drive_images/copy_of_0d2a8385_1.jpg', type: 'image', title: 'Ivory Anarkali Set' },
-        { id: 5, src: '/drive_images/copy_of_0d2a8394_1.jpg', type: 'image', title: 'Bridal Red Collection' },
-        { id: 6, src: '/drive_images/copy_of_0d2a7942_1.jpg', type: 'image', title: 'Pastel Sharara Suit' },
+        { id: 1, src: '/gallery/optimized/prod1.webp', type: 'image', title: 'Royal Maroon Lehenga' },
+        { id: 2, src: '/gallery/optimized/lookbook1-opt.mp4', type: 'video', title: 'The Wedding Edit' },
+        { id: 3, src: '/drive_images/optimized/copy_of_0d2a7945_1.webp', type: 'image', title: 'Designer Ethnic Wear' },
+        { id: 4, src: '/gallery/optimized/lookbook2-opt.mp4', type: 'video', title: 'Festive Vibes' },
+        { id: 5, src: '/drive_images/optimized/copy_of_0d2a8387_1.webp', type: 'image', title: 'Bridal Grace' },
+        { id: 6, src: '/drive_images/optimized/copy_of_0d2a7947_1.webp', type: 'image', title: 'Modern Elegance' },
+        { id: 7, src: '/drive_images/optimized/784a4398.webp', type: 'image', title: 'Festive Collection' },
+        { id: 8, src: '/drive_images/optimized/copy_of_0d2a8394_1.webp', type: 'image', title: 'Couture Detail' },
     ];
 
     return (
@@ -30,12 +32,24 @@ const CollectionGallery = () => {
                             viewport={{ once: true }}
                             className="relative group overflow-hidden rounded-[2em] shadow-lg bg-white break-inside-avoid"
                         >
-                            <img
-                                src={asset.src}
-                                alt={asset.title}
-                                loading="lazy"
-                                className="w-full h-auto object-cover transition-transform duration-[2s] group-hover:scale-110"
-                            />
+                            {asset.type === 'video' ? (
+                                <video
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    className="w-full h-auto object-cover transition-transform duration-[2s] group-hover:scale-110"
+                                >
+                                    <source src={asset.src} type="video/mp4" />
+                                </video>
+                            ) : (
+                                <img
+                                    src={asset.src}
+                                    alt={asset.title}
+                                    loading="lazy"
+                                    className="w-full h-auto object-cover transition-transform duration-[2s] group-hover:scale-110"
+                                />
+                            )}
                             <div className="absolute inset-0 bg-gradient-to-t from-maroon-900/80 via-maroon-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-end pb-8">
                                 <motion.div
                                     initial={{ y: 20, opacity: 0 }}

@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 
 const Hero = () => {
     const containerRef = useRef(null);
@@ -8,136 +9,160 @@ const Hero = () => {
         offset: ["start start", "end start"]
     });
 
-    const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-    const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
-    // Variants for text stagger
-    const sentence = {
-        hidden: { opacity: 1 },
-        visible: {
-            opacity: 1,
-            transition: {
-                delay: 0.5,
-                staggerChildren: 0.08,
-            },
-        },
-    };
-
-    const letter = {
-        hidden: { opacity: 0, y: 50 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: { type: "spring", damping: 20, stiffness: 100 }
-        },
-    };
-
-    const titleText = "AANGAN";
+    const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+    const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
+    const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
     return (
-        <section id="hero" ref={containerRef} className="relative h-[100dvh] w-full overflow-hidden bg-maroon-900">
-            {/* Video Background */}
-            <div className="absolute inset-0 z-0">
-                <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover"
-                >
-                    <source src="/drive_images/013.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-black/50 mix-blend-multiply" />
+        <section id="hero" ref={containerRef} className="relative min-h-screen w-full bg-[#FDFBF7] overflow-hidden pt-32 pb-20">
+            {/* Grainy Texture Overlay */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-50" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
+
+            <div className="container mx-auto px-4 lg:px-12 relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    {/* Left Column: Typography & Story */}
+                    <div className="lg:col-span-5 order-2 lg:order-1">
+                        <motion.div style={{ opacity }}>
+                            <motion.span 
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8 }}
+                                className="inline-block text-gold-600 uppercase tracking-[0.4em] text-[10px] font-bold mb-6"
+                            >
+                                Multi-Designer Boutique
+                            </motion.span>
+                            
+                            <h1 className="font-serif text-[15vw] lg:text-[7vw] leading-[0.9] text-maroon-900 tracking-tighter mb-8">
+                                <span className="block overflow-hidden">
+                                    <motion.span 
+                                        initial={{ y: "100%" }}
+                                        animate={{ y: 0 }}
+                                        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                                        className="inline-block"
+                                    >
+                                        AANGAN
+                                    </motion.span>
+                                </span>
+                                <span className="block overflow-hidden italic font-light text-gold-600 mt-2">
+                                    <motion.span 
+                                        initial={{ y: "100%" }}
+                                        animate={{ y: 0 }}
+                                        transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                                        className="inline-block"
+                                    >
+                                        Boutique
+                                    </motion.span>
+                                </span>
+                            </h1>
+
+                            <motion.p 
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 1, delay: 1 }}
+                                className="text-gray-500 text-lg md:text-xl font-light leading-relaxed mb-12 max-w-md"
+                            >
+                                Curated ethnic, Indo-western and wedding wear crafted for timeless elegance. Redefining luxury in the heart of Ahmedabad.
+                            </motion.p>
+
+                            <motion.div 
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 1.2 }}
+                                className="flex flex-wrap gap-8 items-center"
+                            >
+                                <a href="#products" className="group relative flex items-center gap-4 text-maroon-900 font-bold uppercase tracking-widest text-xs">
+                                    <span className="relative">
+                                        Explore Collection
+                                        <span className="absolute -bottom-2 left-0 w-full h-px bg-maroon-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
+                                    </span>
+                                    <div className="w-10 h-10 rounded-full border border-maroon-900/20 flex items-center justify-center group-hover:bg-maroon-900 group-hover:text-white transition-all duration-500">
+                                        <ArrowRight size={16} />
+                                    </div>
+                                </a>
+                                
+                                <div className="h-12 w-px bg-gray-200 hidden md:block"></div>
+                                
+                                <a href="#booking" className="text-gray-400 hover:text-maroon-900 transition-colors uppercase tracking-widest text-[10px] font-bold">
+                                    Book Appointment
+                                </a>
+                            </motion.div>
+                        </motion.div>
+                    </div>
+
+                    {/* Right Column: Visual Composition */}
+                    <div className="lg:col-span-7 order-1 lg:order-2 relative">
+                        <div className="relative aspect-[4/5] md:aspect-[16/10] lg:aspect-[4/3] w-full">
+                            
+                            {/* Main High-End Image */}
+                            <motion.div 
+                                initial={{ clipPath: 'inset(0 100% 0 0)' }}
+                                animate={{ clipPath: 'inset(0 0% 0 0)' }}
+                                transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                                className="absolute top-0 right-0 w-4/5 h-full rounded-[2rem] overflow-hidden shadow-2xl z-20"
+                            >
+                                <motion.img 
+                                    style={{ scale: 1.1 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ duration: 2 }}
+                                    src="/drive_images/optimized/784a4393.webp" 
+                                    alt="Luxury Collection" 
+                                    className="w-full h-full object-cover"
+                                />
+                                <div className="absolute inset-0 bg-maroon-900/10 mix-blend-multiply"></div>
+                            </motion.div>
+
+                            {/* Overlapping Video Window */}
+                            <motion.div 
+                                style={{ y: y1 }}
+                                initial={{ opacity: 0, x: -50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 1, delay: 0.5 }}
+                                className="absolute bottom-[10%] left-0 w-1/2 aspect-square rounded-[2rem] overflow-hidden shadow-2xl z-30 border-[12px] border-white"
+                            >
+                                <video
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    className="w-full h-full object-cover"
+                                >
+                                    <source src="/hero-video-opt.mp4" type="video/mp4" />
+                                </video>
+                            </motion.div>
+
+                            {/* Decorative Elements */}
+                            <motion.div 
+                                style={{ y: y2 }}
+                                className="absolute -top-10 right-[10%] w-32 h-32 border border-gold-400/30 rounded-full z-10 pointer-events-none"
+                            ></motion.div>
+                            
+                            <div className="absolute -bottom-6 right-1/4 z-30 flex flex-col items-center gap-4 bg-white p-6 rounded-2xl shadow-xl">
+                                <span className="text-maroon-900 font-serif text-2xl italic">Est.</span>
+                                <span className="text-gold-600 font-bold tracking-widest text-lg">2024</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
-            {/* Creative Curve Mask at Bottom */}
-            <motion.div
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: 16, opacity: 1 }}
-                transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute bottom-0 left-0 right-0 h-32 bg-cream z-20 rounded-t-[50%] scale-110"
-            ></motion.div>
-
-            {/* Parallax Container */}
-            <motion.div 
-                style={{ y, opacity }}
-                className="relative h-full flex flex-col justify-center items-center text-center px-4 z-10"
-            >
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="w-[90%] md:w-auto glass px-4 py-8 md:p-16 rounded-blob-1 max-w-5xl mx-auto backdrop-blur-xl border-white/10"
+            {/* Vertical Socials/Nav */}
+            <div className="absolute left-8 bottom-12 hidden lg:flex flex-col gap-6 items-center z-20">
+                <div className="w-px h-20 bg-gray-200"></div>
+                <a href="https://instagram.com/_aanganboutique_" target="_blank" rel="noreferrer" className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-400 hover:text-gold-600 transition-colors -rotate-90 origin-center whitespace-nowrap">Instagram</a>
+            </div>
+            
+            <div className="absolute right-12 bottom-12 hidden lg:block z-20">
+                <motion.div 
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="flex flex-col items-center gap-4"
                 >
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.8, duration: 1, ease: "easeOut" }}
-                    >
-                        <span className="inline-block border border-gold-400/50 bg-black/20 backdrop-blur-sm py-2 px-4 md:px-6 rounded-full text-gold-300 tracking-[0.2em] md:tracking-[0.3em] font-light uppercase text-[10px] md:text-sm mb-6 md:mb-8 shadow-lg">
-                            Premium Ethnic & Designer Wear
-                        </span>
-                    </motion.div>
-
-                    <motion.h2
-                        variants={sentence}
-                        initial="hidden"
-                        animate="visible"
-                        className="font-serif text-5xl md:text-7xl lg:text-8xl text-white font-bold tracking-tight mb-4 drop-shadow-2xl leading-tight md:leading-[0.9] flex flex-wrap justify-center overflow-hidden"
-                    >
-                        {titleText.split("").map((char, index) => (
-                            <motion.span key={char + "-" + index} variants={letter} className="inline-block">
-                                {char}
-                            </motion.span>
-                        ))}
-                        <motion.span
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 1.5, duration: 1, ease: "easeOut" }}
-                            className="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-600 italic font-light ml-4"
-                        >
-                            Boutique
-                        </motion.span>
-                    </motion.h2>
-
-                    <motion.p
-                        initial={{ opacity: 0, filter: "blur(10px)" }}
-                        animate={{ opacity: 1, filter: "blur(0px)" }}
-                        transition={{ delay: 1.8, duration: 1 }}
-                        className="text-white/90 text-base md:text-xl font-light max-w-2xl mx-auto mb-8 md:mb-10 leading-relaxed tracking-wide text-shadow-gold"
-                    >
-                        Curated ethnic, Indo-western and wedding wear crafted for timeless elegance.
-                    </motion.p>
-
-                    <a href="#products">
-                        <motion.button
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 2, duration: 0.8, type: "spring", stiffness: 100 }}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="group relative overflow-hidden bg-gold-500 text-white px-8 md:px-12 py-3 md:py-4 rounded-full uppercase tracking-[0.15em] md:tracking-[0.2em] text-[10px] md:text-sm font-semibold shadow-[0_0_30px_rgba(197,160,89,0.5)] hover:shadow-[0_0_50px_rgba(197,160,89,0.8)] transition-all duration-300 whitespace-nowrap"
-                        >
-                            <span className="relative z-10">Explore Our Collection</span>
-                            <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-[0.16,1,0.3,1] -z-0"></div>
-                        </motion.button>
-                    </a>
+                    <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-300">Scroll</span>
+                    <div className="w-px h-12 bg-gradient-to-b from-gray-300 to-transparent"></div>
                 </motion.div>
-            </motion.div>
-
-            {/* Floating Organic Elements */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5, duration: 2 }}
-                className="absolute top-1/4 left-10 w-32 h-32 bg-gold-500/20 rounded-full blur-3xl animate-pulse"
-            ></motion.div>
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2, duration: 2 }}
-                className="absolute bottom-1/3 right-10 w-64 h-64 bg-maroon-500/20 rounded-full blur-3xl animate-pulse delay-700"
-            ></motion.div>
+            </div>
         </section>
     );
 };

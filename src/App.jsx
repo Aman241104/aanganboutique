@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -22,8 +22,6 @@ function App() {
   const [inquiryBag, setInquiryBag] = useState([]);
   const [isBagOpen, setIsBagOpen] = useState(false);
   const [isAIStylistOpen, setIsAIStylistOpen] = useState(false);
-  const [cursorPos, setCursorPos] = useState({ x: -100, y: -100 });
-  const [isHovering, setIsHovering] = useState(false);
 
   // Smooth Scroll Progress Bar
   const { scrollYProgress } = useScroll();
@@ -32,33 +30,6 @@ function App() {
     damping: 30,
     restDelta: 0.001
   });
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setCursorPos({ x: e.clientX, y: e.clientY });
-    };
-
-    const handleMouseOver = (e) => {
-      if (
-        e.target.tagName === 'A' || 
-        e.target.tagName === 'BUTTON' || 
-        e.target.closest('button') || 
-        e.target.closest('a') ||
-        e.target.classList.contains('cursor-pointer')
-      ) {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseover', handleMouseOver);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseover', handleMouseOver);
-    };
-  }, []);
 
   const addToBag = (product) => {
     if (!inquiryBag.find(item => item.id === product.id)) {
@@ -86,16 +57,6 @@ function App() {
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-gold-500 origin-left z-[100]"
         style={{ scaleX }}
-      />
-
-      {/* Custom Cursor */}
-      <div
-        className={`custom-cursor hidden lg:block ${isHovering ? 'cursor-hover' : ''}`}
-        style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px` }}
-      />
-      <div
-        className={`custom-cursor-follower hidden lg:block ${isHovering ? 'cursor-hover-follower' : ''}`}
-        style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px` }}
       />
 
       <Header bagCount={inquiryBag.length} onOpenBag={() => setIsBagOpen(true)} />
