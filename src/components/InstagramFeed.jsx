@@ -85,9 +85,12 @@ const InstagramFeed = () => {
     ];
 
     return (
-        <section id="instagram" className="py-12 md:py-24 bg-white overflow-hidden">
-            <div className="container mx-auto px-4 lg:px-8">
-                <div className="text-center mb-16">
+        <section id="instagram" className="py-24 md:py-32 bg-[#FDFBF7] overflow-hidden relative border-t border-gray-100">
+            {/* Background Texture Overlay */}
+            <div className="absolute inset-0 opacity-[0.02] pointer-events-none z-0" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
+
+            <div className="container mx-auto px-4 lg:px-12 relative z-10">
+                <div className="text-center mb-20">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -95,10 +98,10 @@ const InstagramFeed = () => {
                         viewport={{ once: true }}
                         className="flex flex-col items-center"
                     >
-                        <Instagram className="text-gold-600 mb-4" size={40} />
-                        <span className="text-gold-600 uppercase tracking-widest text-xs font-semibold mb-2">Follow Us on Instagram</span>
-                        <h2 className="font-serif text-4xl lg:text-5xl text-dark-900 mb-4">@_aanganboutique_</h2>
-                        <div className="w-24 h-1 bg-gold-500 rounded-full mb-8"></div>
+                        <Instagram className="text-gold-600 mb-6" size={32} strokeWidth={1.5} />
+                        <span className="text-gold-600 uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Social Presence</span>
+                        <h2 className="font-serif text-4xl lg:text-6xl text-maroon-900 mb-6">@_aanganboutique_</h2>
+                        <div className="w-24 h-px bg-gold-400 mb-8"></div>
                     </motion.div>
                 </div>
 

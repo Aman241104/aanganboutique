@@ -181,16 +181,15 @@ const Products = ({ onAddToBag }) => {
 
     return (
         <>
-            <section id="products" className="py-12 md:py-24 bg-cream relative overflow-hidden">
-                {/* Background Organic Shapes */}
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold-200/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
-                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-maroon-100/30 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/3 pointer-events-none"></div>
+            <section id="products" className="py-24 md:py-32 bg-[#FDFBF7] relative overflow-hidden">
+                {/* Background Texture Overlay */}
+                <div className="absolute inset-0 opacity-[0.02] pointer-events-none z-0" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
 
-                <div className="container mx-auto px-4 lg:px-8 relative z-10">
-                    <div className="text-center mb-20">
-                        <span className="text-gold-600 uppercase tracking-[0.2em] text-xs font-semibold mb-3 block">Curated Selection</span>
-                        <h2 className="font-serif text-4xl lg:text-5xl text-maroon-900 mb-6 drop-shadow-sm">Our Collections</h2>
-                        <div className="w-px h-16 bg-gradient-to-b from-maroon-900/0 via-maroon-900/50 to-maroon-900/0 mx-auto"></div>
+                <div className="container mx-auto px-4 lg:px-12 relative z-10">
+                    <div className="text-center mb-24">
+                        <span className="text-gold-600 uppercase tracking-[0.4em] text-[10px] font-bold mb-4 block">Curated Selection</span>
+                        <h2 className="font-serif text-4xl lg:text-6xl text-maroon-900 mb-6 drop-shadow-sm">Our Collections</h2>
+                        <div className="w-24 h-px bg-gold-400 mx-auto"></div>
                     </div>
 
                     <motion.div

@@ -14,12 +14,15 @@ const CollectionGallery = () => {
     ];
 
     return (
-        <section id="collection-gallery" className="py-12 md:py-24 bg-cream overflow-hidden">
-            <div className="container mx-auto px-4 lg:px-8">
-                <div className="flex flex-col items-center mb-16">
-                    <span className="text-gold-600 uppercase tracking-widest text-xs font-semibold mb-2">Our Signature Pieces</span>
-                    <h2 className="font-serif text-4xl lg:text-5xl text-maroon-900 mb-4 text-center">Collection Spotlight</h2>
-                    <div className="w-24 h-1 bg-gold-500 rounded-full"></div>
+        <section id="collection-gallery" className="py-24 md:py-32 bg-[#FDFBF7] overflow-hidden relative">
+            {/* Background Texture Overlay */}
+            <div className="absolute inset-0 opacity-[0.02] pointer-events-none z-0" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
+            
+            <div className="container mx-auto px-4 lg:px-12 relative z-10">
+                <div className="flex flex-col items-center mb-24">
+                    <span className="text-gold-600 uppercase tracking-[0.4em] text-[10px] font-bold mb-4 block">Our Signature Pieces</span>
+                    <h2 className="font-serif text-4xl lg:text-6xl text-maroon-900 mb-6 text-center">Collection Spotlight</h2>
+                    <div className="w-24 h-px bg-gold-400"></div>
                 </div>
 
                 <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
