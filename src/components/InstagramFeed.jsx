@@ -152,19 +152,19 @@ const InstagramFeed = () => {
 
                 {/* Interactive CTA */}
                 <div className="text-center mt-32 relative">
-                    <div className="absolute top-1/2 left-0 w-full h-px bg-gold-200 z-0"></div>
+                    <div className="absolute top-1/2 left-0 w-full h-px bg-gold-200/30 z-0"></div>
                     <motion.a
                         whileHover={{ scale: 1.05, y: -5 }}
                         whileTap={{ scale: 0.95 }}
                         href="https://www.instagram.com/_aanganboutique_/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="relative z-10 inline-flex items-center gap-6 bg-maroon-950 text-white px-16 py-6 rounded-full uppercase tracking-[0.4em] text-[11px] font-bold hover:shadow-[0_20px_50px_rgba(44,4,11,0.3)] transition-all duration-500 border border-maroon-800"
+                        className="relative z-10 inline-flex items-center gap-6 bg-maroon-950 text-white px-16 py-6 rounded-full uppercase tracking-[0.4em] text-[11px] font-bold hover:shadow-[0_20px_50px_rgba(26,2,7,0.4)] transition-all duration-500 border border-gold-500/30 group/cta"
                     >
-                        <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
-                            <Instagram size={16} />
+                        <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover/cta:bg-white/20 transition-colors">
+                            <Instagram size={18} />
                         </div>
-                        Join The Journey
+                        <span className="group-hover/cta:text-gold-200 transition-colors">Join The Journey</span>
                     </motion.a>
                 </div>
             </div>
