@@ -6,28 +6,28 @@ const categories = [
     {
         id: 1,
         title: 'Wedding Collection',
-        image: '/gallery/optimized/784A4393.webp',
+        image: '/drive_images/optimized/copy_of_0d2a7949_1.webp',
         description: 'Exquisitely crafted outfits for weddings and grand celebrations.',
         size: 'large'
     },
     {
         id: 2,
         title: 'Festive Wear',
-        image: '/gallery/optimized/prod1.webp',
+        image: '/drive_images/optimized/784a4401_1.webp',
         description: 'Elegant ethnic wear for joyful family gatherings.',
         size: 'small'
     },
     {
         id: 3,
         title: 'Indo Western',
-        image: '/gallery/optimized/prod2.webp',
+        image: '/drive_images/optimized/copy_of_0d2a7945_1.webp',
         description: 'Modern silhouettes blending Indian and global aesthetics.',
         size: 'small'
     },
     {
         id: 4,
         title: 'Dress Materials',
-        image: '/gallery/optimized/prod3.webp',
+        image: '/drive_images/optimized/784a4398.webp',
         description: 'Premium fabrics for custom-made formal wear.',
         size: 'small'
     }

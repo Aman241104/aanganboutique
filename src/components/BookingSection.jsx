@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Calendar, Check, Star, ArrowRight, Scissors, Ruler, Sparkles, Heart } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Check, Star, ArrowRight, Scissors, Ruler, Sparkles, Heart, Calendar, Clock, MapPin } from 'lucide-react';
 
 const slots = [
     { id: 'slot1', label: '2:00 PM - 3:00 PM', startHour: 14, endHour: 15 },
     { id: 'slot2', label: '4:00 PM - 5:00 PM', startHour: 16, endHour: 17 },
     { id: 'slot3', label: '6:00 PM - 7:00 PM', startHour: 18, endHour: 19 },
+    { id: 'slot4', label: '7:00 PM - 8:00 PM', startHour: 19, endHour: 20 },
 ];
 
 const serviceTypes = [
-    { id: 'bridal', label: 'Bridal Consultation', icon: <Heart size={14} /> },
-    { id: 'custom', label: 'Custom Tailoring', icon: <Scissors size={14} /> },
-    { id: 'styling', label: 'Personal Styling', icon: <Sparkles size={14} /> },
-    { id: 'measurement', label: 'Measurement & Fitting', icon: <Ruler size={14} /> },
+    { id: 'bridal', label: 'Bridal Consultation', icon: <Heart size={18} />, color: 'bg-rose-50' },
+    { id: 'custom', label: 'Custom Tailoring', icon: <Scissors size={18} />, color: 'bg-blue-50' },
+    { id: 'styling', label: 'Personal Styling', icon: <Sparkles size={18} />, color: 'bg-amber-50' },
+    { id: 'measurement', label: 'Measurement & Fitting', icon: <Ruler size={18} />, color: 'bg-emerald-50' },
 ];
 
 const BookingSection = () => {
@@ -34,211 +35,222 @@ const BookingSection = () => {
         setSelectedDate(next7Days[0]);
     }, []);
 
-    const addToCalendar = () => {
-        if (!selectedDate || !selectedSlot) return;
-
-        const year = selectedDate.getFullYear();
-        const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
-        const day = String(selectedDate.getDate()).padStart(2, '0');
-
-        const startTime = `${year}${month}${day}T${String(selectedSlot.startHour).padStart(2, '0')}0000`;
-        const endTime = `${year}${month}${day}T${String(selectedSlot.endHour).padStart(2, '0')}0000`;
-
-        const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(selectedService.label)}+with+Aangan+Boutique&dates=${startTime}/${endTime}&details=Fashion+consultation+meeting.&location=Aangan+Boutique&add=datawizard1631@gmail.com`;
-        window.open(gCalUrl, '_blank');
-    };
-
-    const sendWhatsApp = () => {
-        if (!selectedDate || !selectedSlot) return;
-        const dateStr = selectedDate.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
-        const message = `Hello Aangan Boutique, I would like to book a *${selectedService.label}* on ${dateStr} at ${selectedSlot.label}.`;
-        window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
-    };
-
     const handleConfirm = () => {
         if (!selectedDate || !selectedSlot) return;
+        
+        const dateStr = selectedDate.toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            day: 'numeric', 
+            month: 'long' 
+        });
+        
+        const message = `Hello Aangan Boutique! I would like to book a *${selectedService.label}* on *${dateStr}* during the *${selectedSlot.label}* slot. Please let me know if this is available.`;
+        
+        window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
         setStep('success');
-        addToCalendar();
-    };
-
-    const resetBooking = () => {
-        setStep('selection');
-        setSelectedSlot(null);
     };
 
     return (
-        <section className="py-12 md:py-20 bg-cream relative overflow-hidden" id="booking">
-            {/* Background Decor */}
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-gold-50/50 -skew-x-12 hidden lg:block pointer-events-none"></div>
+        <section className="py-24 md:py-48 bg-[#FCFAFB] relative overflow-hidden" id="booking">
+            {/* Artistic Background Elements */}
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-gold-50/20 skew-x-12 translate-x-32 pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-maroon-900/5 rounded-full blur-[100px] -ml-32 -mb-32 pointer-events-none"></div>
+            
+            {/* Background Texture Overlay */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
 
-            <div className="container mx-auto px-4 lg:px-8 relative z-10">
-                <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <div className="container mx-auto px-4 lg:px-20 relative z-10">
+                <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-32">
 
-                    {/* Left Content */}
+                    {/* Left Narrative: The Invitation */}
+                    <div className="lg:w-1/2">
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1 }}
+                        >
+                            <div className="flex items-center gap-3 text-gold-600 font-bold tracking-[0.4em] uppercase text-[10px] mb-8">
+                                <span className="w-8 h-px bg-gold-600"></span>
+                                <span>Bespoke Consultation</span>
+                            </div>
+                            
+                            <h2 className="text-5xl lg:text-8xl font-serif text-maroon-950 mb-10 leading-[0.9] tracking-tighter">
+                                Book Your <br />
+                                <span className="italic font-light text-gold-500">Styling Session</span>
+                            </h2>
+                            
+                            <p className="text-gray-500 text-xl font-light leading-relaxed mb-12 max-w-lg">
+                                Step into the world of Aangan. Our private consultations are designed to translate your vision into an artisanal masterpiece.
+                            </p>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                {[
+                                    { title: "One-on-One", desc: "Dedicated stylist guidance", icon: <Users size={18}/> },
+                                    { title: "Bespoke Fit", desc: "Precision measurements", icon: <Scissors size={18}/> },
+                                    { title: "Fabric Library", desc: "Exclusive textile access", icon: <MapPin size={18}/> },
+                                    { title: "Heirloom Quality", desc: "Bridal wear focus", icon: <Award size={18}/> }
+                                ].map((item, idx) => (
+                                    <motion.div 
+                                        key={idx}
+                                        whileHover={{ y: -5 }}
+                                        className="flex items-start gap-4 p-4 rounded-2xl hover:bg-white hover:shadow-xl transition-all duration-500 border border-transparent hover:border-gold-100"
+                                    >
+                                        <div className="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center text-gold-600 shrink-0">
+                                            {item.icon || <Check size={16} />}
+                                        </div>
+                                        <div>
+                                            <h4 className="text-maroon-900 font-bold text-sm tracking-wide mb-1">{item.title}</h4>
+                                            <p className="text-gray-400 text-xs font-light">{item.desc}</p>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </motion.div>
+                    </div>
+
+                    {/* Right: The Concierge Card */}
                     <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
-                        className="lg:w-1/2"
+                        className="lg:w-1/2 w-full max-w-2xl"
                     >
-                        <div className="flex items-center gap-2 text-gold-600 font-semibold tracking-widest uppercase text-sm mb-4">
-                            <Star size={16} fill="currentColor" />
-                            <span>Private Consultation</span>
-                        </div>
-                        <h2 className="text-4xl lg:text-5xl font-serif text-maroon-900 mb-6 leading-tight">
-                            Book Your Exclusive <br />
-                            <span className="italic">Styling Session</span>
-                        </h2>
-                        <p className="text-gray-600 text-lg mb-8 leading-relaxed max-w-xl">
-                            Reserve a dedicated time with our expert fashion consultants. Experience personalized guidance, tailored fittings, and an exclusive preview of our latest collections in a private setting.
-                        </p>
-
-                        <div className="space-y-4 mb-8">
-                            {[
-                                "One-on-one styling advice",
-                                "Custom measurement & fitting",
-                                "Bridal wear consultations",
-                                "Exclusive collection previews"
-                            ].map((item, idx) => (
-                                <div key={idx} className="flex items-center gap-3">
-                                    <div className="w-6 h-6 rounded-full bg-gold-100 flex items-center justify-center text-gold-600">
-                                        <Check size={14} />
-                                    </div>
-                                    <span className="text-dark-800 font-medium">{item}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    {/* Right Booking Card */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="lg:w-1/2 w-full"
-                    >
-                        <div className="bg-white p-8 rounded-3xl shadow-xl border border-gold-100 relative overflow-hidden">
-                            {/* Decorative stripe */}
-                            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-maroon-900 to-gold-500"></div>
-
-                            {step === 'selection' ? (
-                                <>
-                                    <div className="mb-8">
-                                        <h3 className="text-2xl font-serif text-maroon-900 mb-2">Plan Your Visit</h3>
-                                        <p className="text-gray-500 text-sm">Select service, date and preferred time slot</p>
-                                    </div>
-
-                                    {/* Service Type */}
-                                    <div className="mb-6">
-                                        <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 block">Select Service</label>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            {serviceTypes.map((service) => (
-                                                <button
-                                                    key={service.id}
-                                                    onClick={() => setSelectedService(service)}
-                                                    className={`flex items-center gap-2 p-3 rounded-xl border text-xs font-medium transition-all ${selectedService.id === service.id
-                                                        ? 'border-maroon-900 bg-maroon-50 text-maroon-900 ring-1 ring-maroon-900'
-                                                        : 'border-gray-100 bg-gray-50 hover:border-gold-400 text-gray-600'
-                                                        }`}
-                                                >
-                                                    <span className={selectedService.id === service.id ? 'text-maroon-900' : 'text-gold-600'}>
-                                                        {service.icon}
-                                                    </span>
-                                                    {service.label}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Dates */}
-                                    <div className="mb-6">
-                                        <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 block">Available Dates</label>
-                                        <div className="flex gap-3 overflow-x-auto pb-4 scrollbar-hide">
-                                            {dates.map((date, index) => {
-                                                const isSelected = selectedDate?.toDateString() === date.toDateString();
-                                                return (
-                                                    <button
-                                                        key={index}
-                                                        onClick={() => setSelectedDate(date)}
-                                                        className={`flex-shrink-0 min-w-[80px] p-4 rounded-xl border text-center transition-all ${isSelected
-                                                            ? 'border-maroon-900 bg-maroon-50 text-maroon-900 ring-1 ring-maroon-900'
-                                                            : 'border-gray-100 bg-gray-50 hover:border-gold-400'
-                                                            }`}
-                                                    >
-                                                        <div className="text-xs text-gray-500 uppercase font-bold mb-1">
-                                                            {date.toLocaleDateString('en-US', { weekday: 'short' })}
-                                                        </div>
-                                                        <div className={`text-xl font-bold ${isSelected ? 'text-maroon-900' : 'text-gray-900'}`}>
-                                                            {date.getDate()}
-                                                        </div>
-                                                    </button>
-                                                );
-                                            })}
-                                        </div>
-                                    </div>
-
-                                    {/* Slots */}
-                                    <div className="mb-8">
-                                        <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 block">Available Slots</label>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                            {slots.map((slot) => {
-                                                const isSelected = selectedSlot?.id === slot.id;
-                                                return (
-                                                    <button
-                                                        key={slot.id}
-                                                        onClick={() => setSelectedSlot(slot)}
-                                                        className={`flex items-center justify-between p-4 rounded-xl border transition-all ${isSelected
-                                                            ? 'border-maroon-900 bg-maroon-900 text-white shadow-md transform scale-[1.02]'
-                                                            : 'border-gray-100 bg-white hover:border-gold-400 hover:shadow-sm text-gray-700'
-                                                            }`}
-                                                    >
-                                                        <span className="font-medium text-sm">{slot.label}</span>
-                                                        {isSelected && <Check size={16} />}
-                                                    </button>
-                                                );
-                                            })}
-                                        </div>
-                                    </div>
-
-                                    <button
-                                        onClick={handleConfirm}
-                                        disabled={!selectedDate || !selectedSlot}
-                                        className="w-full bg-gold-600 text-white py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-gold-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
+                        <div className="bg-white p-8 md:p-16 rounded-[4rem] shadow-[0_60px_100px_-20px_rgba(44,4,11,0.12)] border border-gold-100/50 relative overflow-hidden group">
+                            {/* Signature Atelier Stripe */}
+                            <div className="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-maroon-950 via-gold-500 to-maroon-950"></div>
+                            
+                            <AnimatePresence mode="wait">
+                                {step === 'selection' ? (
+                                    <motion.div
+                                        key="selection"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -20 }}
+                                        className="space-y-12"
                                     >
-                                        Confirm Booking <ArrowRight size={18} />
-                                    </button>
-                                </>
-                            ) : (
-                                <div className="text-center py-10">
-                                    <h3 className="text-3xl font-serif text-maroon-900 mb-2">Almost Done!</h3>
-                                    <p className="text-gray-500 mb-8 max-w-xs mx-auto">
-                                        Your {selectedService.label} is provisionally held. Please confirm via WhatsApp.
-                                    </p>
+                                        <div>
+                                            <h3 className="text-3xl font-serif text-maroon-950 mb-3 tracking-tight">Plan Your Visit</h3>
+                                            <p className="text-gray-400 text-sm font-light uppercase tracking-widest">Select your preferred session details</p>
+                                        </div>
 
-                                    <div className="space-y-4">
-                                        <button
-                                            onClick={addToCalendar}
-                                            className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition-all flex items-center justify-center gap-3 shadow-md hover:-translate-y-1"
+                                        {/* Services */}
+                                        <div className="space-y-4">
+                                            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em] flex items-center gap-2">
+                                                <Star size={12} className="text-gold-500" /> Choose Service
+                                            </label>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                {serviceTypes.map((service) => (
+                                                    <button
+                                                        key={service.id}
+                                                        onClick={() => setSelectedService(service)}
+                                                        className={`flex items-center gap-4 p-5 rounded-[2rem] border-2 transition-all duration-500 group/btn ${selectedService.id === service.id
+                                                            ? 'border-maroon-900 bg-maroon-900 text-white shadow-xl'
+                                                            : 'border-gray-50 bg-gray-50/50 hover:border-gold-200 hover:bg-white text-gray-600'
+                                                            }`}
+                                                    >
+                                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${selectedService.id === service.id ? 'bg-gold-500 text-maroon-950' : 'bg-white text-gold-600 shadow-sm'}`}>
+                                                            {service.icon}
+                                                        </div>
+                                                        <span className="font-bold text-xs uppercase tracking-widest">{service.label}</span>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* Dates */}
+                                        <div className="space-y-4">
+                                            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em] flex items-center gap-2">
+                                                <Calendar size={12} className="text-gold-500" /> Select Date
+                                            </label>
+                                            <div className="flex gap-4 overflow-x-auto pb-6 pt-2 scrollbar-hide -mx-2 px-2">
+                                                {dates.map((date, index) => {
+                                                    const isSelected = selectedDate?.toDateString() === date.toDateString();
+                                                    return (
+                                                        <button
+                                                            key={index}
+                                                            onClick={() => setSelectedDate(date)}
+                                                            className={`flex-shrink-0 w-24 p-6 rounded-[2.5rem] border-2 text-center transition-all duration-500 ${isSelected
+                                                                ? 'border-maroon-900 bg-maroon-900 text-white shadow-2xl scale-110'
+                                                                : 'border-gray-50 bg-white hover:border-gold-300 shadow-sm'
+                                                                }`}
+                                                        >
+                                                            <div className={`text-[9px] uppercase font-bold mb-3 ${isSelected ? 'text-gold-400' : 'text-gray-400'}`}>
+                                                                {date.toLocaleDateString('en-US', { weekday: 'short' })}
+                                                            </div>
+                                                            <div className={`text-2xl font-serif ${isSelected ? 'text-white' : 'text-maroon-950'}`}>
+                                                                {date.getDate()}
+                                                            </div>
+                                                        </button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+
+                                        {/* Slots */}
+                                        <div className="space-y-4">
+                                            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em] flex items-center gap-2">
+                                                <Clock size={12} className="text-gold-500" /> Available Time
+                                            </label>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                {slots.map((slot) => {
+                                                    const isSelected = selectedSlot?.id === slot.id;
+                                                    return (
+                                                        <button
+                                                            key={slot.id}
+                                                            onClick={() => setSelectedSlot(slot)}
+                                                            className={`flex items-center justify-center p-6 rounded-[2rem] border-2 transition-all duration-500 ${isSelected
+                                                                ? 'border-maroon-900 bg-maroon-900 text-white shadow-xl'
+                                                                : 'border-gray-50 bg-gray-50/50 hover:border-gold-300 hover:bg-white text-maroon-950'
+                                                                }`}
+                                                        >
+                                                            <span className="font-bold text-[11px] uppercase tracking-[0.2em]">{slot.label}</span>
+                                                        </button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+
+                                        <motion.button
+                                            whileHover={{ scale: 1.02, backgroundColor: '#B08A3E' }}
+                                            whileTap={{ scale: 0.98 }}
+                                            onClick={handleConfirm}
+                                            disabled={!selectedDate || !selectedSlot}
+                                            className="w-full bg-gold-600 text-white py-6 rounded-[2.5rem] font-bold uppercase tracking-[0.4em] text-[10px] hover:shadow-[0_20px_60px_rgba(204,160,82,0.4)] transition-all disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed flex items-center justify-center gap-6 relative overflow-hidden group/confirm"
                                         >
-                                            <Calendar size={20} /> Add to Google Calendar
-                                        </button>
+                                            <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover/confirm:translate-x-full transition-transform duration-1000 ease-in-out"></div>
+                                            Confirm Appointment <ArrowRight size={18} />
+                                        </motion.button>
+                                    </motion.div>
+                                ) : (
+                                    <motion.div
+                                        key="success"
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        className="text-center py-20"
+                                    >
+                                        <div className="w-32 h-32 bg-gold-500/10 rounded-full flex items-center justify-center text-gold-600 mx-auto mb-10 relative">
+                                            <motion.div 
+                                                animate={{ scale: [1, 1.2, 1] }}
+                                                transition={{ duration: 2, repeat: Infinity }}
+                                                className="absolute inset-0 bg-gold-500/5 rounded-full"
+                                            />
+                                            <CheckCircle2 size={64} strokeWidth={1} />
+                                        </div>
+                                        <h3 className="text-4xl font-serif text-maroon-950 mb-6">Request Acknowledged</h3>
+                                        <p className="text-gray-500 mb-12 leading-relaxed max-w-sm mx-auto font-light">
+                                            We've synchronized with your WhatsApp to coordinate your <strong>{selectedService.label}</strong>. We look forward to seeing you.
+                                        </p>
                                         <button
-                                            onClick={sendWhatsApp}
-                                            className="w-full bg-[#25D366] text-white py-4 rounded-xl font-bold hover:bg-[#20bd5a] transition-all flex items-center justify-center gap-3 shadow-md hover:-translate-y-1"
+                                            onClick={() => setStep('selection')}
+                                            className="text-gold-600 font-bold uppercase tracking-[0.4em] text-[10px] border-b border-gold-400 pb-2 hover:text-maroon-900 hover:border-maroon-900 transition-all"
                                         >
-                                            <Check size={20} /> Confirm via WhatsApp
+                                            Book Another Session
                                         </button>
-                                        <button
-                                            onClick={resetBooking}
-                                            className="mt-6 text-maroon-900 font-medium hover:underline text-sm"
-                                        >
-                                            Modify Appointment
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     </motion.div>
                 </div>
@@ -246,5 +258,8 @@ const BookingSection = () => {
         </section>
     );
 };
+
+const Users = ({size}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
+const Award = ({size}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></svg>;
 
 export default BookingSection;

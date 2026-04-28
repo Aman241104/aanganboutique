@@ -1,104 +1,149 @@
 import React from 'react';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Instagram, Facebook, ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Contact = () => {
     return (
-        <section id="contact" className="relative bg-maroon-900 text-white overflow-hidden">
-            <div className="flex flex-col lg:flex-row h-full">
-                {/* Visual Side with Curve */}
-                <motion.div
-                    initial={{ opacity: 0, x: -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    viewport={{ once: true }}
-                    className="relative w-full lg:w-1/2 min-h-[300px] md:min-h-[500px] lg:h-auto"
-                >
-                    <div
-                        className="absolute inset-0 bg-cover bg-center"
-                        style={{ backgroundImage: 'url(/drive_images/optimized/copy_of_0d2a7949_1.webp)' }}
+        <section id="contact" className="relative bg-[#0A0A0A] text-white overflow-hidden py-24 md:py-48">
+            {/* Cinematic Background Decor */}
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gold-600/10 rounded-full blur-[120px] -mr-64 -mt-64 pointer-events-none opacity-50"></div>
+            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-maroon-900/10 rounded-full blur-[100px] -ml-64 -mb-64 pointer-events-none opacity-30"></div>
+            
+            {/* Subtle Texture Overlay */}
+            <div className="absolute inset-0 opacity-[0.02] pointer-events-none z-0" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
+
+            <div className="container mx-auto px-4 lg:px-20 relative z-10">
+                <div className="flex flex-col lg:flex-row gap-20 lg:gap-32 items-center">
+                    
+                    {/* Visual: Editorial Portrait Side */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                        viewport={{ once: true }}
+                        className="w-full lg:w-5/12 relative group"
                     >
-                        <div className="absolute inset-0 bg-maroon-900/40 mix-blend-multiply"></div>
-                    </div>
-                    {/* Organic Wave Divider */}
-                    <div className="absolute top-0 bottom-0 right-0 w-24 bg-dark-900 hidden lg:block" style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 100%, 80% 50%, 0 0)' }}></div>
-                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-dark-900 lg:hidden" style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0, 50% 80%, 0 0)' }}></div>
+                        <div className="relative aspect-[4/5] rounded-[3rem] md:rounded-[5rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-white/10">
+                            <img 
+                                src="/drive_images/optimized/copy_of_0d2a7949_1.webp" 
+                                alt="Aangan Boutique Interior" 
+                                className="w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-maroon-950/60 via-transparent to-transparent"></div>
+                            
+                            {/* Glass Visit Overlay */}
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <motion.a
+                                    href="#map"
+                                    initial={{ y: 20, opacity: 0 }}
+                                    whileInView={{ y: 0, opacity: 1 }}
+                                    transition={{ delay: 0.8, duration: 1 }}
+                                    className="glass px-12 py-10 rounded-blob-1 border border-white/20 backdrop-blur-2xl shadow-2xl flex flex-col items-center gap-4 group/btn cursor-pointer no-underline"
+                                >
+                                    <h2 className="font-serif text-5xl text-white tracking-tighter">Visit Us</h2>
+                                    <div className="flex items-center gap-2 text-gold-400 text-[10px] font-bold uppercase tracking-[0.4em] translate-y-2 opacity-0 group-hover/btn:translate-y-0 group-hover/btn:opacity-100 transition-all duration-500">
+                                        Open Map <ArrowUpRight size={14} />
+                                    </div>
+                                </motion.a>
+                            </div>
+                        </div>
+                        
+                        {/* Decorative Floating Frame */}
+                        <div className="absolute -inset-4 border border-gold-500/10 rounded-[4rem] md:rounded-[6rem] -z-10 group-hover:scale-105 transition-transform duration-1000"></div>
+                    </motion.div>
 
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    {/* Content: Narrative Information Side */}
+                    <div className="w-full lg:w-7/12">
                         <motion.div
-                            initial={{ scale: 0.8, opacity: 0 }}
-                            whileInView={{ scale: 1, opacity: 1 }}
-                            transition={{ delay: 0.3, duration: 0.8, type: "spring" }}
-                            className="glass p-8 rounded-blob-1 border border-white/20 backdrop-blur-md"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
+                            className="mb-20"
                         >
-                            <h2 className="font-serif text-4xl text-white drop-shadow-lg">Visit Us</h2>
+                            <span className="text-gold-500 uppercase tracking-[0.5em] text-[10px] font-bold mb-8 block">Get In Touch</span>
+                            <h2 className="font-serif text-5xl md:text-8xl mb-10 tracking-tighter leading-none">
+                                We'd Love to <br />
+                                <span className="italic font-light text-gold-400">Hear From You</span>
+                            </h2>
+                            <p className="text-gray-400 font-light leading-relaxed max-w-xl text-xl">
+                                Deeply rooted in tradition, yet open to the world. Step into our studio for a journey through the finest Indian couture.
+                            </p>
                         </motion.div>
-                    </div>
-                </motion.div>
 
-                {/* Content Side */}
-                <motion.div
-                    initial={{ opacity: 0, x: 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-                    viewport={{ once: true }}
-                    className="w-full lg:w-1/2 p-6 md:p-12 lg:p-24 flex flex-col justify-center relative"
-                >
-                    {/* Background Glow */}
-                    <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-gold-500/10 rounded-full blur-[100px] -translate-y-1/2 pointer-events-none"></div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+                            {/* Address & Hours Column */}
+                            <motion.div 
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.2 }}
+                                className="space-y-12"
+                            >
+                                <div className="space-y-4">
+                                    <div className="flex items-center gap-3 text-gold-500/40 font-bold tracking-widest uppercase text-[9px]">
+                                        <MapPin size={14} /> The Studio Location
+                                    </div>
+                                    <p className="text-white text-lg font-serif leading-relaxed">
+                                        Aangan Boutique, 1st floor, K-158,<br />
+                                        Sindhu Bhavan Marg, Bodakdev,<br />
+                                        Ahmedabad, Gujarat 380054
+                                    </p>
+                                </div>
+                                
+                                <div className="space-y-4 pt-8 border-t border-white/5">
+                                    <div className="flex items-center gap-3 text-gold-500/40 font-bold tracking-widest uppercase text-[9px]">
+                                        <Clock size={14} /> Visiting Hours
+                                    </div>
+                                    <div className="space-y-2">
+                                        <p className="text-white text-lg font-serif">Mon - Sat: 11:00 AM - 08:00 PM</p>
+                                        <p className="text-gold-500/80 text-lg font-serif italic">Sun: 04:00 PM - 08:00 PM</p>
+                                    </div>
+                                </div>
+                            </motion.div>
 
-                    <div className="mb-12">
-                        <span className="text-gold-500 uppercase tracking-widest text-xs font-semibold mb-2 block">Reach Out</span>
-                        <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl mb-6">Contact Us</h2>
-                        <p className="text-gray-400 font-light leading-relaxed max-w-md">
-                            We'd love to hear from you. deeply rooted in tradition, yet open to the world.
-                        </p>
-                    </div>
+                            {/* Direct Contact & Social Column */}
+                            <motion.div 
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.4 }}
+                                className="space-y-12"
+                            >
+                                <div className="space-y-4">
+                                    <div className="flex items-center gap-3 text-gold-500/40 font-bold tracking-widest uppercase text-[9px]">
+                                        <Phone size={14} /> Direct Concierge
+                                    </div>
+                                    <a href="tel:+917948923535" className="text-white text-3xl md:text-4xl font-serif hover:text-gold-500 transition-colors block tracking-tighter">
+                                        +91 79 4892 3535
+                                    </a>
+                                </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-0">
-                        <div className="space-y-6">
-                            <div className="flex items-start space-x-4 group">
-                                <div className="p-3 rounded-full border border-gray-700 text-gold-500 group-hover:bg-gold-500 group-hover:text-dark-900 transition-colors">
-                                    <MapPin size={20} />
+                                <div className="space-y-4 pt-8 border-t border-white/5">
+                                    <div className="flex items-center gap-3 text-gold-500/40 font-bold tracking-widest uppercase text-[9px]">
+                                        <Mail size={14} /> Digital Inquiry
+                                    </div>
+                                    <a href="mailto:hello@aanganboutique.com" className="text-white text-xl font-serif hover:text-gold-500 transition-colors block pb-2 border-b border-white/10 w-fit">
+                                        hello@aanganboutique.com
+                                    </a>
                                 </div>
-                                <div>
-                                    <h4 className="font-serif text-lg mb-1">Our Studio</h4>
-                                    <p className="text-gray-400 text-sm font-light">Aangan Boutique, 1st floor, K-158,<br />Sindhu Bhavan Marg, opp. Bajrang Super Market,<br />PRL Colony, Bodakdev, Ahmedabad, Gujarat 380054</p>
+
+                                {/* Social Ecosystem */}
+                                <div className="pt-8">
+                                    <div className="text-gold-500/40 font-bold tracking-widest uppercase text-[9px] mb-6">Social Ecosystem</div>
+                                    <div className="flex gap-4">
+                                        <a href="#" className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-gold-500 hover:text-maroon-950 transition-all duration-500 shadow-xl group">
+                                            <Instagram size={24} className="group-hover:scale-110 transition-transform" />
+                                        </a>
+                                        <a href="#" className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-gold-500 hover:text-maroon-950 transition-all duration-500 shadow-xl group">
+                                            <Facebook size={24} className="group-hover:scale-110 transition-transform" />
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex items-start space-x-4 group">
-                                <div className="p-3 rounded-full border border-gray-700 text-gold-500 group-hover:bg-gold-500 group-hover:text-dark-900 transition-colors">
-                                    <Clock size={20} />
-                                </div>
-                                <div>
-                                    <h4 className="font-serif text-lg mb-1">Opening Hours</h4>
-                                    <p className="text-gray-400 text-sm font-light">Mon - Sat: 11 AM - 8 PM<br />Sun: 4 PM - 8 PM</p>
-                                </div>
-                            </div>
+                            </motion.div>
                         </div>
-
-                        <div className="space-y-6">
-                            <div className="flex items-start space-x-4 group">
-                                <div className="p-3 rounded-full border border-gray-700 text-gold-500 group-hover:bg-gold-500 group-hover:text-dark-900 transition-colors">
-                                    <Phone size={20} />
-                                </div>
-                                <div>
-                                    <h4 className="font-serif text-lg mb-1">Call Us</h4>
-                                    <p className="text-gray-400 text-sm font-light">+91 79 4892 3535</p>
-                                </div>
-                            </div>
-                            <div className="flex items-start space-x-4 group">
-                                <div className="p-3 rounded-full border border-gray-700 text-gold-500 group-hover:bg-gold-500 group-hover:text-dark-900 transition-colors">
-                                    <Mail size={20} />
-                                </div>
-                                <div>
-                                    <h4 className="font-serif text-lg mb-1">Email</h4>
-                                    <p className="text-gray-400 text-sm font-light">aanganboutique2018@gmail.com</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                </motion.div>
+                </div>
             </div>
         </section>
     );

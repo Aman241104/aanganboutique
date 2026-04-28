@@ -1,16 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Play, Maximize2 } from 'lucide-react';
 
 const CollectionGallery = () => {
     const assets = [
-        { id: 1, src: '/gallery/optimized/prod1.webp', type: 'image', title: 'Royal Maroon Lehenga' },
-        { id: 2, src: '/gallery/optimized/lookbook1-opt.mp4', type: 'video', title: 'The Wedding Edit' },
-        { id: 3, src: '/drive_images/optimized/copy_of_0d2a7945_1.webp', type: 'image', title: 'Designer Ethnic Wear' },
-        { id: 4, src: '/gallery/optimized/lookbook2-opt.mp4', type: 'video', title: 'Festive Vibes' },
-        { id: 5, src: '/drive_images/optimized/copy_of_0d2a8387_1.webp', type: 'image', title: 'Bridal Grace' },
-        { id: 6, src: '/drive_images/optimized/copy_of_0d2a7947_1.webp', type: 'image', title: 'Modern Elegance' },
-        { id: 7, src: '/drive_images/optimized/784a4398.webp', type: 'image', title: 'Festive Collection' },
-        { id: 8, src: '/drive_images/optimized/copy_of_0d2a8394_1.webp', type: 'image', title: 'Couture Detail' },
+        { id: 1, src: '/drive_images/optimized/copy_of_0d2a7942_1.webp', type: 'image', title: 'Royal Maroon Lehenga', span: 'row-span-2' },
+        { id: 2, src: '/gallery/optimized/lookbook1-opt.mp4', type: 'video', title: 'The Wedding Edit', span: 'row-span-3' },
+        { id: 3, src: '/drive_images/optimized/copy_of_0d2a8350_1.webp', type: 'image', title: 'Designer Ethnic Wear', span: 'row-span-2' },
+        { id: 4, src: '/gallery/optimized/lookbook2-opt.mp4', type: 'video', title: 'Festive Vibes', span: 'row-span-2' },
+        { id: 5, src: '/drive_images/optimized/copy_of_0d2a8387_1.webp', type: 'image', title: 'Bridal Grace', span: 'row-span-3' },
+        { id: 6, src: '/drive_images/optimized/copy_of_0d2a8369_1.webp', type: 'image', title: 'Modern Elegance', span: 'row-span-2' },
+        { id: 7, src: '/drive_images/optimized/784a4403.webp', type: 'image', title: 'Festive Collection', span: 'row-span-2' },
+        { id: 8, src: '/drive_images/optimized/copy_of_0d2a8394_1.webp', type: 'image', title: 'Couture Detail', span: 'row-span-2' },
     ];
 
     return (
@@ -20,50 +21,83 @@ const CollectionGallery = () => {
             
             <div className="container mx-auto px-4 lg:px-12 relative z-10">
                 <div className="flex flex-col items-center mb-24">
-                    <span className="text-gold-600 uppercase tracking-[0.4em] text-[10px] font-bold mb-4 block">Our Signature Pieces</span>
-                    <h2 className="font-serif text-4xl lg:text-6xl text-maroon-900 mb-6 text-center">Collection Spotlight</h2>
-                    <div className="w-24 h-px bg-gold-400"></div>
+                    <motion.span 
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-gold-600 uppercase tracking-[0.4em] text-[10px] font-bold mb-4 block"
+                    >
+                        Our Signature Pieces
+                    </motion.span>
+                    <motion.h2 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
+                        className="font-serif text-4xl lg:text-7xl text-maroon-900 mb-8 text-center"
+                    >
+                        Collection Spotlight
+                    </motion.h2>
+                    <motion.div 
+                        initial={{ width: 0 }}
+                        whileInView={{ width: '80px' }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1 }}
+                        className="h-px bg-gold-400"
+                    ></motion.div>
                 </div>
 
-                <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[200px]">
                     {assets.map((asset, index) => (
                         <motion.div
                             key={asset.id}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.8, delay: index * 0.1 }}
                             viewport={{ once: true }}
-                            className="relative group overflow-hidden rounded-[2em] shadow-lg bg-white break-inside-avoid"
+                            className={`${asset.span} relative group overflow-hidden rounded-[2.5rem] bg-white shadow-lg`}
                         >
                             {asset.type === 'video' ? (
-                                <video
-                                    autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                    className="w-full h-auto object-cover transition-transform duration-[2s] group-hover:scale-110"
-                                >
-                                    <source src={asset.src} type="video/mp4" />
-                                </video>
+                                <div className="w-full h-full relative">
+                                    <video
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
+                                    >
+                                        <source src={asset.src} type="video/mp4" />
+                                    </video>
+                                    <div className="absolute top-6 right-6 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white">
+                                        <Play size={16} fill="currentColor" />
+                                    </div>
+                                </div>
                             ) : (
                                 <img
                                     src={asset.src}
                                     alt={asset.title}
                                     loading="lazy"
-                                    className="w-full h-auto object-cover transition-transform duration-[2s] group-hover:scale-110"
+                                    className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
                                 />
                             )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-maroon-900/80 via-maroon-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-end pb-8">
-                                <motion.div
+                            
+                            {/* Hover Overlay */}
+                            <div className="absolute inset-0 bg-maroon-950/40 opacity-0 group-hover:opacity-100 transition-all duration-700 flex flex-col items-center justify-center">
+                                <motion.div 
                                     initial={{ y: 20, opacity: 0 }}
-                                    whileInView={{ y: 0, opacity: 1 }}
-                                    className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 flex flex-col items-center"
+                                    whileHover={{ y: 0, opacity: 1 }}
+                                    className="flex flex-col items-center p-8 text-center"
                                 >
-                                    <span className="text-gold-200 font-serif italic text-2xl mb-1 block text-center">Aangan</span>
-                                    <h3 className="text-white font-serif text-xl mb-4 text-center px-4">{asset.title}</h3>
-                                    <button className="glass px-6 py-2 rounded-full text-white text-[10px] uppercase tracking-[0.3em] hover:bg-white hover:text-maroon-900 transition-colors">
-                                        View Details
-                                    </button>
+                                    <span className="text-gold-200 font-serif italic text-2xl mb-2 block">Aangan</span>
+                                    <h3 className="text-white font-serif text-xl mb-6 tracking-wide">{asset.title}</h3>
+                                    <div className="flex gap-4">
+                                        <button className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-maroon-900 hover:bg-gold-500 hover:text-white transition-colors">
+                                            <Maximize2 size={18} />
+                                        </button>
+                                        <button className="glass px-6 py-2 rounded-full text-white text-[10px] uppercase tracking-[0.3em] font-bold border border-white/30 hover:bg-white hover:text-maroon-900 transition-all">
+                                            View Piece
+                                        </button>
+                                    </div>
                                 </motion.div>
                             </div>
                         </motion.div>

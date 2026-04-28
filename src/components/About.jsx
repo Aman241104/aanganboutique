@@ -54,7 +54,7 @@ const About = () => {
                                 className="absolute -bottom-10 -right-4 md:-right-12 w-1/2 aspect-square rounded-[2rem] overflow-hidden shadow-2xl z-20 border-[12px] border-white group"
                             >
                                 <img 
-                                    src="/drive_images/optimized/copy_of_0d2a8385_1.webp" 
+                                    src="/drive_images/optimized/copy_of_0d2a7943_1.webp" 
                                     alt="Detail Work" 
                                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                                 />

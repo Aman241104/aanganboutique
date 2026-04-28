@@ -134,13 +134,22 @@ const Hero = () => {
                             {/* Decorative Elements */}
                             <motion.div 
                                 style={{ y: y2 }}
-                                className="absolute -top-10 right-[10%] w-32 h-32 border border-gold-400/30 rounded-full z-10 pointer-events-none"
+                                className="absolute -top-16 -right-16 w-64 h-64 border border-gold-400/20 rounded-full z-10 pointer-events-none"
                             ></motion.div>
                             
-                            <div className="absolute -bottom-6 right-1/4 z-30 flex flex-col items-center gap-4 bg-white p-6 rounded-2xl shadow-xl">
-                                <span className="text-maroon-900 font-serif text-2xl italic">Est.</span>
-                                <span className="text-gold-600 font-bold tracking-widest text-lg">2024</span>
-                            </div>
+                            <motion.div 
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 1.5, duration: 1 }}
+                                className="absolute -bottom-8 -right-8 z-40 flex flex-col items-center justify-center bg-[#FDFBF7] p-10 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gold-100 group hover:border-gold-300 transition-colors"
+                            >
+                                <span className="text-maroon-900 font-serif text-3xl italic leading-none group-hover:text-gold-600 transition-colors">Est.</span>
+                                <div className="w-12 h-px bg-gold-200 my-3"></div>
+                                <span className="text-gold-600 font-bold tracking-[0.3em] text-sm uppercase">2024</span>
+                                
+                                {/* Orbital Ring */}
+                                <div className="absolute inset-0 border border-gold-400/10 rounded-full animate-spin-slow m-2"></div>
+                            </motion.div>
                         </div>
                     </div>
 

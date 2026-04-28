@@ -28,29 +28,17 @@ const Header = ({ bagCount, onOpenBag }) => {
     ];
 
     return (
-        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${isScrolled ? 'bg-white/80 backdrop-blur-md py-4' : 'bg-transparent py-8'}`}>
+        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-1000 ${isScrolled ? 'bg-white/90 backdrop-blur-xl py-4 shadow-[0_10px_40px_rgba(0,0,0,0.05)]' : 'bg-transparent py-10'}`}>
             <div className="container mx-auto px-4 lg:px-12">
                 <div className="flex items-center justify-between">
 
-                    {/* Mobile Menu Button */}
-                    <button className="text-maroon-900 lg:hidden" onClick={() => setIsMobileMenuOpen(true)}>
-                        <Menu size={24} strokeWidth={1} />
-                    </button>
-
-                    {/* Logo - Centered for high-end feel */}
-                    <div className="absolute left-1/2 -translate-x-1/2 lg:static lg:left-0 lg:translate-x-0 transition-all duration-700">
-                        <div className={`transition-all duration-700 ${isScrolled ? 'w-24' : 'w-32'}`}>
-                            <img src="/Logo1.png" alt="Aangan Boutique" className="w-full h-auto object-contain" />
-                        </div>
-                    </div>
-
-                    {/* Desktop Navigation */}
-                    <nav className="hidden lg:flex items-center space-x-12">
+                    {/* Left: Desktop Navigation */}
+                    <nav className="hidden lg:flex items-center space-x-10">
                         {navLinks.slice(0, 4).map((link) => (
                             <a
                                 key={link.name}
                                 href={link.href}
-                                className="group relative text-[10px] font-bold tracking-[0.3em] transition-colors uppercase text-maroon-900 hover:text-gold-600"
+                                className={`group relative text-[10px] font-bold tracking-[0.4em] transition-all uppercase ${isScrolled ? 'text-maroon-900' : 'text-maroon-950'} hover:text-gold-600`}
                             >
                                 {link.name}
                                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold-600 transition-all duration-500 group-hover:w-full"></span>
@@ -58,38 +46,58 @@ const Header = ({ bagCount, onOpenBag }) => {
                         ))}
                     </nav>
 
-                    <nav className="hidden lg:flex items-center space-x-12">
-                        {navLinks.slice(4).map((link) => (
-                            <a
-                                key={link.name}
-                                href={link.href}
-                                className="group relative text-[10px] font-bold tracking-[0.3em] transition-colors uppercase text-maroon-900 hover:text-gold-600"
-                            >
-                                {link.name}
-                                <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold-600 transition-all duration-500 group-hover:w-full"></span>
-                            </a>
-                        ))}
-                    </nav>
+                    {/* Center: Logo */}
+                    <div className="absolute left-1/2 -translate-x-1/2 transition-all duration-1000">
+                        <a href="#hero" className={`block transition-all duration-1000 ${isScrolled ? 'w-24' : 'w-36'}`}>
+                            <img 
+                                src="/Logo1.webp" 
+                                alt="Aangan Boutique" 
+                                className={`w-full h-auto object-contain transition-all duration-1000 ${isScrolled ? 'brightness-100' : 'brightness-90'}`} 
+                            />
+                        </a>
+                    </div>
 
-                    {/* Icons */}
-                    <div className="flex items-center space-x-8 text-maroon-900">
-                        <button
-                            className="hover:text-gold-600 transition-colors hidden sm:block relative group"
-                            onClick={() => setIsBookingOpen(true)}
-                        >
-                            <CalendarDays size={18} strokeWidth={1.5} />
-                        </button>
-                        <button 
-                            className="hover:text-gold-600 transition-colors relative"
-                            onClick={onOpenBag}
-                        >
-                            <ShoppingBag size={18} strokeWidth={1.5} />
-                            {bagCount > 0 && (
-                                <span className="absolute -top-1.5 -right-1.5 flex h-3.5 w-3.5 bg-gold-500 text-[8px] items-center justify-center text-white font-bold rounded-full">
-                                    {bagCount}
-                                </span>
-                            )}
-                        </button>
+                    {/* Right: Actions & Secondary Nav */}
+                    <div className="flex items-center gap-10">
+                        <nav className="hidden xl:flex items-center space-x-10">
+                            {navLinks.slice(4, 7).map((link) => (
+                                <a
+                                    key={link.name}
+                                    href={link.href}
+                                    className={`group relative text-[10px] font-bold tracking-[0.4em] transition-all uppercase ${isScrolled ? 'text-maroon-900' : 'text-maroon-950'} hover:text-gold-600`}
+                                >
+                                    {link.name}
+                                    <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold-600 transition-all duration-500 group-hover:w-full"></span>
+                                </a>
+                            ))}
+                        </nav>
+
+                        <div className={`flex items-center gap-6 ${isScrolled ? 'text-maroon-900' : 'text-maroon-950'}`}>
+                            <button
+                                className="hover:text-gold-600 transition-all hidden sm:block group relative"
+                                onClick={() => setIsBookingOpen(true)}
+                            >
+                                <CalendarDays size={20} strokeWidth={1.2} />
+                                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[8px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Book</span>
+                            </button>
+                            <button 
+                                className="hover:text-gold-600 transition-all relative group"
+                                onClick={onOpenBag}
+                            >
+                                <ShoppingBag size={20} strokeWidth={1.2} />
+                                {bagCount > 0 && (
+                                    <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 bg-gold-500 text-[8px] items-center justify-center text-white font-bold rounded-full shadow-lg">
+                                        {bagCount}
+                                    </span>
+                                )}
+                                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[8px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Bag</span>
+                            </button>
+                            
+                            {/* Mobile Toggle */}
+                            <button className="lg:hidden ml-4" onClick={() => setIsMobileMenuOpen(true)}>
+                                <Menu size={24} strokeWidth={1.2} />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
