@@ -8,28 +8,28 @@ const categories = [
         title: 'Wedding Collection',
         image: '/drive_images/optimized/copy_of_0d2a7949_1.webp',
         description: 'Exquisitely crafted outfits for weddings and grand celebrations.',
-        size: 'large'
+        gridClass: 'lg:col-span-2 lg:row-span-2 aspect-[4/5] lg:aspect-auto'
     },
     {
         id: 2,
         title: 'Festive Wear',
         image: '/drive_images/optimized/784a4401_1.webp',
         description: 'Elegant ethnic wear for joyful family gatherings.',
-        size: 'small'
+        gridClass: 'lg:col-span-2 lg:row-span-1 aspect-square lg:aspect-auto'
     },
     {
         id: 3,
         title: 'Indo Western',
         image: '/drive_images/optimized/copy_of_0d2a7945_1.webp',
         description: 'Modern silhouettes blending Indian and global aesthetics.',
-        size: 'small'
+        gridClass: 'lg:col-span-1 lg:row-span-1 aspect-square'
     },
     {
         id: 4,
         title: 'Dress Materials',
         image: '/drive_images/optimized/784a4398.webp',
         description: 'Premium fabrics for custom-made formal wear.',
-        size: 'small'
+        gridClass: 'lg:col-span-1 lg:row-span-1 aspect-square'
     }
 ];
 
@@ -152,9 +152,7 @@ const CategoryTile = ({ cat, index, onExplore }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: index * 0.1 }}
-            className={`group relative overflow-hidden rounded-[2.5rem] bg-white shadow-2xl border border-gray-100 ${
-                cat.size === 'large' ? 'lg:col-span-2 lg:row-span-2 aspect-[4/5] lg:aspect-auto' : 'aspect-square'
-            }`}
+            className={`group relative overflow-hidden rounded-[2.5rem] bg-white shadow-2xl border border-gray-100 ${cat.gridClass}`}
         >
             <motion.img
                 src={cat.image}
@@ -177,13 +175,13 @@ const CategoryTile = ({ cat, index, onExplore }) => {
                 </motion.span>
                 
                 <h3 className={`font-serif text-white leading-none mb-6 group-hover:text-gold-200 transition-colors ${
-                    cat.size === 'large' ? 'text-4xl md:text-6xl' : 'text-2xl md:text-3xl'
+                    cat.id === 1 ? 'text-4xl md:text-6xl' : 'text-2xl md:text-3xl'
                 }`}>
                     {cat.title}
                 </h3>
                 
                 <p className={`text-white/70 font-light leading-relaxed max-w-xs mb-8 transition-opacity duration-500 opacity-0 group-hover:opacity-100 ${
-                    cat.size === 'large' ? 'text-lg' : 'text-sm'
+                    cat.id === 1 ? 'text-lg' : 'text-sm'
                 }`}>
                     {cat.description}
                 </p>
