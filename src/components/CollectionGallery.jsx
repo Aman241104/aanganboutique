@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Maximize2, X, MessageCircle, ArrowRight, ArrowLeft } from 'lucide-react';
 
@@ -207,9 +207,6 @@ const CollectionGallery = () => {
             </AnimatePresence>
         </section>
     );
-};
-
-export default CollectionGallery;
 };
 
 export default CollectionGallery;
