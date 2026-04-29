@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, Star, ArrowRight, Scissors, Ruler, Sparkles, Heart, Calendar, Clock, MapPin } from 'lucide-react';
+import { Check, Star, ArrowRight, Scissors, Ruler, Sparkles, Heart, Calendar, Clock, MapPin, CheckCircle2 } from 'lucide-react';
 
 const slots = [
     { id: 'slot1', label: '2:00 PM - 3:00 PM', startHour: 14, endHour: 15 },
@@ -44,7 +44,7 @@ const BookingSection = () => {
             month: 'long' 
         });
         
-        const message = `Hello Aangan Boutique! I would like to book a *${selectedService.label}* on *${dateStr}* during the *${selectedSlot.label}* slot. Please let me know if this is available.`;
+        const message = `*Appointment Booking - Aangan Boutique*\n\nHello! I would like to book a *${selectedService.label}*.\n\n*Preferred Schedule:*\n📅 Date: ${dateStr}\n⏰ Slot: ${selectedSlot.label}\n\nPlease let me know if this is available.`;
         
         window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
         setStep('success');

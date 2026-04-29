@@ -115,7 +115,7 @@ function App() {
       {/* Floating Actions */}
       <div className="fixed bottom-8 right-8 z-40 flex flex-col gap-4">
         <a
-          href="https://wa.me/919876543210"
+          href="https://wa.me/919876543210?text=Hello%20Aangan%20Boutique!%20I'd%20like%20to%20know%20more%20about%20your%20latest%20collections."
           target="_blank"
           rel="noopener noreferrer"
           className="bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all flex items-center justify-center"

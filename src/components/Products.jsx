@@ -82,7 +82,8 @@ const ProductFlipCard = ({ product, onAddToBag }) => {
     const [isFlipped, setIsFlipped] = useState(false);
 
     const handleBuyNow = () => {
-        const message = `Hello, I'm interested in the ${product.title} priced at ${product.price}. Please provide more details.`;
+        const imageUrl = `${window.location.origin}${product.image.startsWith('/') ? '' : '/'}${product.image}`;
+        const message = `*Product Inquiry - Aangan Boutique*\n\nHello, I am interested in the following piece from your collection:\n\n*Item:* ${product.title}\n*Price:* ${product.price}\n*Link:* ${imageUrl}\n\nPlease provide more details regarding availability and the purchase process.`;
         window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
     };
 

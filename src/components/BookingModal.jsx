@@ -55,8 +55,8 @@ const BookingModal = ({ isOpen, onClose }) => {
 
     const sendWhatsApp = () => {
         if (!selectedDate || !selectedSlot) return;
-        const dateStr = selectedDate.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
-        const message = `Hello Aangan Boutique, I would like to book a ${selectedService.label} on ${dateStr} at ${selectedSlot.label}.`;
+        const dateStr = selectedDate.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });
+        const message = `*Consultation Request - Aangan Boutique*\n\nHello, I would like to book a *${selectedService.label}*.\n\n*Details:*\n📅 Date: ${dateStr}\n⏰ Time: ${selectedSlot.label}\n\nPlease confirm if this slot is available. Thank you!`;
         window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
     };
 

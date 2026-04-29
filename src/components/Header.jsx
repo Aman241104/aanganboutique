@@ -32,23 +32,9 @@ const Header = ({ bagCount, onOpenBag }) => {
             <div className="container mx-auto px-4 lg:px-12">
                 <div className="flex items-center justify-between">
 
-                    {/* Left: Desktop Navigation */}
-                    <nav className="hidden lg:flex items-center space-x-10">
-                        {navLinks.slice(0, 4).map((link) => (
-                            <a
-                                key={link.name}
-                                href={link.href}
-                                className={`group relative text-[10px] font-bold tracking-[0.4em] transition-all uppercase ${isScrolled ? 'text-maroon-900' : 'text-maroon-950'} hover:text-gold-600`}
-                            >
-                                {link.name}
-                                <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold-600 transition-all duration-500 group-hover:w-full"></span>
-                            </a>
-                        ))}
-                    </nav>
-
-                    {/* Center: Logo */}
-                    <div className="absolute left-1/2 -translate-x-1/2 transition-all duration-1000">
-                        <a href="#hero" className={`block transition-all duration-1000 ${isScrolled ? 'w-24' : 'w-36'}`}>
+                    {/* Left: Logo */}
+                    <div className="transition-all duration-1000 z-10 flex-shrink-0">
+                        <a href="#hero" className={`block transition-all duration-1000 ${isScrolled ? 'w-20 md:w-24' : 'w-28 md:w-36'}`}>
                             <img 
                                 src="/Logo1.webp" 
                                 alt="Aangan Boutique" 
@@ -57,14 +43,14 @@ const Header = ({ bagCount, onOpenBag }) => {
                         </a>
                     </div>
 
-                    {/* Right: Actions & Secondary Nav */}
-                    <div className="flex items-center gap-10">
-                        <nav className="hidden xl:flex items-center space-x-10">
-                            {navLinks.slice(4, 7).map((link) => (
+                    {/* Right: Actions & Nav */}
+                    <div className="flex items-center gap-6 xl:gap-10">
+                        <nav className="hidden xl:flex items-center space-x-6 xl:space-x-8">
+                            {navLinks.map((link) => (
                                 <a
                                     key={link.name}
                                     href={link.href}
-                                    className={`group relative text-[10px] font-bold tracking-[0.4em] transition-all uppercase ${isScrolled ? 'text-maroon-900' : 'text-maroon-950'} hover:text-gold-600`}
+                                    className={`group relative text-[9px] font-bold tracking-[0.3em] transition-all uppercase ${isScrolled ? 'text-maroon-900' : 'text-maroon-950'} hover:text-gold-600`}
                                 >
                                     {link.name}
                                     <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold-600 transition-all duration-500 group-hover:w-full"></span>
@@ -72,14 +58,18 @@ const Header = ({ bagCount, onOpenBag }) => {
                             ))}
                         </nav>
 
-                        <div className={`flex items-center gap-6 ${isScrolled ? 'text-maroon-900' : 'text-maroon-950'}`}>
+                        <div className={`flex items-center gap-4 md:gap-6 ${isScrolled ? 'text-maroon-900' : 'text-maroon-950'}`}>
                             <button
-                                className="hover:text-gold-600 transition-all hidden sm:block group relative"
                                 onClick={() => setIsBookingOpen(true)}
+                                className={`hidden md:flex items-center gap-2 px-5 py-2.5 rounded-full border-2 transition-all duration-300 text-[9px] font-bold uppercase tracking-[0.2em] 
+                                    ${isScrolled 
+                                        ? 'border-gold-600/50 text-maroon-900 hover:bg-gold-600 hover:text-white hover:border-gold-600 shadow-sm' 
+                                        : 'border-gold-500/50 text-maroon-950 hover:bg-gold-500 hover:text-white hover:border-gold-500 shadow-md'}`}
                             >
-                                <CalendarDays size={20} strokeWidth={1.2} />
-                                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[8px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Book</span>
+                                <CalendarDays size={14} strokeWidth={2} />
+                                Book Consultation
                             </button>
+
                             <button 
                                 className="hover:text-gold-600 transition-all relative group"
                                 onClick={onOpenBag}
@@ -94,7 +84,7 @@ const Header = ({ bagCount, onOpenBag }) => {
                             </button>
                             
                             {/* Mobile Toggle */}
-                            <button className="lg:hidden ml-4" onClick={() => setIsMobileMenuOpen(true)}>
+                            <button className="xl:hidden ml-2" onClick={() => setIsMobileMenuOpen(true)}>
                                 <Menu size={24} strokeWidth={1.2} />
                             </button>
                         </div>
@@ -118,7 +108,7 @@ const Header = ({ bagCount, onOpenBag }) => {
                                 <X size={28} strokeWidth={1.5} />
                             </button>
                         </div>
-                        <nav className="flex flex-col space-y-8">
+                        <nav className="flex flex-col space-y-6">
                             {navLinks.map((link, idx) => (
                                 <motion.a
                                     key={link.name}
@@ -132,6 +122,19 @@ const Header = ({ bagCount, onOpenBag }) => {
                                     {link.name}
                                 </motion.a>
                             ))}
+                            <motion.button
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.1 + navLinks.length * 0.05 }}
+                                onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    setIsBookingOpen(true);
+                                }}
+                                className="mt-8 flex items-center justify-center gap-3 bg-gold-600 text-white px-8 py-5 rounded-full text-sm font-bold uppercase tracking-[0.2em] shadow-2xl shadow-gold-600/20"
+                            >
+                                <CalendarDays size={18} />
+                                Book Consultation
+                            </motion.button>
                         </nav>
                         <div className="mt-auto">
                             <p className="text-center text-sm font-light text-gray-400 uppercase tracking-widest">Est. 2024</p>

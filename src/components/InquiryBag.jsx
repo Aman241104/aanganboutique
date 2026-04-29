@@ -6,8 +6,13 @@ const InquiryBag = ({ items, onClose, onRemove }) => {
     const totalItems = items.length;
 
     const handleInquiry = () => {
-        const itemNames = items.map(item => `- ${item.title} (${item.price})`).join('\n');
-        const message = `Hello Aangan Boutique, I am interested in inquiring about the following items:\n\n${itemNames}\n\nPlease provide more details regarding availability and sizing.`;
+        const itemDetails = items.map(item => {
+            const imageUrl = `${window.location.origin}${item.image.startsWith('/') ? '' : '/'}${item.image}`;
+            return `*${item.title}*\nPrice: ${item.price}\nImage: ${imageUrl}`;
+        }).join('\n\n');
+        
+        const message = `*New Product Inquiry - Aangan Boutique*\n\nHello, I am interested in inquiring about the following items from your collection:\n\n${itemDetails}\n\nPlease provide more details regarding availability, sizing, and the booking process.\n\nThank you!`;
+        
         window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
     };
 
