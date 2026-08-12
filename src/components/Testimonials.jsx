@@ -5,47 +5,47 @@ import { Star, Quote, ShieldCheck } from 'lucide-react';
 const testimonials = [
     {
         id: 1,
-        name: 'Namita Sheth',
-        location: 'Ahmedabad',
+        name: 'Pankaj Patil',
+        meta: '4 reviews',
         rating: 5,
-        review: 'It was really a great experience. I was looking for my reception ball gowns and trust me I went to all areas at Ahmedabad. Be it stadium, be it gurukul, asopalav, sindhubhavan but did not get what I wanted. They had exactly what I wanted. Never tried to sell me which was at higher price. They told me whatever I like would make alteration as per my requirements.',
-        date: '10 weeks ago',
+        review: 'Hi, I am a regular customer of Aangan Boutique and I always love their collection. The best part is the warm and friendly behaviour of the entire staff.',
+        date: '4 weeks ago',
         avatarColor: 'bg-gold-600'
     },
     {
         id: 2,
-        name: 'Sheetal Thadani',
-        location: 'Ahmedabad',
+        name: 'Jaimika Tahelani',
+        meta: '4 reviews',
         rating: 5,
-        review: 'I’ve been getting a lot of my outfits made from Aangan for several years now, and I’ve always been in love with their work. They are extremely helpful and often accommodate even tight timelines. The perfect fit and the exquisite quality of their embroidery are truly their USP, matched only by their warm hospitality.',
-        date: '22 weeks ago',
+        review: 'I had an absolutely delightful experience at Aangan Boutique. The collection is elegant, with a perfect blend of contemporary trends and timeless classics. The fabric quality exceeded my expectations: rich, comfortable, and clearly premium.',
+        date: '3 months ago',
         avatarColor: 'bg-maroon-600'
     },
     {
         id: 3,
-        name: 'Manya Shah',
-        location: 'Ahmedabad',
+        name: 'Swati Babel',
+        meta: 'Local Guide · 7 reviews',
         rating: 5,
-        review: 'Amazing experience... Juhi ma’am and Pradeep sir helped a lot and took my preferences into note and gave me the exact outfit which made me feel wonderful and pretty They were very kind and prompt to help me out... I would surely visit again...🥰',
-        date: '11 weeks ago',
+        review: 'Aangan Boutique truly exceeded my expectations. They helped me with the perfect Indo-Western dress at the very last minute and even opened the store early just for me so I could get the ideal fit before flying back to another city.',
+        date: '6 months ago',
         avatarColor: 'bg-maroon-900'
     },
     {
         id: 4,
-        name: 'Reshma Thomas',
-        location: 'USA',
+        name: 'Krishiv Vakil',
+        meta: '1 review',
         rating: 5,
-        review: 'I’ve been getting my saree blouses designed by Aangan Boutique for the last four years, and I genuinely haven’t found anyone who matches their level of understanding and intricacy to detail. They just get it from the exact fit I want to how the blouse should enhance the entire look. If you’re in Ahmedabad and looking for ethnic wear that stands out, this is the place.',
-        date: '24 weeks ago',
+        review: 'I was looking for something special for a function and found Aangan. Inka stitching aur fitting was too good. The alterations was perfect and as per the sizes. Recommend them as a great boutique in Ahmedabad.',
+        date: '6 months ago',
         avatarColor: 'bg-gold-500'
     },
     {
         id: 5,
-        name: 'Harshi Mehta',
-        location: 'Dubai',
+        name: 'Dhaivat Kothary',
+        meta: '2 reviews',
         rating: 5,
-        review: 'Every time I visit Aangan Boutique, I’m genuinely amazed by their collection. It never fails to surprise me with its uniqueness and elegance. Juhi Aunty has an incredible eye for fashion—she always handpicks the perfect garments for me, making the selection process not just easy, but truly enjoyable.',
-        date: '34 weeks ago',
+        review: 'We chose Aangan Boutique on SBR Road for our entire Wedding Trousseau, and it was the best decision! The personalized styling consultation was so helpful, making the whole process seamless.',
+        date: '7 months ago',
         avatarColor: 'bg-maroon-700'
     }
 ];
@@ -86,7 +86,7 @@ const ReviewCard = ({ item }) => (
                 </div>
                 <div>
                     <h4 className="text-maroon-900 font-serif text-base font-bold leading-tight">{item.name}</h4>
-                    <p className="text-gray-400 text-[11px] uppercase tracking-widest font-medium">{item.location}</p>
+                    <p className="text-gray-400 text-[11px] uppercase tracking-widest font-medium">{item.meta}</p>
                 </div>
             </div>
             <div className="flex flex-col items-end gap-1.5 shrink-0">
@@ -129,7 +129,7 @@ const Testimonials = () => {
                                 <div className="flex text-gold-500 gap-0.5">
                                     {[...Array(5)].map((_, i) => <Star key={i} size={11} fill="currentColor" stroke="none" />)}
                                 </div>
-                                <span className="text-maroon-900 text-[10px] font-bold uppercase tracking-widest">4.9 Stars on Google</span>
+                                <span className="text-maroon-900 text-[10px] font-bold uppercase tracking-widest">4.9 · 147 Google Reviews</span>
                             </div>
                         </div>
                     </motion.div>
