@@ -79,8 +79,8 @@ const Visit = () => {
                             </div>
                             <p className="text-maroon-950 text-lg font-serif leading-relaxed">
                                 Aangan Boutique, 1st floor, K-158,<br />
-                                Sindhu Bhavan Marg, Bodakdev,<br />
-                                Ahmedabad, Gujarat 380054
+                                Sindhu Bhavan Marg, Opp. Bajrang Super Market,<br />
+                                PRL Colony, Bodakdev, Ahmedabad, Gujarat 380054
                             </p>
                         </motion.div>
 

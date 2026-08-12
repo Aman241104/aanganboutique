@@ -10,20 +10,31 @@ const slots = [
     { id: 'slot4', label: '6:00 PM - 7:00 PM', startHour: 18 },
 ];
 
+const occasions = ['Wedding Trousseau', 'Festive Wear', 'Everyday Ethnic', 'Custom Design', 'Other'];
+
 // Client-supplied opening lines go here — placeholders until the exact copy arrives.
 const MESSAGE_TEMPLATES = {
     inStore: () =>
         `Hi! I came across Aangan Boutique and would like to book an in-store visit to explore your collection.`,
-    videoCall: (dateStr, slotLabel) =>
-        `Hi! I'd like to book a video consultation with Aangan Boutique.\n\nPreferred date: ${dateStr}\nPreferred time: ${slotLabel}\n\nPlease confirm if this slot works.`,
+    videoCall: (dateStr, slotLabel, details) => {
+        let msg = `Hi! I'd like to book a video consultation with Aangan Boutique.\n\nPreferred date: ${dateStr}\nPreferred time: ${slotLabel}`;
+        if (details.name) msg += `\nName: ${details.name}`;
+        if (details.cityCountry) msg += `\nCity/Country: ${details.cityCountry}`;
+        if (details.occasion) msg += `\nOccasion: ${details.occasion}`;
+        msg += `\n\nPlease confirm if this slot works.`;
+        return msg;
+    },
 };
 
-const BookingModal = ({ isOpen, onClose }) => {
+const BookingModal = ({ isOpen, onClose, initialType = null }) => {
     const [step, setStep] = useState('choose'); // 'choose' | 'schedule' | 'success'
     const [selectedType, setSelectedType] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedSlot, setSelectedSlot] = useState(null);
     const [dates, setDates] = useState([]);
+    const [name, setName] = useState('');
+    const [cityCountry, setCityCountry] = useState('');
+    const [occasion, setOccasion] = useState('');
 
     useEffect(() => {
         const next7Days = [];
@@ -43,9 +54,15 @@ const BookingModal = ({ isOpen, onClose }) => {
                 setStep('choose');
                 setSelectedType(null);
                 setSelectedSlot(null);
+                setName('');
+                setCityCountry('');
+                setOccasion('');
             }, 300);
+        } else if (initialType === 'video') {
+            setSelectedType('video');
+            setStep('schedule');
         }
-    }, [isOpen]);
+    }, [isOpen, initialType]);
 
     const chooseInStore = () => {
         setSelectedType('in-store');
@@ -61,7 +78,7 @@ const BookingModal = ({ isOpen, onClose }) => {
     const confirmVideoCall = () => {
         if (!selectedDate || !selectedSlot) return;
         const dateStr = selectedDate.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });
-        window.open(whatsappUrl(MESSAGE_TEMPLATES.videoCall(dateStr, selectedSlot.label)), '_blank');
+        window.open(whatsappUrl(MESSAGE_TEMPLATES.videoCall(dateStr, selectedSlot.label, { name, cityCountry, occasion })), '_blank');
         setStep('success');
     };
 
@@ -105,8 +122,9 @@ const BookingModal = ({ isOpen, onClose }) => {
                                             <Store size={24} />
                                         </div>
                                         <div className="flex-grow">
-                                            <div className="font-bold text-gray-900">In-Store Visit</div>
-                                            <div className="text-xs text-gray-500">Visit our Bodakdev atelier — sends a WhatsApp message straight away</div>
+                                            <div className="text-[9px] font-bold uppercase tracking-widest text-gold-600 mb-1">Path One</div>
+                                            <div className="font-bold text-gray-900">Visiting Ahmedabad</div>
+                                            <div className="text-xs text-gray-500">Book an in-store appointment at our Bodakdev atelier — sends a WhatsApp message straight away</div>
                                         </div>
                                         <ArrowRight size={18} className="text-gray-300 group-hover:text-maroon-900 transition-colors" />
                                     </button>
@@ -118,8 +136,9 @@ const BookingModal = ({ isOpen, onClose }) => {
                                             <Video size={24} />
                                         </div>
                                         <div className="flex-grow">
-                                            <div className="font-bold text-gray-900">Video Call</div>
-                                            <div className="text-xs text-gray-500">For clients abroad — pick a date &amp; time, then confirm on WhatsApp</div>
+                                            <div className="text-[9px] font-bold uppercase tracking-widest text-gold-600 mb-1">Path Two</div>
+                                            <div className="font-bold text-gray-900">Abroad or Not Visiting Yet</div>
+                                            <div className="text-xs text-gray-500">Book a video consultation — share a few details, pick a date &amp; time, then confirm on WhatsApp</div>
                                         </div>
                                         <ArrowRight size={18} className="text-gray-300 group-hover:text-maroon-900 transition-colors" />
                                     </button>
@@ -134,6 +153,44 @@ const BookingModal = ({ isOpen, onClose }) => {
                                     >
                                         <ArrowLeft size={14} /> Back
                                     </button>
+
+                                    <div className="mb-8 space-y-4">
+                                        <div>
+                                            <label className="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-widest">Name</label>
+                                            <input
+                                                type="text"
+                                                value={name}
+                                                onChange={(e) => setName(e.target.value)}
+                                                placeholder="Your name"
+                                                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-maroon-900 focus:outline-none transition-colors"
+                                            />
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-widest">City / Country</label>
+                                                <input
+                                                    type="text"
+                                                    value={cityCountry}
+                                                    onChange={(e) => setCityCountry(e.target.value)}
+                                                    placeholder="e.g. New Jersey, USA"
+                                                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-maroon-900 focus:outline-none transition-colors"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-widest">Occasion</label>
+                                                <select
+                                                    value={occasion}
+                                                    onChange={(e) => setOccasion(e.target.value)}
+                                                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-maroon-900 focus:outline-none transition-colors bg-white"
+                                                >
+                                                    <option value="">Select</option>
+                                                    {occasions.map((o) => (
+                                                        <option key={o} value={o}>{o}</option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div className="mb-8">
                                         <label className="block text-sm font-semibold text-gray-700 mb-4 uppercase tracking-widest">Select Date</label>
