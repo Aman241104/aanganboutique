@@ -1,25 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Calendar, Clock, Check, Video, Store } from 'lucide-react';
+import { X, Calendar, Clock, Check, Video, Store, ArrowRight, ArrowLeft } from 'lucide-react';
+import { whatsappUrl } from '../lib/whatsapp';
 
 const slots = [
-    { id: 'slot1', label: '11:00 AM - 12:00 PM', startHour: 11, endHour: 12 },
-    { id: 'slot2', label: '2:00 PM - 3:00 PM', startHour: 14, endHour: 15 },
-    { id: 'slot3', label: '4:00 PM - 5:00 PM', startHour: 16, endHour: 17 },
-    { id: 'slot4', label: '6:00 PM - 7:00 PM', startHour: 18, endHour: 19 },
+    { id: 'slot1', label: '11:00 AM - 12:00 PM', startHour: 11 },
+    { id: 'slot2', label: '2:00 PM - 3:00 PM', startHour: 14 },
+    { id: 'slot3', label: '4:00 PM - 5:00 PM', startHour: 16 },
+    { id: 'slot4', label: '6:00 PM - 7:00 PM', startHour: 18 },
 ];
 
-const services = [
-    { id: 'in-store', label: 'In-Store Visit', icon: Store, description: 'Visit our boutique in Ahmedabad' },
-    { id: 'virtual', label: 'Virtual Styling', icon: Video, description: 'Video call consultation (Global)' },
-];
+// Client-supplied opening lines go here — placeholders until the exact copy arrives.
+const MESSAGE_TEMPLATES = {
+    inStore: () =>
+        `Hi! I came across Aangan Boutique and would like to book an in-store visit to explore your collection.`,
+    videoCall: (dateStr, slotLabel) =>
+        `Hi! I'd like to book a video consultation with Aangan Boutique.\n\nPreferred date: ${dateStr}\nPreferred time: ${slotLabel}\n\nPlease confirm if this slot works.`,
+};
 
 const BookingModal = ({ isOpen, onClose }) => {
-    const [selectedService, setSelectedService] = useState(services[0]);
+    const [step, setStep] = useState('choose'); // 'choose' | 'schedule' | 'success'
+    const [selectedType, setSelectedType] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedSlot, setSelectedSlot] = useState(null);
     const [dates, setDates] = useState([]);
-    const [step, setStep] = useState('selection'); // 'selection' | 'success'
 
     useEffect(() => {
         const next7Days = [];
@@ -31,39 +35,34 @@ const BookingModal = ({ isOpen, onClose }) => {
         }
         setDates(next7Days);
         setSelectedDate(next7Days[0]);
-    }, [isOpen]);
+    }, []);
 
     useEffect(() => {
         if (!isOpen) {
             setTimeout(() => {
-                setStep('selection');
+                setStep('choose');
+                setSelectedType(null);
                 setSelectedSlot(null);
             }, 300);
         }
     }, [isOpen]);
 
-    const addToCalendar = () => {
-        if (!selectedDate || !selectedSlot) return;
-        const year = selectedDate.getFullYear();
-        const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
-        const day = String(selectedDate.getDate()).padStart(2, '0');
-        const startTime = `${year}${month}${day}T${String(selectedSlot.startHour).padStart(2, '0')}0000`;
-        const endTime = `${year}${month}${day}T${String(selectedSlot.endHour).padStart(2, '0')}0000`;
-        const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(selectedService.label)}+with+Aangan+Boutique&dates=${startTime}/${endTime}&details=${encodeURIComponent(selectedService.description)}&location=Aangan+Boutique`;
-        window.open(gCalUrl, '_blank');
+    const chooseInStore = () => {
+        setSelectedType('in-store');
+        window.open(whatsappUrl(MESSAGE_TEMPLATES.inStore()), '_blank');
+        setStep('success');
     };
 
-    const sendWhatsApp = () => {
+    const chooseVideoCall = () => {
+        setSelectedType('video');
+        setStep('schedule');
+    };
+
+    const confirmVideoCall = () => {
         if (!selectedDate || !selectedSlot) return;
         const dateStr = selectedDate.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });
-        const message = `*Consultation Request - Aangan Boutique*\n\nHello, I would like to book a *${selectedService.label}*.\n\n*Details:*\n📅 Date: ${dateStr}\n⏰ Time: ${selectedSlot.label}\n\nPlease confirm if this slot is available. Thank you!`;
-        window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
-    };
-
-    const handleConfirm = () => {
-        if (!selectedDate || !selectedSlot) return;
+        window.open(whatsappUrl(MESSAGE_TEMPLATES.videoCall(dateStr, selectedSlot.label)), '_blank');
         setStep('success');
-        sendWhatsApp();
     };
 
     return (
@@ -95,27 +94,46 @@ const BookingModal = ({ isOpen, onClose }) => {
                         </div>
 
                         <div className="p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
-                            {step === 'selection' ? (
-                                <>
-                                    <div className="mb-8">
-                                        <label className="block text-sm font-semibold text-gray-700 mb-4 uppercase tracking-widest">Select Service</label>
-                                        <div className="grid grid-cols-2 gap-4">
-                                            {services.map((service) => (
-                                                <button
-                                                    key={service.id}
-                                                    onClick={() => setSelectedService(service)}
-                                                    className={`p-4 rounded-2xl border text-left transition-all ${selectedService.id === service.id
-                                                        ? 'border-maroon-900 bg-maroon-50 ring-1 ring-maroon-900'
-                                                        : 'border-gray-200 hover:border-gold-400'
-                                                        }`}
-                                                >
-                                                    <service.icon className={`mb-2 ${selectedService.id === service.id ? 'text-maroon-900' : 'text-gold-600'}`} size={24} />
-                                                    <div className="font-bold text-gray-900">{service.label}</div>
-                                                    <div className="text-[10px] text-gray-500">{service.description}</div>
-                                                </button>
-                                            ))}
+                            {step === 'choose' && (
+                                <div className="space-y-4">
+                                    <p className="text-gray-500 text-sm mb-6">How would you like to begin?</p>
+                                    <button
+                                        onClick={chooseInStore}
+                                        className="w-full flex items-center gap-5 p-6 rounded-2xl border-2 border-gray-100 hover:border-maroon-900 hover:bg-maroon-50/50 transition-all text-left group"
+                                    >
+                                        <div className="w-14 h-14 rounded-full bg-gold-500/10 flex items-center justify-center text-gold-600 shrink-0 group-hover:bg-maroon-900 group-hover:text-white transition-colors">
+                                            <Store size={24} />
                                         </div>
-                                    </div>
+                                        <div className="flex-grow">
+                                            <div className="font-bold text-gray-900">In-Store Visit</div>
+                                            <div className="text-xs text-gray-500">Visit our Bodakdev atelier — sends a WhatsApp message straight away</div>
+                                        </div>
+                                        <ArrowRight size={18} className="text-gray-300 group-hover:text-maroon-900 transition-colors" />
+                                    </button>
+                                    <button
+                                        onClick={chooseVideoCall}
+                                        className="w-full flex items-center gap-5 p-6 rounded-2xl border-2 border-gray-100 hover:border-maroon-900 hover:bg-maroon-50/50 transition-all text-left group"
+                                    >
+                                        <div className="w-14 h-14 rounded-full bg-gold-500/10 flex items-center justify-center text-gold-600 shrink-0 group-hover:bg-maroon-900 group-hover:text-white transition-colors">
+                                            <Video size={24} />
+                                        </div>
+                                        <div className="flex-grow">
+                                            <div className="font-bold text-gray-900">Video Call</div>
+                                            <div className="text-xs text-gray-500">For clients abroad — pick a date &amp; time, then confirm on WhatsApp</div>
+                                        </div>
+                                        <ArrowRight size={18} className="text-gray-300 group-hover:text-maroon-900 transition-colors" />
+                                    </button>
+                                </div>
+                            )}
+
+                            {step === 'schedule' && (
+                                <>
+                                    <button
+                                        onClick={() => setStep('choose')}
+                                        className="flex items-center gap-2 text-gray-400 hover:text-maroon-900 text-xs font-bold uppercase tracking-widest mb-8 transition-colors"
+                                    >
+                                        <ArrowLeft size={14} /> Back
+                                    </button>
 
                                     <div className="mb-8">
                                         <label className="block text-sm font-semibold text-gray-700 mb-4 uppercase tracking-widest">Select Date</label>
@@ -166,37 +184,30 @@ const BookingModal = ({ isOpen, onClose }) => {
                                     </div>
 
                                     <button
-                                        onClick={handleConfirm}
+                                        onClick={confirmVideoCall}
                                         disabled={!selectedDate || !selectedSlot}
                                         className="w-full bg-gold-600 text-white py-5 rounded-full font-bold uppercase tracking-[0.2em] text-xs hover:bg-gold-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-xl"
                                     >
-                                        Confirm Booking
+                                        Confirm on WhatsApp
                                     </button>
                                 </>
-                            ) : (
+                            )}
+
+                            {step === 'success' && (
                                 <div className="text-center py-10">
                                     <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                                         <Check size={40} />
                                     </div>
                                     <h4 className="text-3xl font-serif text-maroon-900 mb-4">Request Sent!</h4>
                                     <p className="text-gray-600 mb-10 max-w-xs mx-auto text-sm leading-relaxed">
-                                        We have initiated a WhatsApp message to confirm your {selectedService.label}. Please click below to add this to your calendar.
+                                        We've opened WhatsApp with your {selectedType === 'in-store' ? 'in-store visit' : 'video call'} request — just hit send.
                                     </p>
-
-                                    <div className="space-y-4">
-                                        <button
-                                            onClick={addToCalendar}
-                                            className="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-blue-700 transition-all flex items-center justify-center gap-3 shadow-lg"
-                                        >
-                                            <Calendar size={18} /> Add to Calendar
-                                        </button>
-                                        <button
-                                            onClick={onClose}
-                                            className="w-full text-gray-400 font-bold uppercase tracking-widest text-[10px] py-4 hover:text-maroon-900 transition-colors"
-                                        >
-                                            Return to Website
-                                        </button>
-                                    </div>
+                                    <button
+                                        onClick={onClose}
+                                        className="w-full text-gray-400 font-bold uppercase tracking-widest text-[10px] py-4 hover:text-maroon-900 transition-colors"
+                                    >
+                                        Return to Website
+                                    </button>
                                 </div>
                             )}
                         </div>

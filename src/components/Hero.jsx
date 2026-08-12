@@ -71,7 +71,7 @@ const Hero = () => {
                                 transition={{ duration: 0.8, delay: 1.2 }}
                                 className="flex flex-wrap gap-8 items-center"
                             >
-                                <a href="#products" className="group relative flex items-center gap-4 text-maroon-900 font-bold uppercase tracking-widest text-xs">
+                                <a href="#collections" className="group relative flex items-center gap-4 text-maroon-900 font-bold uppercase tracking-widest text-xs">
                                     <span className="relative">
                                         Explore Collection
                                         <span className="absolute -bottom-2 left-0 w-full h-px bg-maroon-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
@@ -137,16 +137,16 @@ const Hero = () => {
                                 className="absolute -top-16 -right-16 w-64 h-64 border border-gold-400/20 rounded-full z-10 pointer-events-none"
                             ></motion.div>
                             
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: 1.5, duration: 1 }}
                                 className="absolute -bottom-8 -right-8 z-40 flex flex-col items-center justify-center bg-[#FDFBF7] p-10 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gold-100 group hover:border-gold-300 transition-colors"
                             >
-                                <span className="text-maroon-900 font-serif text-3xl italic leading-none group-hover:text-gold-600 transition-colors">Est.</span>
+                                <span className="text-maroon-900 font-serif text-3xl italic leading-none group-hover:text-gold-600 transition-colors">Aa</span>
                                 <div className="w-12 h-px bg-gold-200 my-3"></div>
-                                <span className="text-gold-600 font-bold tracking-[0.3em] text-sm uppercase">2024</span>
-                                
+                                <span className="text-gold-600 font-bold tracking-[0.2em] text-[10px] uppercase">Boutique</span>
+
                                 {/* Orbital Ring */}
                                 <div className="absolute inset-0 border border-gold-400/10 rounded-full animate-spin-slow m-2"></div>
                             </motion.div>

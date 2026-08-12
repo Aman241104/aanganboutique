@@ -1,171 +1,88 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, ExternalLink, Heart, MessageCircle, Star, Users } from 'lucide-react';
+import { Instagram, ExternalLink } from 'lucide-react';
+
+const posts = [
+    { id: 1, image: '/drive_images/optimized/copy_of_0d2a7944_1.webp', caption: 'Bridal grace in every thread.' },
+    { id: 2, image: '/drive_images/optimized/copy_of_0d2a7946_1.webp', caption: 'Timeless silhouettes.' },
+    { id: 3, image: '/drive_images/optimized/copy_of_0d2a7948_1.webp', caption: 'Artisan details.' },
+    { id: 4, image: '/drive_images/optimized/copy_of_0d2a8385_1.webp', caption: 'Modern ethnic vibes.' },
+    { id: 5, image: '/drive_images/optimized/copy_of_0d2a8406_-_copy_1.webp', caption: 'The Aangan signature.' },
+    { id: 6, image: '/gallery/optimized/craft1.webp', caption: 'Exquisite patterns.' },
+];
+
+const PROFILE_URL = 'https://www.instagram.com/_aanganboutique_/';
 
 const InstagramFeed = () => {
-    const posts = [
-        {
-            id: 1,
-            url: 'https://www.instagram.com/p/DV5Jnn4DAAC/',
-            image: `https://images.weserv.nl/?url=${encodeURIComponent('https://www.instagram.com/p/DV5Jnn4DAAC/media/?size=l')}`,
-            likes: '1.2k',
-            comments: '45',
-            caption: 'Bridal grace in every thread.'
-        },
-        {
-            id: 2,
-            url: 'https://www.instagram.com/p/DXoww_ajHMZ/',
-            image: `https://images.weserv.nl/?url=${encodeURIComponent('https://www.instagram.com/p/DXoww_ajHMZ/media/?size=l')}`,
-            likes: '850',
-            comments: '32',
-            caption: 'Timeless silhouettes.'
-        },
-        {
-            id: 3,
-            url: 'https://www.instagram.com/p/DVLB1p7kWt4/',
-            image: `https://images.weserv.nl/?url=${encodeURIComponent('https://www.instagram.com/p/DVLB1p7kWt4/media/?size=l')}`,
-            likes: '920',
-            comments: '28',
-            caption: 'Artisan details.'
-        },
-        {
-            id: 4,
-            url: 'https://www.instagram.com/p/DUiPGOLkctT/',
-            image: `https://images.weserv.nl/?url=${encodeURIComponent('https://www.instagram.com/p/DUiPGOLkctT/media/?size=l')}`,
-            likes: '1.1k',
-            comments: '56',
-            caption: 'Modern ethnic vibes.'
-        },
-        {
-            id: 5,
-            url: 'https://www.instagram.com/p/DTAUuOckgJZ/',
-            image: `https://images.weserv.nl/?url=${encodeURIComponent('https://www.instagram.com/p/DTAUuOckgJZ/media/?size=l')}`,
-            likes: '1.5k',
-            comments: '64',
-            caption: 'The Aangan Signature.'
-        },
-        {
-            id: 6,
-            url: 'https://www.instagram.com/p/DSsJRtZDLd-/',
-            image: `https://images.weserv.nl/?url=${encodeURIComponent('https://www.instagram.com/p/DSsJRtZDLd-/media/?size=l')}`,
-            likes: '740',
-            comments: '19',
-            caption: 'Exquisite patterns.'
-        }
-    ];
-
     return (
-        <section id="instagram" className="py-24 md:py-40 bg-[#FDFBF7] overflow-hidden relative border-t border-gray-100">
-            {/* Background Texture & Decor */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
-            
+        <section id="instagram" className="py-20 md:py-28 bg-[#FDFBF7] overflow-hidden relative border-t border-gray-100">
             <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-gold-200/10 rounded-full blur-[120px] pointer-events-none"></div>
 
             <div className="container mx-auto px-4 lg:px-12 relative z-10">
-                <div className="text-center mb-24">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                        className="flex flex-col items-center"
-                    >
-                        <motion.div 
-                            whileHover={{ rotate: 10, scale: 1.1 }}
-                            className="w-20 h-20 bg-white rounded-3xl shadow-xl flex items-center justify-center mb-10 border border-gold-100 relative group"
-                        >
-                            <div className="absolute inset-0 bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] opacity-0 group-hover:opacity-10 rounded-3xl transition-opacity"></div>
-                            <Instagram className="text-gold-600 group-hover:text-maroon-900 transition-colors" size={36} strokeWidth={1} />
-                        </motion.div>
-                        
-                        <span className="text-gold-600 uppercase tracking-[0.4em] text-[10px] font-bold mb-4">The Atelier on Instagram</span>
-                        <h2 className="font-serif text-5xl lg:text-8xl text-maroon-950 mb-8 tracking-tighter">
-                            @_aanganboutique_
-                        </h2>
-                        
-                        {/* Social Stats Bar */}
-                        <div className="flex gap-12 py-4 px-10 bg-white/50 backdrop-blur-md rounded-full border border-gold-100 shadow-sm mb-12">
-                            <div className="flex items-center gap-2">
-                                <Users size={16} className="text-gold-600" />
-                                <span className="text-sm font-medium text-maroon-900">50k+ Community</span>
-                            </div>
-                            <div className="w-px h-4 bg-gold-200 self-center"></div>
-                            <div className="flex items-center gap-2">
-                                <Star size={16} className="text-gold-600" />
-                                <span className="text-sm font-medium text-maroon-900">Daily Updates</span>
-                            </div>
+                {/* Compact Profile Card */}
+                <motion.a
+                    href={PROFILE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="flex items-center gap-5 max-w-md mx-auto mb-16 p-5 bg-white rounded-3xl border border-gold-100 shadow-sm hover:shadow-xl hover:border-gold-300 transition-all group"
+                >
+                    <div className="w-16 h-16 rounded-full p-[2.5px] bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] shrink-0">
+                        <div className="w-full h-full rounded-full bg-white p-1.5">
+                            <img src="/Logo1.webp" alt="Aangan Boutique" className="w-full h-full rounded-full object-cover" />
                         </div>
+                    </div>
+                    <div className="flex-grow min-w-0">
+                        <div className="flex items-center gap-1.5 text-maroon-950 font-bold text-sm">
+                            <Instagram size={14} className="text-gold-600 shrink-0" />
+                            <span className="truncate">_aanganboutique_</span>
+                        </div>
+                        <p className="text-gray-400 text-xs font-light">The atelier on Instagram</p>
+                    </div>
+                    <span className="shrink-0 text-[10px] font-bold uppercase tracking-widest text-white bg-maroon-950 px-4 py-2 rounded-full group-hover:bg-gold-600 transition-colors">
+                        Follow
+                    </span>
+                </motion.a>
 
-                        <div className="w-32 h-px bg-gradient-to-r from-transparent via-gold-400 to-transparent"></div>
-                    </motion.div>
-                </div>
-
-                {/* Magazine-Style Bento Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
+                {/* Post Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto">
                     {posts.map((post, index) => (
                         <motion.a
                             key={post.id}
-                            href={post.url}
+                            href={PROFILE_URL}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="relative group overflow-hidden rounded-[2.5rem] bg-white border border-gold-100/50 shadow-sm transition-all duration-500 hover:shadow-2xl hover:border-gold-300 aspect-square"
-                            initial={{ opacity: 0, y: 30 }}
+                            className="relative group overflow-hidden rounded-[1.5rem] bg-white border border-gold-100/50 shadow-sm transition-all duration-500 hover:shadow-2xl hover:border-gold-300 aspect-square"
+                            initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: index * 0.05 }}
+                            transition={{ duration: 0.6, delay: index * 0.05 }}
                             viewport={{ once: true }}
                         >
                             <img
                                 src={post.image}
                                 alt={post.caption}
                                 loading="lazy"
-                                className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105"
+                                className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
                             />
-                            
-                            {/* Sophisticated Overlay */}
-                            <div className="absolute inset-0 bg-maroon-950/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-8">
-                                <motion.div 
-                                    initial={{ y: 20, opacity: 0 }}
-                                    whileHover={{ y: 0, opacity: 1 }}
-                                    className="text-center"
-                                >
-                                    <p className="text-gold-100 font-serif italic text-lg mb-6 leading-relaxed">
-                                        "{post.caption}"
-                                    </p>
-                                    <div className="flex gap-8 text-white/90 text-sm font-bold uppercase tracking-widest justify-center">
-                                        <div className="flex items-center gap-2 group/stat">
-                                            <Heart size={18} className="group-hover/stat:text-red-400 transition-colors" />
-                                            <span>{post.likes}</span>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <MessageCircle size={18} />
-                                            <span>{post.comments}</span>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                                <div className="absolute bottom-8 right-8 text-gold-400/50">
-                                    <ExternalLink size={20} />
-                                </div>
+                            <div className="absolute inset-0 bg-maroon-950/50 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center p-4">
+                                <p className="text-gold-100 font-serif italic text-sm text-center">"{post.caption}"</p>
                             </div>
                         </motion.a>
                     ))}
                 </div>
 
-                {/* Interactive CTA */}
-                <div className="text-center mt-32 relative">
-                    <div className="absolute top-1/2 left-0 w-full h-px bg-gold-200/30 z-0"></div>
-                    <motion.a
-                        whileHover={{ scale: 1.05, y: -5 }}
-                        whileTap={{ scale: 0.95 }}
-                        href="https://www.instagram.com/_aanganboutique_/"
+                <div className="text-center mt-14">
+                    <a
+                        href={PROFILE_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="relative z-10 inline-flex items-center gap-6 bg-maroon-950 text-white px-16 py-6 rounded-full uppercase tracking-[0.4em] text-[11px] font-bold hover:shadow-[0_20px_50px_rgba(26,2,7,0.4)] transition-all duration-500 border border-gold-500/30 group/cta"
+                        className="inline-flex items-center gap-3 text-maroon-900 font-bold uppercase tracking-widest text-[10px] hover:text-gold-600 transition-colors"
                     >
-                        <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover/cta:bg-white/20 transition-colors">
-                            <Instagram size={18} />
-                        </div>
-                        <span className="group-hover/cta:text-gold-200 transition-colors">Join The Journey</span>
-                    </motion.a>
+                        View Full Profile <ExternalLink size={14} />
+                    </a>
                 </div>
             </div>
         </section>

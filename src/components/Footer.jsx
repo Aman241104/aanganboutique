@@ -1,6 +1,7 @@
 import React from 'react';
 import { Facebook, Instagram, Mail, ArrowRight, ShieldCheck, Globe, MapPin, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { whatsappUrl } from '../lib/whatsapp';
 
 const Footer = () => {
     return (
@@ -120,13 +121,13 @@ const Footer = () => {
                                     <MapPin size={14} className="text-gold-500 mt-0.5 flex-shrink-0" />
                                     <span>Sindhu Bhavan Marg, Ahmedabad</span>
                                 </p>
-                                <a href="tel:+919876543210" className="flex items-center gap-3 hover:text-white transition-colors">
+                                <a href="tel:+917948923535" className="flex items-center gap-3 hover:text-white transition-colors">
                                     <Phone size={14} className="text-gold-500 flex-shrink-0" />
-                                    <span>+91 98765 43210</span>
+                                    <span>+91 79489 23535</span>
                                 </a>
-                                <a 
-                                    href="https://wa.me/919876543210" 
-                                    target="_blank" 
+                                <a
+                                    href={whatsappUrl("Hi! I came across Aangan Boutique and would like to explore your collection.")}
+                                    target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-3 hover:text-white transition-colors text-[#25D366]"
                                 >

@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingBag, Menu, X, CalendarDays } from 'lucide-react';
+import { Menu, X, CalendarDays } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import BookingModal from './BookingModal';
 
-const Header = ({ bagCount, onOpenBag }) => {
+const navLinks = [
+    { name: 'Home', href: '#hero' },
+    { name: 'Our Story', href: '#about' },
+    { name: 'Collections', href: '#collections' },
+    { name: 'Instagram', href: '#instagram' },
+    { name: 'Reviews', href: '#testimonials' },
+    { name: 'Visit', href: '#visit' },
+];
+
+const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -16,17 +25,6 @@ const Header = ({ bagCount, onOpenBag }) => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const navLinks = [
-        { name: 'Home', href: '#hero' },
-        { name: 'About', href: '#about' },
-        { name: 'Services', href: '#craft' },
-        { name: 'Products', href: '#products' },
-        { name: 'Gallery', href: '#collection-gallery' },
-        { name: 'Instagram', href: '#instagram' },
-        { name: 'Reviews', href: '#testimonials' },
-        { name: 'Contact', href: '#contact' },
-    ];
-
     return (
         <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-1000 ${isScrolled ? 'bg-white/90 backdrop-blur-xl py-4 shadow-[0_10px_40px_rgba(0,0,0,0.05)]' : 'bg-transparent py-10'}`}>
             <div className="container mx-auto px-4 lg:px-12">
@@ -35,10 +33,10 @@ const Header = ({ bagCount, onOpenBag }) => {
                     {/* Left: Logo */}
                     <div className="transition-all duration-1000 z-10 flex-shrink-0">
                         <a href="#hero" className={`block transition-all duration-1000 ${isScrolled ? 'w-20 md:w-24' : 'w-28 md:w-36'}`}>
-                            <img 
-                                src="/Logo1.webp" 
-                                alt="Aangan Boutique" 
-                                className={`w-full h-auto object-contain transition-all duration-1000 ${isScrolled ? 'brightness-100' : 'brightness-90'}`} 
+                            <img
+                                src="/Logo1.webp"
+                                alt="Aangan Boutique"
+                                className={`w-full h-auto object-contain transition-all duration-1000 ${isScrolled ? 'brightness-100' : 'brightness-90'}`}
                             />
                         </a>
                     </div>
@@ -61,30 +59,17 @@ const Header = ({ bagCount, onOpenBag }) => {
                         <div className={`flex items-center gap-4 md:gap-6 ${isScrolled ? 'text-maroon-900' : 'text-maroon-950'}`}>
                             <button
                                 onClick={() => setIsBookingOpen(true)}
-                                className={`hidden md:flex items-center gap-2 px-5 py-2.5 rounded-full border-2 transition-all duration-300 text-[9px] font-bold uppercase tracking-[0.2em] 
-                                    ${isScrolled 
-                                        ? 'border-gold-600/50 text-maroon-900 hover:bg-gold-600 hover:text-white hover:border-gold-600 shadow-sm' 
+                                className={`hidden md:flex items-center gap-2 px-5 py-2.5 rounded-full border-2 transition-all duration-300 text-[9px] font-bold uppercase tracking-[0.2em]
+                                    ${isScrolled
+                                        ? 'border-gold-600/50 text-maroon-900 hover:bg-gold-600 hover:text-white hover:border-gold-600 shadow-sm'
                                         : 'border-gold-500/50 text-maroon-950 hover:bg-gold-500 hover:text-white hover:border-gold-500 shadow-md'}`}
                             >
                                 <CalendarDays size={14} strokeWidth={2} />
                                 Book Consultation
                             </button>
 
-                            <button 
-                                className="hover:text-gold-600 transition-all relative group"
-                                onClick={onOpenBag}
-                            >
-                                <ShoppingBag size={20} strokeWidth={1.2} />
-                                {bagCount > 0 && (
-                                    <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 bg-gold-500 text-[8px] items-center justify-center text-white font-bold rounded-full shadow-lg">
-                                        {bagCount}
-                                    </span>
-                                )}
-                                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[8px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Bag</span>
-                            </button>
-                            
                             {/* Mobile Toggle */}
-                            <button className="xl:hidden ml-2" onClick={() => setIsMobileMenuOpen(true)}>
+                            <button className="xl:hidden ml-2" onClick={() => setIsMobileMenuOpen(true)} aria-label="Open menu">
                                 <Menu size={24} strokeWidth={1.2} />
                             </button>
                         </div>
@@ -100,11 +85,11 @@ const Header = ({ bagCount, onOpenBag }) => {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: '-100%' }}
                         transition={{ type: "tween", duration: 0.4, ease: "circOut" }}
-                        className="fixed inset-0 bg-[#FDFBF7] z-50 flex flex-col p-8 lg:hidden"
+                        className="fixed inset-0 bg-[#FDFBF7] z-50 flex flex-col p-8 xl:hidden"
                     >
                         <div className="flex justify-between items-center mb-12">
                             <h2 className="font-serif text-2xl tracking-widest text-maroon-900">MENU</h2>
-                            <button onClick={() => setIsMobileMenuOpen(false)} className="text-dark-900 hover:rotate-90 transition-transform duration-300">
+                            <button onClick={() => setIsMobileMenuOpen(false)} className="text-dark-900 hover:rotate-90 transition-transform duration-300" aria-label="Close menu">
                                 <X size={28} strokeWidth={1.5} />
                             </button>
                         </div>
@@ -137,14 +122,14 @@ const Header = ({ bagCount, onOpenBag }) => {
                             </motion.button>
                         </nav>
                         <div className="mt-auto">
-                            <p className="text-center text-sm font-light text-gray-400 uppercase tracking-widest">Est. 2024</p>
+                            <p className="text-center text-sm font-light text-gray-400 uppercase tracking-widest">Courtyard of Style &amp; Elegance</p>
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
 
             <BookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
-        </header >
+        </header>
     );
 };
 

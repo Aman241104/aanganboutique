@@ -37,10 +37,10 @@ const About = () => {
                                 transition={{ duration: 1.2 }}
                                 className="relative w-[85%] h-full rounded-[3rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] z-10"
                             >
-                                <img 
-                                    src="/drive_images/optimized/784a4374.webp" 
-                                    alt="Luxury Craftsmanship" 
-                                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-[2s]"
+                                <img
+                                    src="/drive_images/optimized/784a4374.webp"
+                                    alt="Luxury Craftsmanship"
+                                    className="w-full h-full object-cover transition-transform duration-[2s] hover:scale-105"
                                 />
                                 <div className="absolute inset-0 bg-maroon-900/5 mix-blend-multiply"></div>
                             </motion.div>
@@ -81,17 +81,17 @@ const About = () => {
                         >
                             <motion.div variants={itemVariants} className="flex items-center gap-4 mb-8">
                                 <div className="w-16 h-px bg-gold-500"></div>
-                                <h3 className="text-gold-600 tracking-[0.4em] uppercase text-[10px] font-bold">The Aangan Philosophy</h3>
+                                <h3 className="text-gold-600 tracking-[0.4em] uppercase text-[10px] font-bold">Our Story</h3>
                             </motion.div>
-                            
+
                             <motion.h2 variants={itemVariants} className="font-serif text-5xl lg:text-[5.5vw] text-maroon-900 mb-10 leading-[0.9] tracking-tighter">
                                 Where Tradition <br/>
                                 <span className="italic font-light text-gold-600">Meets Modernity</span>
                             </motion.h2>
-                            
+
                             <motion.div variants={itemVariants} className="space-y-8">
                                 <p className="text-gray-600 leading-relaxed text-lg md:text-xl font-light max-w-xl">
-                                    Aangan Boutique is a multi-designer sanctuary located at Sindhubhavan Road, Ahmedabad, offering thoughtfully curated ethnic and contemporary designer wear.
+                                    Aangan was built on a simple idea — that couture should be shaped around the person wearing it, not the other way around. Every piece begins with a conversation about the occasion, the vision, and the fit.
                                 </p>
                                 <p className="text-gray-500 leading-relaxed text-base font-light max-w-lg italic border-l-2 border-gold-400/30 pl-6">
                                     "Rooted in Indian tradition yet styled for the modern global woman, we design outfits for every story — from grand weddings to intimate celebrations."
@@ -117,7 +117,7 @@ const About = () => {
                             {/* Call to Action */}
                             <motion.div variants={itemVariants} className="mt-20">
                                 <a
-                                    href="#collection-gallery"
+                                    href="#collections"
                                     className="group relative inline-flex items-center gap-6 overflow-hidden"
                                 >
                                     <div className="w-14 h-14 rounded-full border border-maroon-900/20 flex items-center justify-center group-hover:bg-maroon-900 transition-all duration-500">
@@ -126,10 +126,10 @@ const About = () => {
                                         </svg>
                                     </div>
                                     <div className="flex flex-col">
-                                        <span className="text-maroon-900 uppercase tracking-[0.4em] text-[10px] font-bold">Discover our Craft</span>
-                                        <span className="text-gray-300 text-[8px] uppercase tracking-[0.2em] font-light">Explore Lookbook 2026</span>
+                                        <span className="text-maroon-900 uppercase tracking-[0.4em] text-[10px] font-bold">Discover our Collections</span>
+                                        <span className="text-gray-300 text-[8px] uppercase tracking-[0.2em] font-light">Bridal &amp; Festive Couture</span>
                                     </div>
-                                    
+
                                     {/* Hover Underline Animation */}
                                     <div className="absolute bottom-0 right-0 w-0 h-px bg-gold-400 transition-all duration-500 group-hover:w-1/2"></div>
                                 </a>

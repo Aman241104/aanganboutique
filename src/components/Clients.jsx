@@ -28,10 +28,10 @@ const Clients = () => {
                             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                             className="relative aspect-[4/5] rounded-[4rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(44,4,11,0.15)] border border-white"
                         >
-                            <img 
-                                src="/drive_images/optimized/copy_of_0d2a7947_1.webp" 
-                                alt="Artisanal Detail" 
-                                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-[2s] group-hover:scale-105"
+                            <img
+                                src="/drive_images/optimized/copy_of_0d2a7947_1.webp"
+                                alt="Artisanal Detail"
+                                className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105"
                             />
                             <div className="absolute inset-0 bg-maroon-900/5 mix-blend-multiply"></div>
                             
@@ -78,14 +78,14 @@ const Clients = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 pt-8 border-t border-gray-100">
                                 {/* Stat 1 */}
                                 <div className="group space-y-4">
-                                    <div className="text-[10px] font-bold text-gold-500 tracking-[0.3em] uppercase">Metric 01</div>
-                                    <h3 className="text-2xl font-serif text-maroon-900 leading-tight">12,000+ Success Stories</h3>
-                                    <p className="text-gray-500 font-light text-sm leading-relaxed">Join a global community of brides from New York to London who trust our artisanal vision.</p>
+                                    <div className="text-[10px] font-bold text-gold-500 tracking-[0.3em] uppercase">In-House Atelier</div>
+                                    <h3 className="text-2xl font-serif text-maroon-900 leading-tight">Ahmedabad + USA Clientele</h3>
+                                    <p className="text-gray-500 font-light text-sm leading-relaxed">In-house tailoring and fitting, with video consultations for clients planning from abroad.</p>
                                 </div>
 
                                 {/* Stat 2 */}
                                 <div className="group space-y-4">
-                                    <div className="text-[10px] font-bold text-gold-500 tracking-[0.3em] uppercase">Metric 02</div>
+                                    <div className="text-[10px] font-bold text-gold-500 tracking-[0.3em] uppercase">Personalized Styling</div>
                                     <h3 className="text-2xl font-serif text-maroon-900 leading-tight">Bespoke Fit Guaranteed</h3>
                                     <p className="text-gray-500 font-light text-sm leading-relaxed">Our master tailors ensure every garment conforms perfectly to your unique silhouette and style.</p>
                                 </div>

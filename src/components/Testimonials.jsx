@@ -223,18 +223,18 @@ const Testimonials = () => {
                     </div>
 
                     {/* Social Trust Footer */}
-                    <div className="mt-32 pt-16 border-t border-white/5 w-full flex flex-wrap justify-center gap-12 md:gap-24 opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+                    <div className="mt-32 pt-16 border-t border-white/5 w-full flex flex-wrap justify-center gap-12 md:gap-24 opacity-60 hover:opacity-100 transition-all duration-700">
                         <div className="flex items-center gap-3">
                             <CheckCircle2 size={20} className="text-gold-500" />
-                            <span className="text-white text-xs uppercase tracking-widest font-bold">5000+ Happy Brides</span>
+                            <span className="text-white text-xs uppercase tracking-widest font-bold">In-House Tailoring</span>
                         </div>
                         <div className="flex items-center gap-3">
                             <CheckCircle2 size={20} className="text-gold-500" />
-                            <span className="text-white text-xs uppercase tracking-widest font-bold">15+ Years of Trust</span>
+                            <span className="text-white text-xs uppercase tracking-widest font-bold">Personalized Styling</span>
                         </div>
                         <div className="flex items-center gap-3">
                             <CheckCircle2 size={20} className="text-gold-500" />
-                            <span className="text-white text-xs uppercase tracking-widest font-bold">Global Presence</span>
+                            <span className="text-white text-xs uppercase tracking-widest font-bold">Ahmedabad + USA Clientele</span>
                         </div>
                     </div>
                 </div>
