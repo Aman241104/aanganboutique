@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Star, Quote, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Star, Quote, ShieldCheck } from 'lucide-react';
 
 const testimonials = [
     {
@@ -19,7 +19,7 @@ const testimonials = [
         rating: 5,
         review: 'I’ve been getting a lot of my outfits made from Aangan for several years now, and I’ve always been in love with their work. They are extremely helpful and often accommodate even tight timelines. The perfect fit and the exquisite quality of their embroidery are truly their USP, matched only by their warm hospitality.',
         date: '22 weeks ago',
-        avatarColor: 'bg-maroon-500'
+        avatarColor: 'bg-maroon-600'
     },
     {
         id: 3,
@@ -28,7 +28,7 @@ const testimonials = [
         rating: 5,
         review: 'Amazing experience... Juhi ma’am and Pradeep sir helped a lot and took my preferences into note and gave me the exact outfit which made me feel wonderful and pretty They were very kind and prompt to help me out... I would surely visit again...🥰',
         date: '11 weeks ago',
-        avatarColor: 'bg-dark-800'
+        avatarColor: 'bg-maroon-900'
     },
     {
         id: 4,
@@ -50,193 +50,103 @@ const testimonials = [
     }
 ];
 
-const Testimonials = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+const containerVariants = {
+    hidden: {},
+    show: {
+        transition: { staggerChildren: 0.12 }
+    }
+};
 
-    const nextReview = useCallback(() => {
-        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    }, []);
+const cardVariants = {
+    hidden: { opacity: 0, y: 28 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+};
 
-    const prevReview = useCallback(() => {
-        setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    }, []);
+const ReviewCard = ({ item }) => (
+    <motion.div
+        variants={cardVariants}
+        className="group relative flex flex-col h-full bg-white rounded-[1.75rem] border border-gold-900/10 shadow-md hover:shadow-xl transition-shadow duration-500 p-8 md:p-9"
+    >
+        <Quote size={36} className="text-gold-500/20 mb-4" fill="currentColor" />
 
-    useEffect(() => {
-        if (!isAutoPlaying) return;
-        const interval = setInterval(nextReview, 8000);
-        return () => clearInterval(interval);
-    }, [isAutoPlaying, nextReview]);
+        <div className="flex items-center gap-1 mb-4">
+            {[...Array(item.rating)].map((_, i) => (
+                <Star key={i} size={14} className="text-gold-500" fill="currentColor" stroke="none" />
+            ))}
+        </div>
 
-    const handleManualNav = (direction) => {
-        setIsAutoPlaying(false);
-        if (direction === 'next') nextReview();
-        else prevReview();
-        
-        const timeout = setTimeout(() => setIsAutoPlaying(true), 20000);
-        return () => clearTimeout(timeout);
-    };
+        <p className="text-maroon-950/80 font-light leading-relaxed text-[15px] flex-1 mb-8">
+            "{item.review}"
+        </p>
 
-    return (
-        <section id="testimonials" className="relative py-24 md:py-48 overflow-hidden flex items-center justify-center min-h-screen bg-[#0A0A0A]">
-            {/* Cinematic Immersive Background */}
-            <div className="absolute inset-0 z-0">
-                <motion.div
-                    initial={{ scale: 1.1, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 0.4 }}
-                    transition={{ duration: 2 }}
-                    className="absolute inset-0 bg-cover bg-center bg-fixed"
-                    style={{ backgroundImage: 'url(/banner.webp)' }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-maroon-950/80 to-[#0A0A0A] mix-blend-multiply" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)]" />
+        <div className="flex items-center justify-between pt-6 border-t border-gold-900/10">
+            <div className="flex items-center gap-3">
+                <div className={`w-11 h-11 shrink-0 rounded-full ${item.avatarColor} flex items-center justify-center text-white font-serif text-lg`}>
+                    {item.name.charAt(0)}
+                </div>
+                <div>
+                    <h4 className="text-maroon-900 font-serif text-base font-bold leading-tight">{item.name}</h4>
+                    <p className="text-gray-400 text-[11px] uppercase tracking-widest font-medium">{item.location}</p>
+                </div>
             </div>
+            <div className="flex flex-col items-end gap-1.5 shrink-0">
+                <div className="flex items-center gap-1 text-gold-600">
+                    <ShieldCheck size={13} />
+                    <span className="text-[9px] font-bold uppercase tracking-wider">Verified</span>
+                </div>
+                <span className="text-gray-300 text-[9px] uppercase tracking-wider">{item.date}</span>
+            </div>
+        </div>
+    </motion.div>
+);
 
-            {/* Background Texture */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
+const Testimonials = () => {
+    return (
+        <section id="testimonials" className="py-24 md:py-40 bg-[#FDFBF7] relative overflow-hidden">
+            {/* Subtle Texture */}
+            <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
 
             <div className="container mx-auto px-4 relative z-10">
-                <div className="max-w-6xl mx-auto flex flex-col items-center">
-                    
-                    {/* Editorial Header */}
-                    <div className="text-center mb-20">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            className="flex flex-col items-center"
-                        >
-                            <span className="text-gold-500 uppercase tracking-[0.5em] text-[10px] font-bold mb-6 block">The Voice of Aangan</span>
-                            <h2 className="font-serif text-5xl md:text-8xl text-white mb-8 tracking-tighter">
-                                Our Clients <span className="italic font-light text-gold-400">Love Us</span>
-                            </h2>
-                            
-                            <motion.div 
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                className="flex items-center gap-4 bg-white/5 backdrop-blur-xl px-8 py-3 rounded-full border border-white/10 shadow-2xl"
-                            >
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-6 h-6" />
-                                <div className="flex flex-col items-start">
-                                    <div className="flex text-gold-500 gap-0.5">
-                                        {[...Array(5)].map((_, i) => <Star key={i} size={12} fill="currentColor" stroke="none" />)}
-                                    </div>
-                                    <span className="text-white text-[10px] font-bold uppercase tracking-widest">4.9 Stars on Google</span>
+                <div className="max-w-6xl mx-auto">
+
+                    {/* Header */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.4 }}
+                        transition={{ duration: 0.7 }}
+                        className="flex flex-col items-center text-center mb-14 md:mb-20"
+                    >
+                        <div className="w-16 h-px bg-gold-500 mb-6" />
+                        <h3 className="text-gold-600 tracking-[0.4em] uppercase text-[10px] font-bold mb-4">The Voice of Aangan</h3>
+                        <h2 className="font-serif text-4xl md:text-6xl text-maroon-900 mb-8 tracking-tight leading-[0.95]">
+                            Our Clients <span className="italic font-light text-gold-600">Love Us</span>
+                        </h2>
+
+                        <div className="flex items-center gap-3 bg-white px-6 py-3 rounded-full border border-gold-900/10 shadow-sm">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-5 h-5" />
+                            <div className="flex flex-col items-start">
+                                <div className="flex text-gold-500 gap-0.5">
+                                    {[...Array(5)].map((_, i) => <Star key={i} size={11} fill="currentColor" stroke="none" />)}
                                 </div>
-                            </motion.div>
-                        </motion.div>
-                    </div>
-
-                    {/* The Hero Testimonial Stage */}
-                    <div className="relative w-full">
-                        {/* Organic Animated Blob Container */}
-                        <motion.div 
-                            animate={{ 
-                                borderRadius: ["40% 60% 70% 30% / 40% 50% 60% 50%", "60% 40% 30% 70% / 60% 30% 70% 40%", "40% 60% 70% 30% / 40% 50% 60% 50%"],
-                                rotate: [0, 5, -5, 0]
-                            }}
-                            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                            className="absolute inset-0 bg-white/5 backdrop-blur-3xl border border-white/10 scale-110 opacity-50 z-0"
-                        />
-
-                        <div className="relative z-10 py-12 px-6 md:px-20">
-                            <AnimatePresence mode='wait'>
-                                <motion.div
-                                    key={currentIndex}
-                                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                                    exit={{ opacity: 0, scale: 1.1, y: -20 }}
-                                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                                    className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
-                                >
-                                    {/* Testimonial Content (Left) */}
-                                    <div className="lg:col-span-8">
-                                        <div className="relative">
-                                            <Quote size={80} className="text-gold-500/10 absolute -top-12 -left-8 md:-left-16" fill="currentColor" />
-                                            <p className="text-white font-serif text-2xl md:text-4xl leading-relaxed italic relative z-10">
-                                                "{testimonials[currentIndex].review}"
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    {/* Profile & Trust Info (Right) */}
-                                    <div className="lg:col-span-4 flex flex-col items-start lg:items-end text-left lg:text-right">
-                                        <div className="flex flex-col items-start lg:items-end gap-6">
-                                            <div className={`w-24 h-24 rounded-full ${testimonials[currentIndex].avatarColor} border-4 border-white/10 shadow-2xl flex items-center justify-center text-white font-serif text-4xl`}>
-                                                {testimonials[currentIndex].name.charAt(0)}
-                                            </div>
-                                            
-                                            <div>
-                                                <h4 className="text-white text-2xl font-bold mb-1">{testimonials[currentIndex].name}</h4>
-                                                <p className="text-gold-400 text-sm uppercase tracking-widest font-bold mb-4">
-                                                    {testimonials[currentIndex].location}
-                                                </p>
-                                                
-                                                <div className="flex flex-col items-start lg:items-end gap-3">
-                                                    <div className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10">
-                                                        <ShieldCheck size={16} className="text-gold-500" />
-                                                        <span className="text-white/60 text-[10px] font-bold uppercase tracking-tighter">Verified Review</span>
-                                                    </div>
-                                                    <span className="text-white/30 text-[10px] font-bold uppercase tracking-widest">
-                                                        Posted {testimonials[currentIndex].date}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            </AnimatePresence>
+                                <span className="text-maroon-900 text-[10px] font-bold uppercase tracking-widest">4.9 Stars on Google</span>
+                            </div>
                         </div>
-                    </div>
+                    </motion.div>
 
-                    {/* High-End Navigation Controls */}
-                    <div className="flex flex-col items-center gap-12 mt-20">
-                        {/* Progress Indicator */}
-                        <div className="flex gap-3">
-                            {testimonials.map((_, i) => (
-                                <div 
-                                    key={i} 
-                                    className={`h-1 rounded-full transition-all duration-500 ${i === currentIndex ? 'w-12 bg-gold-500' : 'w-4 bg-white/10'}`} 
-                                />
-                            ))}
-                        </div>
+                    {/* Review Grid */}
+                    <motion.div
+                        variants={containerVariants}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true, amount: 0.15 }}
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+                    >
+                        {testimonials.map((item) => (
+                            <ReviewCard key={item.id} item={item} />
+                        ))}
+                    </motion.div>
 
-                        {/* Magnetic Buttons */}
-                        <div className="flex gap-8">
-                            <motion.button
-                                whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,1)', color: '#000' }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={() => handleManualNav('prev')}
-                                className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center text-white backdrop-blur-md transition-all group"
-                            >
-                                <ChevronLeft size={28} className="group-hover:-translate-x-1 transition-transform" />
-                            </motion.button>
-                            
-                            <motion.button
-                                whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,1)', color: '#000' }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={() => handleManualNav('next')}
-                                className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center text-white backdrop-blur-md transition-all group"
-                            >
-                                <ChevronRight size={28} className="group-hover:translate-x-1 transition-transform" />
-                            </motion.button>
-                        </div>
-                    </div>
-
-                    {/* Social Trust Footer */}
-                    <div className="mt-32 pt-16 border-t border-white/5 w-full flex flex-wrap justify-center gap-12 md:gap-24 opacity-60 hover:opacity-100 transition-all duration-700">
-                        <div className="flex items-center gap-3">
-                            <CheckCircle2 size={20} className="text-gold-500" />
-                            <span className="text-white text-xs uppercase tracking-widest font-bold">In-House Tailoring</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <CheckCircle2 size={20} className="text-gold-500" />
-                            <span className="text-white text-xs uppercase tracking-widest font-bold">Personalized Styling</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <CheckCircle2 size={20} className="text-gold-500" />
-                            <span className="text-white text-xs uppercase tracking-widest font-bold">Ahmedabad + USA Clientele</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>

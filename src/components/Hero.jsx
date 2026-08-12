@@ -62,7 +62,7 @@ const Hero = () => {
                                 transition={{ duration: 1, delay: 1 }}
                                 className="text-gray-500 text-lg md:text-xl font-light leading-relaxed mb-12 max-w-md"
                             >
-                                Curated ethnic, Indo-western and wedding wear crafted for timeless elegance. Redefining luxury in the heart of Ahmedabad.
+                                Ethnic, traditional, bridal, Indian, western, customised & designer — <span className="italic text-maroon-900">outfits for every story</span>, curated in the heart of Ahmedabad.
                             </motion.p>
 
                             <motion.div 

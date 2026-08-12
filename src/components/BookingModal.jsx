@@ -83,17 +83,17 @@ const BookingModal = ({ isOpen, onClose }) => {
                         exit={{ scale: 0.9, y: 20, opacity: 0 }}
                         className="relative bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden"
                     >
-                        <div className="bg-maroon-900 text-white p-8 flex justify-between items-center">
+                        <div className="bg-maroon-900 text-white p-6 md:p-8 flex justify-between items-center">
                             <div>
-                                <h3 className="text-2xl font-serif">Book a Consultation</h3>
-                                <p className="text-maroon-100 text-sm">Personalized styling for your special day</p>
+                                <h3 className="text-xl md:text-2xl font-serif">Book a Consultation</h3>
+                                <p className="text-maroon-100 text-xs md:text-sm">Personalized styling for your special day</p>
                             </div>
-                            <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors">
+                            <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors shrink-0">
                                 <X size={24} />
                             </button>
                         </div>
 
-                        <div className="p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
+                        <div className="p-6 md:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
                             {step === 'choose' && (
                                 <div className="space-y-4">
                                     <p className="text-gray-500 text-sm mb-6">How would you like to begin?</p>

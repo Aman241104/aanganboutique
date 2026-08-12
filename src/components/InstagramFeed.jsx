@@ -13,6 +13,9 @@ const posts = [
 
 const PROFILE_URL = 'https://www.instagram.com/_aanganboutique_/';
 
+// No Reels embed: static site has no Instagram API/oEmbed token, so every
+// tile links out to the real profile instead of a fake embed.
+
 const InstagramFeed = () => {
     return (
         <section id="instagram" className="py-20 md:py-28 bg-[#FDFBF7] overflow-hidden relative border-t border-gray-100">
