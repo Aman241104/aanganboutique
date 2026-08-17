@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Facebook, Instagram, Mail, ArrowRight, ShieldCheck, Globe, MapPin, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { whatsappUrl } from '../lib/whatsapp';
+import { sendNotificationEmail } from '../lib/email';
 
 const Footer = () => {
+    const [subscribeEmail, setSubscribeEmail] = useState('');
+    const [subscribePhone, setSubscribePhone] = useState('');
+
+    const handleSubscribe = (e) => {
+        e.preventDefault();
+        const message = `Hi! I'd like to join the Aangan Boutique inner circle for exclusives.\n\nEmail: ${subscribeEmail}\nPhone: ${subscribePhone}`;
+        window.open(whatsappUrl(message), '_blank');
+        sendNotificationEmail({
+            type: 'Newsletter Subscription',
+            name: '—',
+            email: subscribeEmail,
+            phone: subscribePhone,
+            city_country: '—',
+            occasion: '—',
+            date: '—',
+            time_slot: '—',
+            message,
+        });
+    };
+
     return (
         <footer className="bg-[#FDFBF7] text-maroon-900 relative overflow-hidden border-t border-gray-100">
             {/* Cinematic Background Decor */}
@@ -33,18 +54,32 @@ const Footer = () => {
                     </motion.div>
 
                     <motion.form
+                        onSubmit={handleSubscribe}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
                         className="relative max-w-2xl mx-auto group"
                     >
-                        <input
-                            type="email"
-                            placeholder="YOUR EMAIL ADDRESS"
-                            className="w-full bg-transparent border-b-2 border-maroon-900/10 text-maroon-900 py-5 md:py-6 px-4 text-sm tracking-[0.2em] uppercase focus:border-gold-500 focus:outline-none transition-all placeholder:text-gray-400 text-center"
-                        />
-                        <button className="mt-8 flex items-center justify-center gap-3 mx-auto text-maroon-900 hover:text-gold-600 transition-all uppercase tracking-[0.4em] text-[10px] font-bold group-hover:gap-5">
+                        <div className="flex flex-col sm:flex-row gap-0 sm:gap-6">
+                            <input
+                                type="email"
+                                required
+                                value={subscribeEmail}
+                                onChange={(e) => setSubscribeEmail(e.target.value)}
+                                placeholder="YOUR EMAIL ADDRESS"
+                                className="w-full bg-transparent border-b-2 border-maroon-900/10 text-maroon-900 py-5 md:py-6 px-4 text-sm tracking-[0.2em] uppercase focus:border-gold-500 focus:outline-none transition-all placeholder:text-gray-400 text-center"
+                            />
+                            <input
+                                type="tel"
+                                required
+                                value={subscribePhone}
+                                onChange={(e) => setSubscribePhone(e.target.value)}
+                                placeholder="YOUR MOBILE NUMBER"
+                                className="w-full bg-transparent border-b-2 border-maroon-900/10 text-maroon-900 py-5 md:py-6 px-4 text-sm tracking-[0.2em] uppercase focus:border-gold-500 focus:outline-none transition-all placeholder:text-gray-400 text-center"
+                            />
+                        </div>
+                        <button type="submit" className="mt-8 flex items-center justify-center gap-3 mx-auto text-maroon-900 hover:text-gold-600 transition-all uppercase tracking-[0.4em] text-[10px] font-bold group-hover:gap-5">
                             Join Now <ArrowRight size={18} />
                         </button>
                     </motion.form>
@@ -69,7 +104,7 @@ const Footer = () => {
                             {[
                                 { icon: <Instagram size={20} />, url: 'https://www.instagram.com/_aanganboutique_/', label: 'Instagram' },
                                 { icon: <Facebook size={20} />, url: 'https://www.facebook.com/aanganboutique.abad', label: 'Facebook' },
-                                { icon: <Mail size={20} />, url: 'mailto:hello@aanganboutique.com', label: 'Email' }
+                                { icon: <Mail size={20} />, url: 'mailto:Aanganboutique2018@gmail.com', label: 'Email' }
                             ].map((social, idx) => (
                                 <motion.a
                                     key={idx}

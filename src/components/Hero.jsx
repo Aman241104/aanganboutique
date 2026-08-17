@@ -44,8 +44,8 @@ const Hero = () => {
                                         AANGAN
                                     </motion.span>
                                 </span>
-                                <span className="block overflow-hidden italic font-light text-gold-600 mt-2">
-                                    <motion.span 
+                                <span className="block overflow-hidden italic font-light text-gold-600 mt-2 pb-[0.25em] -mb-[0.25em]">
+                                    <motion.span
                                         initial={{ y: "100%" }}
                                         animate={{ y: 0 }}
                                         transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -137,19 +137,6 @@ const Hero = () => {
                                 className="absolute -top-16 -right-16 w-64 h-64 border border-gold-400/20 rounded-full z-10 pointer-events-none"
                             ></motion.div>
                             
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 1.5, duration: 1 }}
-                                className="absolute -bottom-8 -right-8 z-40 flex flex-col items-center justify-center bg-[#FDFBF7] p-10 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gold-100 group hover:border-gold-300 transition-colors"
-                            >
-                                <span className="text-maroon-900 font-serif text-3xl italic leading-none group-hover:text-gold-600 transition-colors">Aa</span>
-                                <div className="w-12 h-px bg-gold-200 my-3"></div>
-                                <span className="text-gold-600 font-bold tracking-[0.2em] text-[10px] uppercase">Boutique</span>
-
-                                {/* Orbital Ring */}
-                                <div className="absolute inset-0 border border-gold-400/10 rounded-full animate-spin-slow m-2"></div>
-                            </motion.div>
                         </div>
                     </div>
 

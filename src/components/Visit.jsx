@@ -95,6 +95,7 @@ const Visit = () => {
                                 <Clock size={14} /> Visiting Hours
                             </div>
                             <p className="text-maroon-950 text-lg font-serif">Mon – Sat: 11:00 AM – 8:00 PM</p>
+                            <p className="text-maroon-950 text-lg font-serif">Sunday: 4:00 PM – 8:00 PM</p>
                         </motion.div>
 
                         <motion.div
@@ -130,8 +131,8 @@ const Visit = () => {
                             transition={{ delay: 0.3 }}
                             className="flex flex-wrap items-center justify-between gap-4 pt-8 border-t border-maroon-900/10"
                         >
-                            <a href="mailto:hello@aanganboutique.com" className="text-maroon-950 text-sm font-serif hover:text-gold-600 transition-colors flex items-center gap-3">
-                                <Mail size={14} className="text-gold-700" /> hello@aanganboutique.com
+                            <a href="mailto:Aanganboutique2018@gmail.com" className="text-maroon-950 text-sm font-serif hover:text-gold-600 transition-colors flex items-center gap-3">
+                                <Mail size={14} className="text-gold-700" /> Aanganboutique2018@gmail.com
                             </a>
                             <div className="flex gap-3">
                                 <a href="https://www.instagram.com/_aanganboutique_/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-full bg-maroon-900/5 border border-maroon-900/10 flex items-center justify-center text-maroon-900 hover:bg-gold-500 hover:text-white transition-all duration-500">

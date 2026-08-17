@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Calendar, Clock, Check, Video, Store, ArrowRight, ArrowLeft } from 'lucide-react';
 import { whatsappUrl } from '../lib/whatsapp';
+import { sendNotificationEmail } from '../lib/email';
 
 const slots = [
     { id: 'slot1', label: '11:00 AM - 12:00 PM', startHour: 11 },
@@ -67,6 +68,17 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
     const chooseInStore = () => {
         setSelectedType('in-store');
         window.open(whatsappUrl(MESSAGE_TEMPLATES.inStore()), '_blank');
+        sendNotificationEmail({
+            type: 'In-Store Visit',
+            name: '—',
+            email: '—',
+            phone: '—',
+            city_country: '—',
+            occasion: '—',
+            date: '—',
+            time_slot: '—',
+            message: MESSAGE_TEMPLATES.inStore(),
+        });
         setStep('success');
     };
 
@@ -78,7 +90,19 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
     const confirmVideoCall = () => {
         if (!selectedDate || !selectedSlot) return;
         const dateStr = selectedDate.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });
-        window.open(whatsappUrl(MESSAGE_TEMPLATES.videoCall(dateStr, selectedSlot.label, { name, cityCountry, occasion })), '_blank');
+        const message = MESSAGE_TEMPLATES.videoCall(dateStr, selectedSlot.label, { name, cityCountry, occasion });
+        window.open(whatsappUrl(message), '_blank');
+        sendNotificationEmail({
+            type: 'Video Consultation',
+            name: name || '—',
+            email: '—',
+            phone: '—',
+            city_country: cityCountry || '—',
+            occasion: occasion || '—',
+            date: dateStr,
+            time_slot: selectedSlot.label,
+            message,
+        });
         setStep('success');
     };
 

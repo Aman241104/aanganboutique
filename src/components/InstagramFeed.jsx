@@ -1,22 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, ExternalLink } from 'lucide-react';
+import { Instagram, ExternalLink, Play } from 'lucide-react';
 
+// Real Instagram Reels, self-hosted in /public/reels/. To add another, give
+// Claude the reel link — it downloads the video + a poster frame into
+// /public/reels/ and adds an entry here.
 const posts = [
-    { id: 1, image: '/drive_images/optimized/copy_of_0d2a7944_1.webp', caption: 'Bridal grace in every thread.' },
-    { id: 2, image: '/drive_images/optimized/copy_of_0d2a7946_1.webp', caption: 'Timeless silhouettes.' },
-    { id: 3, image: '/drive_images/optimized/copy_of_0d2a7948_1.webp', caption: 'Artisan details.' },
-    { id: 4, image: '/drive_images/optimized/copy_of_0d2a8385_1.webp', caption: 'Modern ethnic vibes.' },
-    { id: 5, image: '/drive_images/optimized/copy_of_0d2a8406_-_copy_1.webp', caption: 'The Aangan signature.' },
-    { id: 6, image: '/gallery/optimized/craft1.webp', caption: 'Exquisite patterns.' },
+    { id: 1, video: '/reels/aangan-reel1.mp4', poster: '/reels/aangan-reel1-poster.webp', caption: 'One more won’t hurt.' },
+    { id: 2, video: '/reels/aangan-reel2.mp4', poster: '/reels/aangan-reel2-poster.webp', caption: 'The beauty of this yellow anarkali.' },
+    { id: 3, video: '/reels/aangan-reel3.mp4', poster: '/reels/aangan-reel3-poster.webp', caption: 'Felt like a desi Barbie in this outfit.' },
+    { id: 4, video: '/reels/aangan-reel4.mp4', poster: '/reels/aangan-reel4-poster.webp', caption: 'Straight from the window display.' },
+    { id: 5, video: '/reels/aangan-reel5.mp4', poster: '/reels/aangan-reel5-poster.webp', caption: 'Soft hues, statement embroidery.' },
+    { id: 6, video: '/reels/aangan-reel6.mp4', poster: '/reels/aangan-reel6-poster.webp', caption: 'White just hits different.' },
+    { id: 7, video: '/reels/aangan-reel7.mp4', poster: '/reels/aangan-reel7-poster.webp', caption: 'Can’t walk past without stopping.' },
 ];
 
 const PROFILE_URL = 'https://www.instagram.com/_aanganboutique_/';
 
-// No Reels embed: static site has no Instagram API/oEmbed token, so every
-// tile links out to the real profile instead of a fake embed.
-
 const InstagramFeed = () => {
+    const [playingId, setPlayingId] = useState(null);
+
     return (
         <section id="instagram" className="py-20 md:py-28 bg-[#FDFBF7] overflow-hidden relative border-t border-gray-100">
             <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-gold-200/10 rounded-full blur-[120px] pointer-events-none"></div>
@@ -50,31 +53,50 @@ const InstagramFeed = () => {
                     </span>
                 </motion.a>
 
-                {/* Post Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto">
-                    {posts.map((post, index) => (
-                        <motion.a
-                            key={post.id}
-                            href={PROFILE_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="relative group overflow-hidden rounded-[1.5rem] bg-white border border-gold-100/50 shadow-sm transition-all duration-500 hover:shadow-2xl hover:border-gold-300 aspect-square"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: index * 0.05 }}
-                            viewport={{ once: true }}
-                        >
-                            <img
-                                src={post.image}
-                                alt={post.caption}
-                                loading="lazy"
-                                className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
-                            />
-                            <div className="absolute inset-0 bg-maroon-950/50 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center p-4">
-                                <p className="text-gold-100 font-serif italic text-sm text-center">"{post.caption}"</p>
-                            </div>
-                        </motion.a>
-                    ))}
+                {/* Reels Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto">
+                    {posts.map((post, index) => {
+                        const isPlaying = playingId === post.id;
+                        return (
+                            <motion.div
+                                key={post.id}
+                                className="relative group overflow-hidden rounded-[1.5rem] bg-black border border-gold-100/50 shadow-sm transition-all duration-500 hover:shadow-2xl hover:border-gold-300 aspect-[9/16] cursor-pointer"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: index * 0.05 }}
+                                viewport={{ once: true }}
+                                onClick={() => setPlayingId(isPlaying ? null : post.id)}
+                            >
+                                {isPlaying ? (
+                                    <video
+                                        src={post.video}
+                                        poster={post.poster}
+                                        autoPlay
+                                        controls
+                                        playsInline
+                                        className="w-full h-full object-cover"
+                                    />
+                                ) : (
+                                    <>
+                                        <img
+                                            src={post.poster}
+                                            alt={post.caption}
+                                            loading="lazy"
+                                            className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors duration-500 flex items-center justify-center">
+                                            <div className="w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-maroon-900 shadow-lg group-hover:scale-110 transition-transform">
+                                                <Play size={18} fill="currentColor" className="ml-0.5" />
+                                            </div>
+                                        </div>
+                                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 pt-10">
+                                            <p className="text-white font-serif italic text-xs leading-snug">"{post.caption}"</p>
+                                        </div>
+                                    </>
+                                )}
+                            </motion.div>
+                        );
+                    })}
                 </div>
 
                 <div className="text-center mt-14">
