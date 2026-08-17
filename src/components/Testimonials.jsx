@@ -5,20 +5,20 @@ import { Star, Quote, ShieldCheck } from 'lucide-react';
 const testimonials = [
     {
         id: 1,
-        name: 'Pankaj Patil',
-        meta: '4 reviews',
+        name: 'Suman Khanchandani',
+        meta: '12 reviews',
         rating: 5,
-        review: 'Hi, I am a regular customer of Aangan Boutique and I always love their collection. The best part is the warm and friendly behaviour of the entire staff.',
-        date: '4 weeks ago',
+        review: 'The boutique has wide collection of indian and indowestern clothes for people of all sizes. Their personal attention to our outfit requirement made the selection process quick and easy for us. They also made sure the fit and final look was as per our choice. Thanks for your beautiful work!',
+        date: 'a month ago',
         avatarColor: 'bg-gold-600'
     },
     {
         id: 2,
-        name: 'Jaimika Tahelani',
-        meta: '4 reviews',
+        name: 'Nidhi Bajaj',
+        meta: '7 reviews',
         rating: 5,
-        review: 'I had an absolutely delightful experience at Aangan Boutique. The collection is elegant, with a perfect blend of contemporary trends and timeless classics. The fabric quality exceeded my expectations: rich, comfortable, and clearly premium.',
-        date: '3 months ago',
+        review: 'Always my first choice! Juhi di & Pradeep bhaiya make every size feel beautiful. No body shaming, only amazing designs for every occasion - from marriage to kitty parties. Love Aagan Boutique!',
+        date: '2 months ago',
         avatarColor: 'bg-maroon-600'
     },
     {
@@ -32,20 +32,20 @@ const testimonials = [
     },
     {
         id: 4,
-        name: 'Krishiv Vakil',
-        meta: '1 review',
+        name: 'Ritika Parmar',
+        meta: '3 reviews',
         rating: 5,
-        review: 'I was looking for something special for a function and found Aangan. Inka stitching aur fitting was too good. The alterations was perfect and as per the sizes. Recommend them as a great boutique in Ahmedabad.',
-        date: '6 months ago',
+        review: 'Aangan boutique is a go-to place for all dressing solutions.. the owners Pradeep and Juhi ji have been a constant support throughout my wedding preparations - my blouses and specially my wedding veil.. and the work quality is exceptional without a single room for complaint. I highly recommend this boutique to all :)',
+        date: '5 months ago',
         avatarColor: 'bg-gold-500'
     },
     {
         id: 5,
-        name: 'Dhaivat Kothary',
-        meta: '2 reviews',
-        rating: 5,
-        review: 'We chose Aangan Boutique on SBR Road for our entire Wedding Trousseau, and it was the best decision! The personalized styling consultation was so helpful, making the whole process seamless.',
-        date: '7 months ago',
+        name: 'Neelam Mukhija',
+        meta: '1 review',
+        rating: 4,
+        review: "Honestly didn't expect the collection to be this good, ethnic wear and indo western both were really nice. Ended up buying more than planned",
+        date: '2 months ago',
         avatarColor: 'bg-maroon-700'
     }
 ];
