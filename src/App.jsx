@@ -6,6 +6,7 @@ import Clients from './components/Clients';
 import Atelier from './components/Atelier';
 import InstagramFeed from './components/InstagramFeed';
 import Testimonials from './components/Testimonials';
+import BookingPaths from './components/BookingPaths';
 import BookingSection from './components/BookingSection';
 import Visit from './components/Visit';
 import Footer from './components/Footer';
@@ -53,6 +54,10 @@ function App() {
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
           <InstagramFeed />
+        </motion.div>
+
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
+          <BookingPaths />
         </motion.div>
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
