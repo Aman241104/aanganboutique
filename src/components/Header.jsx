@@ -6,11 +6,12 @@ import BookingModal from './BookingModal';
 const navLinks = [
     { name: 'Home', href: '#hero' },
     { name: 'Our Story', href: '#about' },
-    { name: 'Collections', href: '#collections' },
     { name: 'Instagram', href: '#instagram' },
     { name: 'Reviews', href: '#testimonials' },
     { name: 'Visit', href: '#visit' },
 ];
+
+const ANNOUNCEMENT = 'Festive, Wedding, Trousseau Couture - Ahmedabad — Video Consultations Available for Clients Abroad';
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -26,7 +27,14 @@ const Header = () => {
     }, []);
 
     return (
-        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-1000 ${isScrolled ? 'bg-white/90 backdrop-blur-xl py-4 shadow-[0_10px_40px_rgba(0,0,0,0.05)]' : 'bg-transparent py-10'}`}>
+        <header className="fixed top-0 left-0 right-0 z-50">
+            <div className="bg-maroon-950 text-white/90 text-center py-2 px-4">
+                <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.15em] md:tracking-[0.25em]">
+                    {ANNOUNCEMENT}
+                </p>
+            </div>
+
+            <div className={`transition-all duration-1000 ${isScrolled ? 'bg-white/90 backdrop-blur-xl py-4 shadow-[0_10px_40px_rgba(0,0,0,0.05)]' : 'bg-transparent py-10'}`}>
             <div className="container mx-auto px-4 lg:px-12">
                 <div className="flex items-center justify-between">
 
@@ -75,6 +83,7 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
 
             {/* Mobile Menu Overlay */}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Calendar, Clock, Check, Video, Store, ArrowRight, ArrowLeft } from 'lucide-react';
+import { X, Check, Video, Store, ArrowRight, ArrowLeft } from 'lucide-react';
 import { whatsappUrl } from '../lib/whatsapp';
 import { sendNotificationEmail } from '../lib/email';
 
@@ -21,6 +21,7 @@ const MESSAGE_TEMPLATES = {
         let msg = `Hi! I'd like to book a video consultation with Aangan Boutique.\n\nPreferred date: ${dateStr}\nPreferred time: ${slotLabel}`;
         if (details.name) msg += `\nName: ${details.name}`;
         if (details.cityCountry) msg += `\nCity/Country: ${details.cityCountry}`;
+        if (details.whatsappNumber) msg += `\nWhatsApp Number: ${details.whatsappNumber}`;
         if (details.occasion) msg += `\nOccasion: ${details.occasion}`;
         msg += `\n\nPlease confirm if this slot works.`;
         return msg;
@@ -35,6 +36,7 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
     const [dates, setDates] = useState([]);
     const [name, setName] = useState('');
     const [cityCountry, setCityCountry] = useState('');
+    const [whatsappNumber, setWhatsappNumber] = useState('');
     const [occasion, setOccasion] = useState('');
 
     useEffect(() => {
@@ -57,6 +59,7 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
                 setSelectedSlot(null);
                 setName('');
                 setCityCountry('');
+                setWhatsappNumber('');
                 setOccasion('');
             }, 300);
         } else if (initialType === 'video') {
@@ -90,13 +93,13 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
     const confirmVideoCall = () => {
         if (!selectedDate || !selectedSlot) return;
         const dateStr = selectedDate.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });
-        const message = MESSAGE_TEMPLATES.videoCall(dateStr, selectedSlot.label, { name, cityCountry, occasion });
+        const message = MESSAGE_TEMPLATES.videoCall(dateStr, selectedSlot.label, { name, cityCountry, whatsappNumber, occasion });
         window.open(whatsappUrl(message), '_blank');
         sendNotificationEmail({
             type: 'Video Consultation',
             name: name || '—',
             email: '—',
-            phone: '—',
+            phone: whatsappNumber || '—',
             city_country: cityCountry || '—',
             occasion: occasion || '—',
             date: dateStr,
@@ -122,7 +125,7 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
                         initial={{ scale: 0.9, y: 20, opacity: 0 }}
                         animate={{ scale: 1, y: 0, opacity: 1 }}
                         exit={{ scale: 0.9, y: 20, opacity: 0 }}
-                        className="relative bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden"
+                        className={`relative bg-white w-full rounded-3xl shadow-2xl overflow-hidden transition-all ${step === 'schedule' ? 'max-w-4xl' : 'max-w-lg'}`}
                     >
                         <div className="bg-maroon-900 text-white p-6 md:p-8 flex justify-between items-center">
                             <div>
@@ -134,7 +137,7 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
                             </button>
                         </div>
 
-                        <div className="p-6 md:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
+                        <div className={`max-h-[70vh] overflow-y-auto custom-scrollbar ${step === 'schedule' ? '' : 'p-6 md:p-8'}`}>
                             {step === 'choose' && (
                                 <div className="space-y-4">
                                     <p className="text-gray-500 text-sm mb-6">How would you like to begin?</p>
@@ -170,108 +173,145 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
                             )}
 
                             {step === 'schedule' && (
-                                <>
+                                <div className="bg-maroon-950 p-6 md:p-10">
                                     <button
                                         onClick={() => setStep('choose')}
-                                        className="flex items-center gap-2 text-gray-400 hover:text-maroon-900 text-xs font-bold uppercase tracking-widest mb-8 transition-colors"
+                                        className="flex items-center gap-2 text-white/50 hover:text-gold-400 text-xs font-bold uppercase tracking-widest mb-8 transition-colors"
                                     >
                                         <ArrowLeft size={14} /> Back
                                     </button>
 
-                                    <div className="mb-8 space-y-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
+                                        {/* What to expect */}
                                         <div>
-                                            <label className="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-widest">Name</label>
-                                            <input
-                                                type="text"
-                                                value={name}
-                                                onChange={(e) => setName(e.target.value)}
-                                                placeholder="Your name"
-                                                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-maroon-900 focus:outline-none transition-colors"
-                                            />
+                                            <span className="text-gold-400 uppercase tracking-[0.3em] text-[10px] font-bold mb-4 block">What the Call Covers</span>
+                                            <h4 className="font-serif text-2xl md:text-3xl text-white mb-6 leading-tight">
+                                                What to expect from a video consultation.
+                                            </h4>
+                                            <p className="text-maroon-100/70 text-sm leading-relaxed mb-8">
+                                                A 30–45 minute call where we bring the collection to you, wherever you are.
+                                            </p>
+                                            <ul className="space-y-4">
+                                                {[
+                                                    'Live walkthrough of relevant collections on video',
+                                                    'Fabric, color and design discussion for your occasion',
+                                                    'Guidance through the measurement process',
+                                                    'Timeline and shipping discussed for your location',
+                                                ].map((point) => (
+                                                    <li key={point} className="flex gap-3 text-maroon-100/90 text-sm leading-relaxed">
+                                                        <span className="text-gold-400 shrink-0">—</span>
+                                                        <span>{point}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
                                         </div>
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div>
-                                                <label className="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-widest">City / Country</label>
-                                                <input
-                                                    type="text"
-                                                    value={cityCountry}
-                                                    onChange={(e) => setCityCountry(e.target.value)}
-                                                    placeholder="e.g. New Jersey, USA"
-                                                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-maroon-900 focus:outline-none transition-colors"
-                                                />
-                                            </div>
-                                            <div>
-                                                <label className="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-widest">Occasion</label>
-                                                <select
-                                                    value={occasion}
-                                                    onChange={(e) => setOccasion(e.target.value)}
-                                                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-maroon-900 focus:outline-none transition-colors bg-white"
-                                                >
-                                                    <option value="">Select</option>
-                                                    {occasions.map((o) => (
-                                                        <option key={o} value={o}>{o}</option>
-                                                    ))}
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div className="mb-8">
-                                        <label className="block text-sm font-semibold text-gray-700 mb-4 uppercase tracking-widest">Select Date</label>
-                                        <div className="flex gap-3 overflow-x-auto pb-4 scrollbar-hide">
-                                            {dates.map((date, index) => {
-                                                const isSelected = selectedDate?.toDateString() === date.toDateString();
-                                                return (
-                                                    <button
-                                                        key={index}
-                                                        onClick={() => setSelectedDate(date)}
-                                                        className={`flex-shrink-0 min-w-[80px] p-4 rounded-2xl border text-center transition-all ${isSelected
-                                                            ? 'border-maroon-900 bg-maroon-900 text-white shadow-lg'
-                                                            : 'border-gray-200 hover:border-gold-400'
-                                                            }`}
+                                        {/* Form */}
+                                        <div>
+                                            <div className="space-y-5 mb-8">
+                                                <div>
+                                                    <label className="block text-[10px] font-bold text-gold-400/80 mb-2 uppercase tracking-widest">Full Name</label>
+                                                    <input
+                                                        type="text"
+                                                        value={name}
+                                                        onChange={(e) => setName(e.target.value)}
+                                                        placeholder="Your name"
+                                                        className="w-full bg-transparent border-b border-white/20 text-white placeholder:text-white/30 py-3 text-sm focus:border-gold-400 focus:outline-none transition-colors"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-[10px] font-bold text-gold-400/80 mb-2 uppercase tracking-widest">City / Country</label>
+                                                    <input
+                                                        type="text"
+                                                        value={cityCountry}
+                                                        onChange={(e) => setCityCountry(e.target.value)}
+                                                        placeholder="e.g. New Jersey, USA"
+                                                        className="w-full bg-transparent border-b border-white/20 text-white placeholder:text-white/30 py-3 text-sm focus:border-gold-400 focus:outline-none transition-colors"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-[10px] font-bold text-gold-400/80 mb-2 uppercase tracking-widest">WhatsApp Number</label>
+                                                    <input
+                                                        type="tel"
+                                                        value={whatsappNumber}
+                                                        onChange={(e) => setWhatsappNumber(e.target.value)}
+                                                        placeholder="+1 ..."
+                                                        className="w-full bg-transparent border-b border-white/20 text-white placeholder:text-white/30 py-3 text-sm focus:border-gold-400 focus:outline-none transition-colors"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-[10px] font-bold text-gold-400/80 mb-2 uppercase tracking-widest">Occasion</label>
+                                                    <select
+                                                        value={occasion}
+                                                        onChange={(e) => setOccasion(e.target.value)}
+                                                        className="w-full bg-maroon-950 border-b border-white/20 text-white py-3 text-sm focus:border-gold-400 focus:outline-none transition-colors"
                                                     >
-                                                        <div className={`text-[10px] uppercase font-bold mb-1 ${isSelected ? 'text-gold-200' : 'text-gray-400'}`}>
-                                                            {date.toLocaleDateString('en-US', { weekday: 'short' })}
-                                                        </div>
-                                                        <div className="text-xl font-bold">
-                                                            {date.getDate()}
-                                                        </div>
-                                                    </button>
-                                                );
-                                            })}
+                                                        <option value="" className="text-maroon-950">Select</option>
+                                                        {occasions.map((o) => (
+                                                            <option key={o} value={o} className="text-maroon-950">{o}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div className="mb-6">
+                                                <label className="block text-[10px] font-bold text-gold-400/80 mb-3 uppercase tracking-widest">Select Date</label>
+                                                <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                                                    {dates.map((date, index) => {
+                                                        const isSelected = selectedDate?.toDateString() === date.toDateString();
+                                                        return (
+                                                            <button
+                                                                key={index}
+                                                                onClick={() => setSelectedDate(date)}
+                                                                className={`flex-shrink-0 min-w-[64px] p-3 rounded-xl border text-center transition-all ${isSelected
+                                                                    ? 'border-gold-400 bg-gold-500 text-maroon-950 shadow-lg'
+                                                                    : 'border-white/15 text-white/70 hover:border-gold-400/60'
+                                                                    }`}
+                                                            >
+                                                                <div className={`text-[9px] uppercase font-bold mb-1 ${isSelected ? 'text-maroon-900' : 'text-white/40'}`}>
+                                                                    {date.toLocaleDateString('en-US', { weekday: 'short' })}
+                                                                </div>
+                                                                <div className="text-lg font-bold">
+                                                                    {date.getDate()}
+                                                                </div>
+                                                            </button>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+
+                                            <div className="mb-8">
+                                                <label className="block text-[10px] font-bold text-gold-400/80 mb-3 uppercase tracking-widest">Available Slots</label>
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    {slots.map((slot) => {
+                                                        const isSelected = selectedSlot?.id === slot.id;
+                                                        return (
+                                                            <button
+                                                                key={slot.id}
+                                                                onClick={() => setSelectedSlot(slot)}
+                                                                className={`flex items-center justify-between p-3 rounded-xl border text-xs transition-all ${isSelected
+                                                                    ? 'border-gold-400 bg-gold-500 text-maroon-950 font-bold'
+                                                                    : 'border-white/15 text-white/70 hover:border-gold-400/60'
+                                                                    }`}
+                                                            >
+                                                                <span>{slot.label}</span>
+                                                                {isSelected && <Check size={14} />}
+                                                            </button>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+
+                                            <button
+                                                onClick={confirmVideoCall}
+                                                disabled={!selectedDate || !selectedSlot}
+                                                className="w-full bg-gold-600 text-white py-5 rounded-full font-bold uppercase tracking-[0.2em] text-xs hover:bg-gold-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-xl"
+                                            >
+                                                Confirm on WhatsApp
+                                            </button>
                                         </div>
                                     </div>
-
-                                    <div className="mb-8">
-                                        <label className="block text-sm font-semibold text-gray-700 mb-4 uppercase tracking-widest">Available Slots</label>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                            {slots.map((slot) => {
-                                                const isSelected = selectedSlot?.id === slot.id;
-                                                return (
-                                                    <button
-                                                        key={slot.id}
-                                                        onClick={() => setSelectedSlot(slot)}
-                                                        className={`flex items-center justify-between p-4 rounded-2xl border transition-all ${isSelected
-                                                            ? 'border-maroon-900 bg-maroon-900 text-white shadow-md'
-                                                            : 'border-gray-200 hover:border-gold-400 hover:bg-gold-50/50 text-gray-700 font-medium'
-                                                            }`}
-                                                    >
-                                                        <span>{slot.label}</span>
-                                                        {isSelected && <Check size={18} />}
-                                                    </button>
-                                                );
-                                            })}
-                                        </div>
-                                    </div>
-
-                                    <button
-                                        onClick={confirmVideoCall}
-                                        disabled={!selectedDate || !selectedSlot}
-                                        className="w-full bg-gold-600 text-white py-5 rounded-full font-bold uppercase tracking-[0.2em] text-xs hover:bg-gold-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-xl"
-                                    >
-                                        Confirm on WhatsApp
-                                    </button>
-                                </>
+                                </div>
                             )}
 
                             {step === 'success' && (

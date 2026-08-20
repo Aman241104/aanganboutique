@@ -13,6 +13,7 @@ const posts = [
     { id: 5, video: '/reels/aangan-reel5.mp4', poster: '/reels/aangan-reel5-poster.webp', caption: 'Soft hues, statement embroidery.' },
     { id: 6, video: '/reels/aangan-reel6.mp4', poster: '/reels/aangan-reel6-poster.webp', caption: 'White just hits different.' },
     { id: 7, video: '/reels/aangan-reel7.mp4', poster: '/reels/aangan-reel7-poster.webp', caption: 'Can’t walk past without stopping.' },
+    { id: 8, video: '/reels/aangan-reel8.mp4', poster: '/reels/aangan-reel8-poster.webp', caption: 'Every drape tells its own story.' },
 ];
 
 const PROFILE_URL = 'https://www.instagram.com/_aanganboutique_/';

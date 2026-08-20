@@ -117,7 +117,7 @@ const About = () => {
                             {/* Call to Action */}
                             <motion.div variants={itemVariants} className="mt-20">
                                 <a
-                                    href="#collections"
+                                    href="#instagram"
                                     className="group relative inline-flex items-center gap-6 overflow-hidden"
                                 >
                                     <div className="w-14 h-14 rounded-full border border-maroon-900/20 flex items-center justify-center group-hover:bg-maroon-900 transition-all duration-500">

@@ -14,7 +14,7 @@ const Hero = () => {
     const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
     return (
-        <section id="hero" ref={containerRef} className="relative min-h-screen w-full bg-[#FDFBF7] overflow-hidden pt-32 pb-20">
+        <section id="hero" ref={containerRef} className="relative min-h-screen w-full bg-[#FDFBF7] overflow-hidden pt-40 pb-20">
             {/* Grainy Texture Overlay */}
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-50" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
 
@@ -71,7 +71,7 @@ const Hero = () => {
                                 transition={{ duration: 0.8, delay: 1.2 }}
                                 className="flex flex-wrap gap-8 items-center"
                             >
-                                <a href="#collections" className="group relative flex items-center gap-4 text-maroon-900 font-bold uppercase tracking-widest text-xs">
+                                <a href="#instagram" className="group relative flex items-center gap-4 text-maroon-900 font-bold uppercase tracking-widest text-xs">
                                     <span className="relative">
                                         Explore Collection
                                         <span className="absolute -bottom-2 left-0 w-full h-px bg-maroon-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>

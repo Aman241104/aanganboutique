@@ -124,13 +124,12 @@ const Footer = () => {
                     {/* Navigation Columns */}
                     <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-12 lg:pl-12">
                         <div className="space-y-8">
-                            <h3 className="text-gold-600 uppercase tracking-[0.4em] text-[10px] font-bold">Collections</h3>
+                            <h3 className="text-gold-600 uppercase tracking-[0.4em] text-[10px] font-bold">Explore</h3>
                             <ul className="space-y-4">
                                 {[
-                                    { name: 'New Arrivals', href: '#collections' },
-                                    { name: 'Bridal Couture', href: '#collections' },
-                                    { name: 'Indo-Western', href: '#collections' },
-                                    { name: 'Our Heritage', href: '#about' },
+                                    { name: 'Our Story', href: '#about' },
+                                    { name: 'On Instagram', href: '#instagram' },
+                                    { name: 'Reviews', href: '#testimonials' },
                                 ].map((item) => (
                                     <li key={item.name}>
                                         <a href={item.href} className="text-gray-500 hover:text-maroon-900 transition-all text-xs font-light tracking-wide inline-block">
@@ -148,7 +147,6 @@ const Footer = () => {
                                     { name: 'Private Styling', href: '#visit' },
                                     { name: 'Virtual Visit', href: '#visit' },
                                     { name: 'Book a Slot', href: '#visit' },
-                                    { name: 'Reviews', href: '#testimonials' },
                                 ].map((item) => (
                                     <li key={item.name}>
                                         <a href={item.href} className="text-gray-500 hover:text-maroon-900 transition-all text-xs font-light tracking-wide inline-block">
