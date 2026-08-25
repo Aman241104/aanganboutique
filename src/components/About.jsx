@@ -39,7 +39,7 @@ const About = () => {
                             >
                                 <img
                                     src="/drive_images/optimized/784a4374.webp"
-                                    alt="Luxury Craftsmanship"
+                                    alt="Designer ethnic wear craftsmanship at Aangan Boutique, Ahmedabad"
                                     className="w-full h-full object-cover transition-transform duration-[2s] hover:scale-105"
                                 />
                                 <div className="absolute inset-0 bg-maroon-900/5 mix-blend-multiply"></div>
@@ -53,9 +53,9 @@ const About = () => {
                                 transition={{ duration: 1, delay: 0.5 }}
                                 className="absolute -bottom-10 -right-4 md:-right-12 w-1/2 aspect-square rounded-[2rem] overflow-hidden shadow-2xl z-20 border-[12px] border-white group"
                             >
-                                <img 
-                                    src="/drive_images/optimized/copy_of_0d2a7943_1.webp" 
-                                    alt="Detail Work" 
+                                <img
+                                    src="/drive_images/optimized/copy_of_0d2a7943_1.webp"
+                                    alt="Hand-embroidered lehenga detail, Aangan Boutique Ahmedabad"
                                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                                 />
                             </motion.div>
@@ -92,6 +92,9 @@ const About = () => {
                             <motion.div variants={itemVariants} className="space-y-8">
                                 <p className="text-gray-600 leading-relaxed text-lg md:text-xl font-light max-w-xl">
                                     Aangan was built on a simple idea — that couture should be shaped around the person wearing it, not the other way around. Every piece begins with a conversation about the occasion, the vision, and the fit.
+                                </p>
+                                <p className="text-gray-600 leading-relaxed text-lg md:text-xl font-light max-w-xl">
+                                    As a designer boutique in Ahmedabad, our collection spans bridal and wedding-guest lehengas, trousseau sets, festive wear and Indo-western pieces — each one crafted as premium occasion wear, worth the wait.
                                 </p>
                                 <p className="text-gray-500 leading-relaxed text-base font-light max-w-lg italic border-l-2 border-gold-400/30 pl-6">
                                     "Rooted in Indian tradition yet styled for the modern global woman, we design outfits for every story — from grand weddings to intimate celebrations."

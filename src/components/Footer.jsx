@@ -96,7 +96,7 @@ const Footer = () => {
                                 className="h-12 w-auto object-contain"
                             />
                             <p className="text-gray-600 text-sm font-light leading-relaxed max-w-xs">
-                                "Courtyard of Style and Elegance" — where centuries-old Indian artistry meets the vision of modern luxury.
+                                "Courtyard of Style and Elegance" — where centuries-old Indian artistry meets the vision of modern luxury. A designer ethnic wear boutique in Ahmedabad for lehengas, festive and Indo-western wear.
                             </p>
                         </div>
 

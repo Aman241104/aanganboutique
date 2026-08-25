@@ -30,7 +30,7 @@ const Hero = () => {
                                 transition={{ duration: 0.8 }}
                                 className="inline-block text-gold-600 uppercase tracking-[0.4em] text-[10px] font-bold mb-6"
                             >
-                                Multi-Designer Boutique
+                                Designer Boutique in Ahmedabad
                             </motion.span>
                             
                             <h1 className="font-serif text-[15vw] lg:text-[7vw] leading-[0.9] text-maroon-900 tracking-tighter mb-8">
@@ -62,7 +62,7 @@ const Hero = () => {
                                 transition={{ duration: 1, delay: 1 }}
                                 className="text-gray-500 text-lg md:text-xl font-light leading-relaxed mb-12 max-w-md"
                             >
-                                Ethnic, traditional, bridal, Indian, western, customised & designer — <span className="italic text-maroon-900">outfits for every story</span>, curated in the heart of Ahmedabad.
+                                Designer lehengas, wedding trousseau, festive wear & Indo-western outfits — <span className="italic text-maroon-900">outfits for every story</span>, custom-tailored in the heart of Ahmedabad.
                             </motion.p>
 
                             <motion.div 
@@ -105,8 +105,8 @@ const Hero = () => {
                                     style={{ scale: 1.1 }}
                                     animate={{ scale: 1 }}
                                     transition={{ duration: 2 }}
-                                    src="/drive_images/optimized/784a4393.webp" 
-                                    alt="Luxury Collection" 
+                                    src="/drive_images/optimized/784a4393.webp"
+                                    alt="Designer bridal lehenga at Aangan Boutique, Ahmedabad"
                                     className="w-full h-full object-cover"
                                 />
                                 <div className="absolute inset-0 bg-maroon-900/10 mix-blend-multiply"></div>

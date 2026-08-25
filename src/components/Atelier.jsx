@@ -46,7 +46,7 @@ const Atelier = () => {
                         <div className="relative aspect-[4/5] md:aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10">
                             <img
                                 src="/gallery/optimized/craft2.webp"
-                                alt="Inside the Aangan atelier"
+                                alt="In-house tailoring atelier — Aangan Boutique, Ahmedabad"
                                 className="w-full h-full object-cover"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-maroon-950/50 via-transparent to-transparent"></div>
