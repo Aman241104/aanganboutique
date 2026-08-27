@@ -9,7 +9,7 @@ const testimonials = [
         meta: '12 reviews',
         rating: 5,
         review: 'The boutique has wide collection of indian and indowestern clothes for people of all sizes. Their personal attention to our outfit requirement made the selection process quick and easy for us. They also made sure the fit and final look was as per our choice. Thanks for your beautiful work!',
-        date: 'a month ago',
+        date: '2 months ago',
         avatarColor: 'bg-gold-600'
     },
     {
@@ -47,26 +47,41 @@ const testimonials = [
         review: "Honestly didn't expect the collection to be this good, ethnic wear and indo western both were really nice. Ended up buying more than planned",
         date: '2 months ago',
         avatarColor: 'bg-maroon-700'
+    },
+    {
+        id: 6,
+        name: 'Pankaj Patil',
+        meta: '4 reviews',
+        rating: 5,
+        review: "I am a regular customer of Aangan Boutique and I always love their collection. The best part is the warm and friendly behaviour of the entire staff. I really appreciate Juhi Ma'am and Pradeep bhai for always helping with outfit selection and making sure every shopping experience is smooth. Highly recommend Aangan Boutique for wedding and festive shopping in Ahmedabad.",
+        date: 'a month ago',
+        avatarColor: 'bg-maroon-500'
+    },
+    {
+        id: 7,
+        name: 'Jaimika Tahelani',
+        meta: '4 reviews',
+        rating: 5,
+        review: 'I had an absolutely delightful experience at Aangan Boutique. The collection is elegant, with a perfect blend of contemporary trends and timeless classics. The fabric quality exceeded my expectations - rich, comfortable, and clearly premium. The fitting session was handled with such expertise that my outfit looked tailor-made.',
+        date: '4 months ago',
+        avatarColor: 'bg-gold-700'
     }
 ];
 
-const containerVariants = {
-    hidden: {},
-    show: {
-        transition: { staggerChildren: 0.12 }
-    }
-};
-
-const cardVariants = {
-    hidden: { opacity: 0, y: 28 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
-};
+// Split into columns for the auto-scrolling wall, duplicating each column's
+// contents once so the loop is seamless (translateY(-50%) lands exactly
+// back where the original set began).
+const columns = [[], [], []];
+testimonials.forEach((item, idx) => columns[idx % 3].push(item));
+const loopedColumns = columns.map((col) => [...col, ...col]);
+const columnConfig = [
+    { direction: 'up', duration: 34 },
+    { direction: 'down', duration: 42 },
+    { direction: 'up', duration: 38 },
+];
 
 const ReviewCard = ({ item }) => (
-    <motion.div
-        variants={cardVariants}
-        className="group relative flex flex-col h-full bg-white rounded-[1.75rem] border border-gold-900/10 shadow-md hover:shadow-xl transition-shadow duration-500 p-8 md:p-9"
-    >
+    <div className="group relative flex flex-col h-full bg-white rounded-[1.75rem] border border-gold-900/10 shadow-md hover:shadow-xl transition-shadow duration-500 p-8 md:p-9">
         <Quote size={36} className="text-gold-500/20 mb-4" fill="currentColor" />
 
         <div className="flex items-center gap-1 mb-4">
@@ -97,7 +112,20 @@ const ReviewCard = ({ item }) => (
                 <span className="text-gray-300 text-[9px] uppercase tracking-wider">{item.date}</span>
             </div>
         </div>
-    </motion.div>
+    </div>
+);
+
+const MarqueeColumn = ({ items, direction, duration }) => (
+    <div className="marquee-column relative h-[560px] md:h-[680px] overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_8%,black_92%,transparent)]">
+        <div
+            className={`flex flex-col gap-6 md:gap-8 ${direction === 'down' ? 'animate-scroll-down' : 'animate-scroll-up'}`}
+            style={{ animationDuration: `${duration}s` }}
+        >
+            {items.map((item, idx) => (
+                <ReviewCard key={`${item.id}-${idx}`} item={item} />
+            ))}
+        </div>
+    </div>
 );
 
 const Testimonials = () => {
@@ -129,23 +157,26 @@ const Testimonials = () => {
                                 <div className="flex text-gold-500 gap-0.5">
                                     {[...Array(5)].map((_, i) => <Star key={i} size={11} fill="currentColor" stroke="none" />)}
                                 </div>
-                                <span className="text-maroon-900 text-[10px] font-bold uppercase tracking-widest">4.9 · 147 Google Reviews</span>
+                                <span className="text-maroon-900 text-[10px] font-bold uppercase tracking-widest">4.9 · 148 Google Reviews</span>
                             </div>
                         </div>
                     </motion.div>
 
-                    {/* Review Grid */}
+                    {/* Auto-scrolling Review Wall */}
                     <motion.div
-                        variants={containerVariants}
-                        initial="hidden"
-                        whileInView="show"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
                         viewport={{ once: true, amount: 0.15 }}
+                        transition={{ duration: 0.8 }}
                         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
                     >
-                        {testimonials.map((item) => (
-                            <ReviewCard key={item.id} item={item} />
+                        {columnConfig.map((cfg, idx) => (
+                            <div key={idx} className={idx === 2 ? 'hidden lg:block' : idx === 1 ? 'hidden sm:block' : ''}>
+                                <MarqueeColumn items={loopedColumns[idx]} direction={cfg.direction} duration={cfg.duration} />
+                            </div>
                         ))}
                     </motion.div>
+                    <p className="text-center text-[10px] uppercase tracking-widest text-gray-400 mt-8">Hover a review to pause</p>
 
                 </div>
             </div>

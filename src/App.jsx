@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import About from './components/About';
-import Clients from './components/Clients';
-import Atelier from './components/Atelier';
-import InstagramFeed from './components/InstagramFeed';
-import Testimonials from './components/Testimonials';
-import BookingPaths from './components/BookingPaths';
-import BookingSection from './components/BookingSection';
-import Visit from './components/Visit';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import BlogIndex from './pages/BlogIndex';
+import BlogPost from './pages/BlogPost';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { whatsappUrl } from './lib/whatsapp';
+import { initPixel, trackPageView, trackEvent } from './lib/metaPixel';
+
+// Resets scroll position on route change, but leaves in-page hash
+// navigation (e.g. Header nav links) alone so it can smooth-scroll.
+// Also re-fires the Meta Pixel PageView on every route change, since a SPA
+// only triggers the script's own initial PageView once.
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (!hash) window.scrollTo(0, 0);
+    trackPageView();
+  }, [pathname, hash]);
+  return null;
+}
 
 function App() {
   // Smooth Scroll Progress Bar
@@ -22,14 +31,9 @@ function App() {
     restDelta: 0.001
   });
 
-  const revealVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
-    }
-  };
+  useEffect(() => {
+    initPixel();
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col font-sans selection:bg-gold-200 relative">
@@ -39,40 +43,16 @@ function App() {
         style={{ scaleX }}
       />
 
+      <ScrollToTop />
+
       <Header />
 
       <main className="flex-grow">
-        <Hero />
-
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
-          <Clients />
-        </motion.div>
-
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
-          <About />
-        </motion.div>
-
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
-          <InstagramFeed />
-        </motion.div>
-
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
-          <BookingPaths />
-        </motion.div>
-
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
-          <BookingSection />
-        </motion.div>
-
-        <Atelier />
-
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
-          <Testimonials />
-        </motion.div>
-
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariants}>
-          <Visit />
-        </motion.div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/blog" element={<BlogIndex />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+        </Routes>
       </main>
 
       <Footer />
@@ -83,6 +63,7 @@ function App() {
           href={whatsappUrl("Hi! I came across Aangan Boutique and would like to explore your collection.")}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackEvent('Contact', { content_name: 'Floating WhatsApp Button' })}
           className="bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all flex items-center justify-center"
           aria-label="Chat on WhatsApp"
         >

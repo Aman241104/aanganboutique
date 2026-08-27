@@ -2,6 +2,7 @@ import React from 'react';
 import { MapPin, Phone, Mail, Clock, Instagram, Facebook, Navigation } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { whatsappUrl } from '../lib/whatsapp';
+import { trackEvent } from '../lib/metaPixel';
 
 const Visit = () => {
     const mapUrl = "https://www.google.com/maps/dir//Aangan+Boutique,+1st+floor,+K-158,+Sindhu+Bhavan+Marg,+Bodakdev,+Ahmedabad,+Gujarat+380054/@23.0404119,72.5047619,17z/";
@@ -115,6 +116,7 @@ const Visit = () => {
                                 href={whatsappUrl("Hi! I came across Aangan Boutique and would like to explore your collection.")}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                onClick={() => trackEvent('Contact', { content_name: 'Visit Section WhatsApp' })}
                                 className="flex items-center gap-3 text-gold-700 hover:text-maroon-900 transition-all text-xs font-bold uppercase tracking-[0.2em] group w-fit"
                             >
                                 <div className="w-10 h-10 rounded-full bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white transition-all">

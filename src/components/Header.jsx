@@ -4,11 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import BookingModal from './BookingModal';
 
 const navLinks = [
-    { name: 'Home', href: '#hero' },
-    { name: 'Our Story', href: '#about' },
-    { name: 'Instagram', href: '#instagram' },
-    { name: 'Reviews', href: '#testimonials' },
-    { name: 'Visit', href: '#visit' },
+    { name: 'Home', href: '/#hero' },
+    { name: 'Our Story', href: '/#about' },
+    { name: 'Instagram', href: '/#instagram' },
+    { name: 'Reviews', href: '/#testimonials' },
+    { name: 'Visit', href: '/#visit' },
 ];
 
 const ANNOUNCEMENT = 'Festive, Wedding, Trousseau Couture - Ahmedabad — Video Consultations Available for Clients Abroad';
@@ -40,7 +40,7 @@ const Header = () => {
 
                     {/* Left: Logo */}
                     <div className="transition-all duration-1000 z-10 flex-shrink-0">
-                        <a href="#hero" className={`block transition-all duration-1000 ${isScrolled ? 'w-20 md:w-24' : 'w-28 md:w-36'}`}>
+                        <a href="/" className={`block transition-all duration-1000 ${isScrolled ? 'w-20 md:w-24' : 'w-28 md:w-36'}`}>
                             <img
                                 src="/Logo1.webp"
                                 alt="Aangan Boutique"

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check, Video, Store, ArrowRight, ArrowLeft } from 'lucide-react';
 import { whatsappUrl } from '../lib/whatsapp';
 import { sendNotificationEmail } from '../lib/email';
+import { trackEvent } from '../lib/metaPixel';
 
 const slots = [
     { id: 'slot1', label: '11:00 AM - 12:00 PM', startHour: 11 },
@@ -71,6 +72,7 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
     const chooseInStore = () => {
         setSelectedType('in-store');
         window.open(whatsappUrl(MESSAGE_TEMPLATES.inStore()), '_blank');
+        trackEvent('Lead', { content_name: 'In-Store Visit Booking' });
         sendNotificationEmail({
             type: 'In-Store Visit',
             name: '—',
@@ -95,6 +97,7 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
         const dateStr = selectedDate.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });
         const message = MESSAGE_TEMPLATES.videoCall(dateStr, selectedSlot.label, { name, cityCountry, whatsappNumber, occasion });
         window.open(whatsappUrl(message), '_blank');
+        trackEvent('Lead', { content_name: 'Video Consultation Booking', occasion });
         sendNotificationEmail({
             type: 'Video Consultation',
             name: name || '—',

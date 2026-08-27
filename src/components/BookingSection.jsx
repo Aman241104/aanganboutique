@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { whatsappUrl } from '../lib/whatsapp';
 import { sendNotificationEmail } from '../lib/email';
+import { trackEvent } from '../lib/metaPixel';
 
 const occasions = ['Wedding Trousseau', 'Festive Wear', 'Everyday Ethnic', 'Custom Design', 'Other'];
 
@@ -27,6 +28,7 @@ const BookingSection = () => {
         message += `\n\nPlease share your availability for the call.`;
 
         window.open(whatsappUrl(message), '_blank');
+        trackEvent('Lead', { content_name: 'Video Consultation Booking', occasion });
         sendNotificationEmail({
             type: 'Video Consultation',
             name: name || '—',

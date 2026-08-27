@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { whatsappUrl } from '../lib/whatsapp';
 import { sendNotificationEmail } from '../lib/email';
+import { trackEvent } from '../lib/metaPixel';
 
 const paths = [
     {
@@ -23,6 +24,7 @@ const BookingPaths = () => {
     const handleInStore = () => {
         const message = `Hi! I came across Aangan Boutique and would like to book an in-store visit to explore your collection.`;
         window.open(whatsappUrl(message), '_blank');
+        trackEvent('Lead', { content_name: 'In-Store Visit Booking' });
         sendNotificationEmail({
             type: 'In-Store Visit',
             name: '—',

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Maximize2, X, MessageCircle, ArrowRight, ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { whatsappUrl } from '../lib/whatsapp';
+import { trackEvent } from '../lib/metaPixel';
 
 const categories = [
     {
@@ -97,6 +98,7 @@ const Collections = () => {
         const imageUrl = `${window.location.origin}${piece.src}`;
         const message = `Hi! I'm interested in this piece from Aangan Boutique's collection:\n\n*${piece.title}*\n${imageUrl}\n\nCould you share more details about it?`;
         window.open(whatsappUrl(message), '_blank');
+        trackEvent('Lead', { content_name: 'Collection Piece Inquiry', content_category: piece.title });
     };
 
     const openLightbox = (index) => {
@@ -253,6 +255,7 @@ const Collections = () => {
                         href={whatsappUrl("Hi! I'd like to know more about Aangan Boutique's collections.")}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackEvent('Contact', { content_name: 'Collections Section WhatsApp' })}
                         className="inline-flex items-center gap-3 text-maroon-900 font-bold uppercase tracking-widest text-[10px] group"
                     >
                         Inquire About a Piece
