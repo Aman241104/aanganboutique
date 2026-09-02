@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { trackEvent } from '../lib/metaPixel';
 
 const Hero = () => {
     const containerRef = useRef(null);
@@ -146,7 +147,13 @@ const Hero = () => {
             {/* Vertical Socials/Nav */}
             <div className="absolute left-8 bottom-12 hidden lg:flex flex-col gap-6 items-center z-20">
                 <div className="w-px h-20 bg-gray-200"></div>
-                <a href="https://instagram.com/_aanganboutique_" target="_blank" rel="noreferrer" className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-400 hover:text-gold-600 transition-colors -rotate-90 origin-center whitespace-nowrap">Instagram</a>
+                <a
+                    href="https://instagram.com/_aanganboutique_"
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackEvent('FollowInstagram', { content_name: 'Hero Section Social Link' })}
+                    className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-400 hover:text-gold-600 transition-colors -rotate-90 origin-center whitespace-nowrap"
+                >Instagram</a>
             </div>
             
             <div className="absolute right-12 bottom-12 hidden lg:block z-20">

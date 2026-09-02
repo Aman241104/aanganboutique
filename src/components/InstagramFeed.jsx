@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Instagram, ExternalLink, Play } from 'lucide-react';
+import { trackEvent } from '../lib/metaPixel';
 
 // Real Instagram Reels, self-hosted in /public/reels/. To add another, give
 // Claude the reel link — it downloads the video + a poster frame into
@@ -31,6 +32,7 @@ const InstagramFeed = () => {
                     href={PROFILE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackEvent('FollowInstagram', { content_name: 'Instagram Feed Profile Card' })}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}

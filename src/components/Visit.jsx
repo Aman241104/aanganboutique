@@ -61,6 +61,7 @@ const Visit = () => {
                             href={mapUrl}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => trackEvent('FindLocation', { content_name: 'Visit Section Get Directions' })}
                             className="absolute bottom-6 left-6 right-6 flex items-center justify-center gap-3 bg-maroon-900 text-white py-4 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-gold-600 transition-all duration-500 shadow-lg"
                         >
                             <Navigation size={16} /> Get Directions
@@ -109,7 +110,11 @@ const Visit = () => {
                             <div className="flex items-center gap-3 text-gold-700 font-bold tracking-widest uppercase text-[9px]">
                                 <Phone size={14} /> Direct Concierge
                             </div>
-                            <a href="tel:+917948923535" className="text-maroon-950 text-3xl font-serif hover:text-gold-600 transition-colors block tracking-tighter">
+                            <a
+                                href="tel:+917948923535"
+                                onClick={() => trackEvent('Contact', { content_name: 'Visit Section Phone Call' })}
+                                className="text-maroon-950 text-3xl font-serif hover:text-gold-600 transition-colors block tracking-tighter"
+                            >
                                 +91 79489 23535
                             </a>
                             <a
@@ -137,10 +142,22 @@ const Visit = () => {
                                 <Mail size={14} className="text-gold-700" /> Aanganboutique2018@gmail.com
                             </a>
                             <div className="flex gap-3">
-                                <a href="https://www.instagram.com/_aanganboutique_/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-full bg-maroon-900/5 border border-maroon-900/10 flex items-center justify-center text-maroon-900 hover:bg-gold-500 hover:text-white transition-all duration-500">
+                                <a
+                                    href="https://www.instagram.com/_aanganboutique_/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={() => trackEvent('FollowInstagram', { content_name: 'Visit Section Social Icons' })}
+                                    className="w-11 h-11 rounded-full bg-maroon-900/5 border border-maroon-900/10 flex items-center justify-center text-maroon-900 hover:bg-gold-500 hover:text-white transition-all duration-500"
+                                >
                                     <Instagram size={18} />
                                 </a>
-                                <a href="https://www.facebook.com/aanganboutique.abad" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-full bg-maroon-900/5 border border-maroon-900/10 flex items-center justify-center text-maroon-900 hover:bg-gold-500 hover:text-white transition-all duration-500">
+                                <a
+                                    href="https://www.facebook.com/aanganboutique.abad"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={() => trackEvent('FollowFacebook', { content_name: 'Visit Section Social Icons' })}
+                                    className="w-11 h-11 rounded-full bg-maroon-900/5 border border-maroon-900/10 flex items-center justify-center text-maroon-900 hover:bg-gold-500 hover:text-white transition-all duration-500"
+                                >
                                     <Facebook size={18} />
                                 </a>
                             </div>

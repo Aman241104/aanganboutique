@@ -108,9 +108,9 @@ const Footer = () => {
 
                         <div className="flex gap-4">
                             {[
-                                { icon: <Instagram size={20} />, url: 'https://www.instagram.com/_aanganboutique_/', label: 'Instagram' },
-                                { icon: <Facebook size={20} />, url: 'https://www.facebook.com/aanganboutique.abad', label: 'Facebook' },
-                                { icon: <Mail size={20} />, url: 'mailto:Aanganboutique2018@gmail.com', label: 'Email' }
+                                { icon: <Instagram size={20} />, url: 'https://www.instagram.com/_aanganboutique_/', label: 'Instagram', event: 'FollowInstagram' },
+                                { icon: <Facebook size={20} />, url: 'https://www.facebook.com/aanganboutique.abad', label: 'Facebook', event: 'FollowFacebook' },
+                                { icon: <Mail size={20} />, url: 'mailto:Aanganboutique2018@gmail.com', label: 'Email', event: 'Contact' }
                             ].map((social, idx) => (
                                 <motion.a
                                     key={idx}
@@ -118,6 +118,7 @@ const Footer = () => {
                                     href={social.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    onClick={() => trackEvent(social.event, { content_name: `Footer Social Icons — ${social.label}` })}
                                     className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:border-gold-500/60 transition-all duration-300"
                                     aria-label={social.label}
                                 >
@@ -175,7 +176,11 @@ const Footer = () => {
                                     <MapPin size={14} className="text-gold-600 mt-0.5 flex-shrink-0" />
                                     <span>Sindhu Bhavan Marg, Ahmedabad</span>
                                 </p>
-                                <a href="tel:+917948923535" className="flex items-center gap-3 hover:text-maroon-900 transition-colors">
+                                <a
+                                    href="tel:+917948923535"
+                                    onClick={() => trackEvent('Contact', { content_name: 'Footer Phone Call' })}
+                                    className="flex items-center gap-3 hover:text-maroon-900 transition-colors"
+                                >
                                     <Phone size={14} className="text-gold-600 flex-shrink-0" />
                                     <span>+91 79489 23535</span>
                                 </a>
