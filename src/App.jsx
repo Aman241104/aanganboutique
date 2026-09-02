@@ -9,14 +9,32 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 import { whatsappUrl } from './lib/whatsapp';
 import { initPixel, trackPageView, trackEvent } from './lib/metaPixel';
 
-// Resets scroll position on route change, but leaves in-page hash
-// navigation (e.g. Header nav links) alone so it can smooth-scroll.
+// Resets scroll position on route change. If the URL carries an in-page
+// hash (e.g. a direct link to /#book-appointment), scrolls to that section
+// once React has actually rendered it — the browser's native anchor-jump
+// fires before the target element exists in this client-rendered SPA, so
+// it silently does nothing without this.
 // Also re-fires the Meta Pixel PageView on every route change, since a SPA
 // only triggers the script's own initial PageView once.
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
   useEffect(() => {
-    if (!hash) window.scrollTo(0, 0);
+    if (hash) {
+      const id = hash.slice(1);
+      let attempts = 0;
+      const tryScroll = () => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else if (attempts < 20) {
+          attempts += 1;
+          requestAnimationFrame(tryScroll);
+        }
+      };
+      tryScroll();
+    } else {
+      window.scrollTo(0, 0);
+    }
     trackPageView();
   }, [pathname, hash]);
   return null;
