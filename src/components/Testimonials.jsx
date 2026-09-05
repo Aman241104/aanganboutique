@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Star, Quote, ShieldCheck } from 'lucide-react';
 
 const testimonials = [
@@ -115,6 +115,83 @@ const ReviewCard = ({ item }) => (
     </div>
 );
 
+// One-at-a-time swipeable deck used on mobile, where the auto-scrolling
+// marquee is hard to read while it's moving. Swipe right for the next
+// review, left to go back; drag is constrained to 0 so a card that isn't
+// swiped past the threshold snaps back instead of drifting off.
+const SWIPE_THRESHOLD = 80;
+
+const swipeCardVariants = {
+    enter: { opacity: 0, scale: 0.95 },
+    center: { opacity: 1, scale: 1, transition: { duration: 0.35, ease: 'easeOut' } },
+    exit: (dir) => ({
+        x: dir > 0 ? 300 : -300,
+        opacity: 0,
+        rotate: dir > 0 ? 15 : -15,
+        transition: { duration: 0.3, ease: 'easeIn' }
+    })
+};
+
+const SwipeDeck = ({ items }) => {
+    const [index, setIndex] = useState(0);
+    const [exitDir, setExitDir] = useState(1);
+
+    const goTo = (nextIndex, dir) => {
+        setExitDir(dir);
+        setIndex(((nextIndex % items.length) + items.length) % items.length);
+    };
+
+    const handleDragEnd = (_, info) => {
+        if (info.offset.x <= -SWIPE_THRESHOLD || info.velocity.x <= -500) {
+            goTo(index - 1, -1);
+        } else if (info.offset.x >= SWIPE_THRESHOLD || info.velocity.x >= 500) {
+            goTo(index + 1, 1);
+        }
+    };
+
+    const item = items[index];
+
+    return (
+        <div className="flex flex-col items-center">
+            <div className="w-full max-w-sm mx-auto">
+                <AnimatePresence initial={false} mode="wait" custom={exitDir}>
+                    <motion.div
+                        key={item.id}
+                        custom={exitDir}
+                        variants={swipeCardVariants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        drag="x"
+                        dragElastic={0.7}
+                        dragConstraints={{ left: 0, right: 0 }}
+                        onDragEnd={handleDragEnd}
+                        style={{ touchAction: 'pan-y' }}
+                        className="cursor-grab active:cursor-grabbing"
+                    >
+                        <ReviewCard item={item} />
+                    </motion.div>
+                </AnimatePresence>
+            </div>
+
+            <div className="flex items-center gap-1.5 mt-6">
+                {items.map((_, i) => (
+                    <button
+                        key={i}
+                        type="button"
+                        aria-label={`Go to review ${i + 1}`}
+                        onClick={() => goTo(i, i > index ? 1 : -1)}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${i === index ? 'w-6 bg-gold-500' : 'w-1.5 bg-gold-900/15'}`}
+                    />
+                ))}
+            </div>
+            <p className="text-center text-[10px] uppercase tracking-widest text-gray-400 mt-4">
+                Swipe right for the next review &middot; {index + 1} / {items.length}
+            </p>
+        </div>
+    );
+};
+
 const MarqueeColumn = ({ items, direction, duration }) => (
     <div className="marquee-column relative h-[560px] md:h-[680px] overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_8%,black_92%,transparent)]">
         <div
@@ -162,21 +239,26 @@ const Testimonials = () => {
                         </div>
                     </motion.div>
 
-                    {/* Auto-scrolling Review Wall */}
+                    {/* Mobile: one-at-a-time swipeable deck */}
+                    <div className="sm:hidden">
+                        <SwipeDeck items={testimonials} />
+                    </div>
+
+                    {/* Tablet/Desktop: Auto-scrolling Review Wall */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true, amount: 0.15 }}
                         transition={{ duration: 0.8 }}
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+                        className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
                     >
                         {columnConfig.map((cfg, idx) => (
-                            <div key={idx} className={idx === 2 ? 'hidden lg:block' : idx === 1 ? 'hidden sm:block' : ''}>
+                            <div key={idx} className={idx === 2 ? 'hidden lg:block' : ''}>
                                 <MarqueeColumn items={loopedColumns[idx]} direction={cfg.direction} duration={cfg.duration} />
                             </div>
                         ))}
                     </motion.div>
-                    <p className="text-center text-[10px] uppercase tracking-widest text-gray-400 mt-8">Hover a review to pause</p>
+                    <p className="hidden sm:block text-center text-[10px] uppercase tracking-widest text-gray-400 mt-8">Hover a review to pause</p>
 
                 </div>
             </div>
