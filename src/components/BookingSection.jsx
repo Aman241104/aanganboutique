@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { whatsappUrl } from '../lib/whatsapp';
-import { sendNotificationEmail } from '../lib/email';
+import { sendNotificationEmail, isValidContact } from '../lib/email';
 import { trackEvent } from '../lib/metaPixel';
 
 const occasions = ['Wedding Trousseau', 'Festive Wear', 'Everyday Ethnic', 'Custom Design', 'Other'];
@@ -20,6 +20,7 @@ const BookingSection = () => {
     const [occasion, setOccasion] = useState('Wedding Trousseau');
 
     const handleSubmit = () => {
+        if (!isValidContact(name, whatsappNumber)) return;
         let message = `Hi! I'd like to book a video consultation with Aangan Boutique.`;
         if (name) message += `\nName: ${name}`;
         if (cityCountry) message += `\nCity/Country: ${cityCountry}`;
@@ -31,9 +32,9 @@ const BookingSection = () => {
         trackEvent('Lead', { content_name: 'Video Consultation Booking', occasion });
         sendNotificationEmail({
             type: 'Video Consultation',
-            name: name || '—',
+            name,
             email: '—',
-            phone: whatsappNumber || '—',
+            phone: whatsappNumber,
             city_country: cityCountry || '—',
             occasion: occasion || '—',
             date: '—',
@@ -80,7 +81,7 @@ const BookingSection = () => {
                         <div>
                             <div className="space-y-5 mb-8">
                                 <div>
-                                    <label className="block text-[10px] font-bold text-gold-400/80 mb-2 uppercase tracking-widest">Full Name</label>
+                                    <label className="block text-[10px] font-bold text-gold-400/80 mb-2 uppercase tracking-widest">Full Name *</label>
                                     <input
                                         type="text"
                                         value={name}
@@ -100,7 +101,7 @@ const BookingSection = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] font-bold text-gold-400/80 mb-2 uppercase tracking-widest">WhatsApp Number</label>
+                                    <label className="block text-[10px] font-bold text-gold-400/80 mb-2 uppercase tracking-widest">WhatsApp Number *</label>
                                     <input
                                         type="tel"
                                         value={whatsappNumber}
@@ -127,7 +128,8 @@ const BookingSection = () => {
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                                 onClick={handleSubmit}
-                                className="w-full bg-gold-600 text-white py-5 font-bold uppercase tracking-[0.2em] text-xs hover:bg-gold-700 transition-all"
+                                disabled={!isValidContact(name, whatsappNumber)}
+                                className="w-full disabled:opacity-50 disabled:cursor-not-allowed bg-gold-600 text-white py-5 font-bold uppercase tracking-[0.2em] text-xs hover:bg-gold-700 transition-all"
                             >
                                 Continue on WhatsApp
                             </motion.button>

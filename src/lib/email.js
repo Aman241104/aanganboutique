@@ -15,3 +15,8 @@ export const sendNotificationEmail = (params) => {
     }
     return emailjs.send(SERVICE_ID, TEMPLATE_ID, params, { publicKey: PUBLIC_KEY });
 };
+
+// Leads with no name/number are useless to the boutique — the email fires on
+// submit, and the visitor may never actually hit send in WhatsApp.
+export const isValidContact = (name, phone) =>
+    name.trim().length > 0 && phone.replace(/\D/g, '').length >= 7;

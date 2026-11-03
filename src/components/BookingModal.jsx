@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check, Video, Store, ArrowRight, ArrowLeft } from 'lucide-react';
 import { whatsappUrl } from '../lib/whatsapp';
-import { sendNotificationEmail } from '../lib/email';
+import { sendNotificationEmail, isValidContact } from '../lib/email';
 import { trackEvent } from '../lib/metaPixel';
 
 const slots = [
@@ -16,8 +16,14 @@ const occasions = ['Wedding Trousseau', 'Festive Wear', 'Everyday Ethnic', 'Cust
 
 // Client-supplied opening lines go here — placeholders until the exact copy arrives.
 const MESSAGE_TEMPLATES = {
-    inStore: () =>
-        `Hi! I came across Aangan Boutique and would like to book an in-store visit to explore your collection.`,
+    inStore: (details) => {
+        let msg = `Hi! I came across Aangan Boutique and would like to book an in-store visit to explore your collection.`;
+        if (details.name) msg += `\nName: ${details.name}`;
+        if (details.whatsappNumber) msg += `\nWhatsApp Number: ${details.whatsappNumber}`;
+        if (details.visitDate) msg += `\nPreferred date: ${details.visitDate}`;
+        if (details.occasion) msg += `\nOccasion: ${details.occasion}`;
+        return msg;
+    },
     videoCall: (dateStr, slotLabel, details) => {
         let msg = `Hi! I'd like to book a video consultation with Aangan Boutique.\n\nPreferred date: ${dateStr}\nPreferred time: ${slotLabel}`;
         if (details.name) msg += `\nName: ${details.name}`;
@@ -39,6 +45,7 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
     const [cityCountry, setCityCountry] = useState('');
     const [whatsappNumber, setWhatsappNumber] = useState('');
     const [occasion, setOccasion] = useState('');
+    const [visitDate, setVisitDate] = useState('');
 
     useEffect(() => {
         const next7Days = [];
@@ -62,27 +69,37 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
                 setCityCountry('');
                 setWhatsappNumber('');
                 setOccasion('');
+                setVisitDate('');
             }, 300);
         } else if (initialType === 'video') {
             setSelectedType('video');
             setStep('schedule');
+        } else if (initialType === 'in-store') {
+            setSelectedType('in-store');
+            setStep('instore');
         }
     }, [isOpen, initialType]);
 
     const chooseInStore = () => {
         setSelectedType('in-store');
-        window.open(whatsappUrl(MESSAGE_TEMPLATES.inStore()), '_blank');
-        trackEvent('Lead', { content_name: 'In-Store Visit Booking' });
+        setStep('instore');
+    };
+
+    const confirmInStore = () => {
+        if (!isValidContact(name, whatsappNumber)) return;
+        const message = MESSAGE_TEMPLATES.inStore({ name, whatsappNumber, visitDate, occasion });
+        window.open(whatsappUrl(message), '_blank');
+        trackEvent('Lead', { content_name: 'In-Store Visit Booking', occasion });
         sendNotificationEmail({
             type: 'In-Store Visit',
-            name: '—',
+            name,
             email: '—',
-            phone: '—',
-            city_country: '—',
-            occasion: '—',
-            date: '—',
+            phone: whatsappNumber,
+            city_country: 'Ahmedabad (in-store)',
+            occasion: occasion || '—',
+            date: visitDate || '—',
             time_slot: '—',
-            message: MESSAGE_TEMPLATES.inStore(),
+            message,
         });
         setStep('success');
     };
@@ -93,16 +110,16 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
     };
 
     const confirmVideoCall = () => {
-        if (!selectedDate || !selectedSlot) return;
+        if (!selectedDate || !selectedSlot || !isValidContact(name, whatsappNumber)) return;
         const dateStr = selectedDate.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });
         const message = MESSAGE_TEMPLATES.videoCall(dateStr, selectedSlot.label, { name, cityCountry, whatsappNumber, occasion });
         window.open(whatsappUrl(message), '_blank');
         trackEvent('Lead', { content_name: 'Video Consultation Booking', occasion });
         sendNotificationEmail({
             type: 'Video Consultation',
-            name: name || '—',
+            name,
             email: '—',
-            phone: whatsappNumber || '—',
+            phone: whatsappNumber,
             city_country: cityCountry || '—',
             occasion: occasion || '—',
             date: dateStr,
@@ -154,7 +171,7 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
                                         <div className="flex-grow">
                                             <div className="text-[9px] font-bold uppercase tracking-widest text-gold-600 mb-1">Path One</div>
                                             <div className="font-bold text-gray-900">Visiting Ahmedabad</div>
-                                            <div className="text-xs text-gray-500">Book an in-store appointment at our Bodakdev atelier — sends a WhatsApp message straight away</div>
+                                            <div className="text-xs text-gray-500">Book an in-store appointment at our Bodakdev atelier — share your name &amp; number, then confirm on WhatsApp</div>
                                         </div>
                                         <ArrowRight size={18} className="text-gray-300 group-hover:text-maroon-900 transition-colors" />
                                     </button>
@@ -171,6 +188,54 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
                                             <div className="text-xs text-gray-500">Book a video consultation — share a few details, pick a date &amp; time, then confirm on WhatsApp</div>
                                         </div>
                                         <ArrowRight size={18} className="text-gray-300 group-hover:text-maroon-900 transition-colors" />
+                                    </button>
+                                </div>
+                            )}
+
+                            {step === 'instore' && (
+                                <div className="space-y-5">
+                                    <button
+                                        onClick={() => setStep('choose')}
+                                        className="flex items-center gap-2 text-gray-400 hover:text-maroon-900 text-xs font-bold uppercase tracking-widest mb-2 transition-colors"
+                                    >
+                                        <ArrowLeft size={14} /> Back
+                                    </button>
+                                    <p className="text-gray-500 text-sm">A few details so we can set aside time for you at our Bodakdev atelier.</p>
+                                    {[
+                                        { label: 'Full Name *', type: 'text', value: name, set: setName, placeholder: 'Your name', auto: 'name' },
+                                        { label: 'WhatsApp Number *', type: 'tel', value: whatsappNumber, set: setWhatsappNumber, placeholder: '+91 ...', auto: 'tel' },
+                                        { label: 'Preferred Date', type: 'date', value: visitDate, set: setVisitDate },
+                                    ].map((f) => (
+                                        <label key={f.label} className="block">
+                                            <span className="block text-[10px] font-bold text-gold-600 mb-2 uppercase tracking-widest">{f.label}</span>
+                                            <input
+                                                type={f.type}
+                                                value={f.value}
+                                                onChange={(e) => f.set(e.target.value)}
+                                                placeholder={f.placeholder}
+                                                autoComplete={f.auto}
+                                                min={f.type === 'date' ? new Date().toISOString().slice(0, 10) : undefined}
+                                                className="w-full border-b border-gray-200 text-gray-900 placeholder:text-gray-300 py-3 text-sm focus:border-maroon-900 focus:outline-none transition-colors"
+                                            />
+                                        </label>
+                                    ))}
+                                    <label className="block">
+                                        <span className="block text-[10px] font-bold text-gold-600 mb-2 uppercase tracking-widest">Occasion</span>
+                                        <select
+                                            value={occasion}
+                                            onChange={(e) => setOccasion(e.target.value)}
+                                            className="w-full bg-white border-b border-gray-200 text-gray-900 py-3 text-sm focus:border-maroon-900 focus:outline-none transition-colors"
+                                        >
+                                            <option value="">Select</option>
+                                            {occasions.map((o) => <option key={o} value={o}>{o}</option>)}
+                                        </select>
+                                    </label>
+                                    <button
+                                        onClick={confirmInStore}
+                                        disabled={!isValidContact(name, whatsappNumber)}
+                                        className="w-full bg-maroon-900 text-white py-5 rounded-full font-bold uppercase tracking-[0.2em] text-xs hover:bg-maroon-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        Confirm on WhatsApp
                                     </button>
                                 </div>
                             )}
@@ -213,7 +278,7 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
                                         <div>
                                             <div className="space-y-5 mb-8">
                                                 <div>
-                                                    <label className="block text-[10px] font-bold text-gold-400/80 mb-2 uppercase tracking-widest">Full Name</label>
+                                                    <label className="block text-[10px] font-bold text-gold-400/80 mb-2 uppercase tracking-widest">Full Name *</label>
                                                     <input
                                                         type="text"
                                                         value={name}
@@ -233,7 +298,7 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label className="block text-[10px] font-bold text-gold-400/80 mb-2 uppercase tracking-widest">WhatsApp Number</label>
+                                                    <label className="block text-[10px] font-bold text-gold-400/80 mb-2 uppercase tracking-widest">WhatsApp Number *</label>
                                                     <input
                                                         type="tel"
                                                         value={whatsappNumber}
@@ -307,7 +372,7 @@ const BookingModal = ({ isOpen, onClose, initialType = null }) => {
 
                                             <button
                                                 onClick={confirmVideoCall}
-                                                disabled={!selectedDate || !selectedSlot}
+                                                disabled={!selectedDate || !selectedSlot || !isValidContact(name, whatsappNumber)}
                                                 className="w-full bg-gold-600 text-white py-5 rounded-full font-bold uppercase tracking-[0.2em] text-xs hover:bg-gold-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-xl"
                                             >
                                                 Confirm on WhatsApp

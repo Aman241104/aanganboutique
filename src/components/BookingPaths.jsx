@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { whatsappUrl } from '../lib/whatsapp';
-import { sendNotificationEmail } from '../lib/email';
-import { trackEvent } from '../lib/metaPixel';
+import BookingModal from './BookingModal';
 
 const paths = [
     {
@@ -21,22 +19,8 @@ const paths = [
 ];
 
 const BookingPaths = () => {
-    const handleInStore = () => {
-        const message = `Hi! I came across Aangan Boutique and would like to book an in-store visit to explore your collection.`;
-        window.open(whatsappUrl(message), '_blank');
-        trackEvent('Lead', { content_name: 'In-Store Visit Booking' });
-        sendNotificationEmail({
-            type: 'In-Store Visit',
-            name: '—',
-            email: '—',
-            phone: '—',
-            city_country: '—',
-            occasion: '—',
-            date: '—',
-            time_slot: '—',
-            message,
-        });
-    };
+    const [isInStoreOpen, setIsInStoreOpen] = useState(false);
+    const handleInStore = () => setIsInStoreOpen(true);
 
     const handleVideoCall = () => {
         document.getElementById('video-consultation')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -92,6 +76,7 @@ const BookingPaths = () => {
                     ))}
                 </div>
             </div>
+            <BookingModal isOpen={isInStoreOpen} onClose={() => setIsInStoreOpen(false)} initialType="in-store" />
         </section>
     );
 };
