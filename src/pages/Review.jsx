@@ -11,6 +11,9 @@ import { useDocumentMeta } from '../lib/seo';
 export const GOOGLE_REVIEW_URL =
     'https://search.google.com/local/writereview?placeid=ChIJQ_I294ebXjkRtBhtKH2FWHM';
 
+const EDGE_FADE =
+    'linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(transparent, #000 9%, #000 91%, transparent)';
+
 const emptyAnswers = () =>
     Object.fromEntries(QUESTIONS.map((q) => [q.id, { selected: [], other: '', otherOn: false }]));
 
@@ -117,6 +120,25 @@ const Review = () => {
 
                 {step === 'choose' && (
                     <section className="text-center">
+                        {/* Aangan's QR tree: grows, turns into this page's QR code, and back. */}
+                        <video
+                            className="mx-auto -mt-4 mb-2 w-56 h-56 mix-blend-multiply pointer-events-none"
+                            src="/media/review-qr-tree.mp4"
+                            poster="/media/review-qr-tree-poster.webp"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            preload="auto"
+                            aria-hidden="true"
+                            // Soft edge so a browser's slight off-white video tint never shows as a box.
+                            style={{
+                                WebkitMaskImage: EDGE_FADE,
+                                maskImage: EDGE_FADE,
+                                WebkitMaskComposite: 'source-in',
+                                maskComposite: 'intersect',
+                            }}
+                        />
                         <h1 className="font-serif text-4xl text-maroon-900 leading-tight">
                             Share Your <span className="italic text-gold-600">Experience</span>
                         </h1>
