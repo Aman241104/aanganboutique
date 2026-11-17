@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import BlogIndex from './pages/BlogIndex';
 import BlogPost from './pages/BlogPost';
+import Review from './pages/Review';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { whatsappUrl } from './lib/whatsapp';
 import { initPixel, trackPageView, trackEvent } from './lib/metaPixel';
@@ -41,6 +42,9 @@ function ScrollToTop() {
 }
 
 function App() {
+  // The in-store QR landing page is a standalone, distraction-free flow.
+  const isReviewPage = useLocation().pathname.replace(/\/$/, '') === '/review';
+
   // Smooth Scroll Progress Bar
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -63,19 +67,21 @@ function App() {
 
       <ScrollToTop />
 
-      <Header />
+      {!isReviewPage && <Header />}
 
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/blog" element={<BlogIndex />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/review" element={<Review />} />
         </Routes>
       </main>
 
-      <Footer />
+      {!isReviewPage && <Footer />}
 
       {/* Floating WhatsApp */}
+      {!isReviewPage && (
       <div className="fixed bottom-8 right-8 z-40 flex flex-col gap-4">
         <a
           href={whatsappUrl("Hi! I came across Aangan Boutique and would like to explore your collection.")}
@@ -96,6 +102,7 @@ function App() {
           </svg>
         </a>
       </div>
+      )}
     </div>
   );
 }
