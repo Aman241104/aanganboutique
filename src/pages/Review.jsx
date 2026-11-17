@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Check, Copy, PenLine, Sparkles, ArrowLeft, RotateCcw, Star } from 'lucide-react';
 import { QUESTIONS } from '../../api/_reviewPrompt.js';
 import { useDocumentMeta } from '../lib/seo';
@@ -13,6 +13,75 @@ export const GOOGLE_REVIEW_URL =
 
 const EDGE_FADE =
     'linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(transparent, #000 9%, #000 91%, transparent)';
+
+const EDGE_FADE_STYLE = {
+    WebkitMaskImage: EDGE_FADE,
+    maskImage: EDGE_FADE,
+    WebkitMaskComposite: 'source-in',
+    maskComposite: 'intersect',
+};
+
+// Aangan's QR tree. The looping video shows straight away; the live 3D tree
+// (public/media/qr-tree.html, the B23 engine in Aangan colours) loads behind
+// it and takes over once it has drawn, so tapping the tree or the note toggles
+// between the tree and this page's QR code, and dragging spins it. Without
+// WebGL the iframe never reports ready and the video simply keeps playing.
+const QrTree = () => {
+    const frame = useRef(null);
+    const [ready, setReady] = useState(false);
+    const [qr, setQr] = useState(false);
+
+    useEffect(() => {
+        const onMessage = (m) => {
+            if (m.origin !== window.location.origin || m.source !== frame.current?.contentWindow || !m.data?.qrTree) return;
+            if (m.data.ready) setReady(true);
+            if ('qr' in m.data) setQr(m.data.qr);
+        };
+        window.addEventListener('message', onMessage);
+        return () => window.removeEventListener('message', onMessage);
+    }, []);
+
+    const toggle = () => frame.current?.contentWindow?.postMessage('qrTree:toggle', window.location.origin);
+
+    return (
+        <div className="-mt-4 mb-4 flex flex-col items-center">
+            <div className="relative w-64 h-64">
+                {!ready && (
+                    <video
+                        className="absolute inset-0 w-full h-full mix-blend-multiply pointer-events-none"
+                        src="/media/review-qr-tree.mp4"
+                        poster="/media/review-qr-tree-poster.webp"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="auto"
+                        aria-hidden="true"
+                        // Soft edge so a browser's slight off-white video tint never shows as a box.
+                        style={EDGE_FADE_STYLE}
+                    />
+                )}
+                <iframe
+                    ref={frame}
+                    src="/media/qr-tree.html"
+                    title="Aangan QR tree: tap to switch between the tree and the QR code"
+                    className={`absolute inset-0 w-full h-full border-0 bg-transparent transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`}
+                    style={{ colorScheme: 'normal' }}
+                />
+            </div>
+            {ready && (
+                <button
+                    type="button"
+                    onClick={toggle}
+                    className="mt-1 inline-flex items-center gap-2 rounded-full border border-gold-500/40 bg-white/70 px-4 py-1.5 text-[11px] uppercase tracking-[0.25em] text-gold-700 hover:border-gold-500 hover:text-maroon-900 transition-colors"
+                >
+                    <Sparkles size={12} className={qr ? '' : 'animate-pulse'} />
+                    {qr ? 'Tap to see the tree' : 'Tap me'}
+                </button>
+            )}
+        </div>
+    );
+};
 
 const emptyAnswers = () =>
     Object.fromEntries(QUESTIONS.map((q) => [q.id, { selected: [], other: '', otherOn: false }]));
@@ -120,25 +189,7 @@ const Review = () => {
 
                 {step === 'choose' && (
                     <section className="text-center">
-                        {/* Aangan's QR tree: grows, turns into this page's QR code, and back. */}
-                        <video
-                            className="mx-auto -mt-4 mb-2 w-56 h-56 mix-blend-multiply pointer-events-none"
-                            src="/media/review-qr-tree.mp4"
-                            poster="/media/review-qr-tree-poster.webp"
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                            preload="auto"
-                            aria-hidden="true"
-                            // Soft edge so a browser's slight off-white video tint never shows as a box.
-                            style={{
-                                WebkitMaskImage: EDGE_FADE,
-                                maskImage: EDGE_FADE,
-                                WebkitMaskComposite: 'source-in',
-                                maskComposite: 'intersect',
-                            }}
-                        />
+                        <QrTree />
                         <h1 className="font-serif text-4xl text-maroon-900 leading-tight">
                             Share Your <span className="italic text-gold-600">Experience</span>
                         </h1>
